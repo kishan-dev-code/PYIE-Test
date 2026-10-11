@@ -1,0 +1,236 @@
+{{ 'customs-stats-points.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign stats = section.blocks | where: 'type', 'stat'
+  assign points = section.blocks | where: 'type', 'point'
+-%}
+
+<section
+  id="cs-stats-points-{{ section.id }}"
+  class="cs-section cs-sp cs-tone--{{ section.settings.tone }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="cs-container">
+    {%- render 'custom-section-head',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      text: section.settings.text,
+      align: 'split'
+    -%}
+
+    {%- if stats.size > 0 -%}
+      <ul class="cs-sp__stats">
+        {%- for block in stats -%}
+          <li
+            class="cs-sp__stat{% if block.settings.featured %} cs-sp__stat--featured{% endif %}"
+            data-cs-reveal
+            style="--cs-delay: {{ forloop.index0 | times: 60 }}ms;"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.icon != 'none' -%}
+              <span class="cs-sp__stat-icon">{% render 'custom-icon', icon: block.settings.icon %}</span>
+            {%- endif -%}
+            <span class="cs-sp__stat-value" data-cs-count>{{ block.settings.value }}</span>
+            <span class="cs-sp__stat-label">{{ block.settings.label }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if points.size > 0 or section.settings.image != blank -%}
+      <div class="cs-sp__body{% if section.settings.image != blank %} cs-sp__body--media{% endif %}">
+        {%- if section.settings.image != blank -%}
+          <div class="cs-media cs-sp__media" data-cs-reveal>
+            {% render 'cs-image', image: section.settings.image, sizes: '(min-width: 990px) 40vw, 100vw' %}
+          </div>
+        {%- endif -%}
+
+        {%- if points.size > 0 -%}
+          <ul class="cs-sp__points">
+            {%- for block in points -%}
+              <li class="cs-sp__point" data-cs-reveal style="--cs-delay: {{ forloop.index0 | times: 80 }}ms;" {{ block.shopify_attributes }}>
+                <span class="cs-sp__point-icon" aria-hidden="true">{% render 'custom-icon', icon: 'arrow-up-right' %}</span>
+                <div class="cs-text">{{ block.settings.text }}</div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.footnote != blank -%}
+      <p class="cs-footnote">{{ section.settings.footnote }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Stats with points",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Distribution"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "India's deepest <em>offline distribution</em> network*"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Optional - e.g. a coverage map. Points move into two columns when empty."
+    },
+    {
+      "type": "textarea",
+      "id": "footnote",
+      "label": "Footnote"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" }
+      ],
+      "default": "dark"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "info": "Counts up on scroll. Indian grouping works, e.g. 1,50,000+",
+          "default": "25,000+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Distributors"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "users", "label": "Users" },
+            { "value": "map-pin", "label": "Map pin" },
+            { "value": "store", "label": "Store" },
+            { "value": "box", "label": "Box" },
+            { "value": "wrench", "label": "Wrench" },
+            { "value": "globe", "label": "Globe" },
+            { "value": "headset", "label": "Headset" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "factory", "label": "Factory" }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Feature this stat",
+          "info": "Takes two columns on desktop.",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "point",
+      "name": "Point",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Add a supporting point here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Stats with points",
+      "blocks": [
+        { 
+            "type": "stat", 
+            "settings":
+             {
+             "featured": true
+         }
+     },
+        { 
+            "type": "stat", 
+            "settings":
+             {
+             "value": "18,000+",
+             "label": "PIN codes covered"
+         }
+     },
+        { 
+            "type": "stat", 
+            "settings":
+             {
+             "value": "37+",
+             "label": "Warehouses"
+         }
+     },
+        { 
+            "type": "point"
+         },
+        { 
+            "type": "point"
+         }
+      ]
+    }
+  ]
+}
+{% endschema %}

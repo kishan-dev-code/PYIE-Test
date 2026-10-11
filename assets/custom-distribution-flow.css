@@ -1,0 +1,403 @@
+.cs-flow {
+  --cs-flow-line: var(--cs-line);
+}
+
+/* chain: mobile = vertical */
+.cs-flow__chain {
+  display: grid;
+  justify-items: center;
+}
+
+.cs-flow__node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 32rem;
+  padding: 2.4rem;
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-radius);
+  background: var(--cs-card);
+  text-align: center;
+}
+
+.cs-flow__node-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 4.8rem;
+  height: 4.8rem;
+  margin-bottom: 0.4rem;
+  border-radius: 50%;
+  background: var(--cs-bg);
+  color: var(--cs-accent-text);
+}
+
+.cs-flow__node-title {
+  font-family: var(--cs-font-display);
+  font-size: 1.9rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--cs-fg);
+}
+
+.cs-flow__node-kicker {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cs-fg-muted);
+}
+
+.cs-flow__node--core {
+  background: var(--cs-ink);
+  border-color: var(--cs-ink);
+  color: #eef3f4;
+  box-shadow: 0 0 0 0.8rem rgba(255, 159, 28, 0.18), var(--cs-shadow);
+}
+
+.cs-flow__node--core .cs-flow__node-kicker {
+  color: var(--cs-saffron);
+}
+
+.cs-flow__node--core .cs-flow__node-title {
+  color: #fff;
+}
+
+.cs-flow__node-logo {
+  font-family: var(--cs-font-display);
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+
+/* connectors */
+.cs-flow__link {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  height: 7.2rem;
+}
+
+.cs-flow__line {
+  position: relative;
+  display: block;
+  width: 2px;
+  height: 100%;
+  background-image: linear-gradient(to bottom, var(--cs-flow-line) 50%, transparent 0);
+  background-size: 2px 10px;
+}
+
+.cs-flow__pulse {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1rem;
+  height: 1rem;
+  margin-left: -0.5rem;
+  border-radius: 50%;
+  background: var(--cs-saffron);
+  box-shadow: 0 0 0 0.4rem rgba(255, 159, 28, 0.25);
+  animation: cs-flow-down 2.4s var(--cs-ease) infinite;
+}
+
+.cs-flow__lane {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  height: 100%;
+}
+
+.cs-flow__lane-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.04em;
+  color: var(--cs-fg-muted);
+}
+
+.cs-flow__lane--back .cs-flow__pulse {
+  background: var(--cs-teal);
+  box-shadow: 0 0 0 0.4rem rgba(31, 163, 154, 0.25);
+  animation-name: cs-flow-up;
+  animation-delay: 1.2s;
+}
+
+@keyframes cs-flow-down {
+  0% { top: 0; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes cs-flow-up {
+  0% { top: 100%; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { top: 0; opacity: 0; }
+}
+
+.cs-flow__stem {
+  display: block;
+  width: 2px;
+  height: 5.6rem;
+  margin: 0 auto;
+  background-image: linear-gradient(to bottom, var(--cs-flow-line) 50%, transparent 0);
+  background-size: 2px 10px;
+}
+
+.cs-flow__channels {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-flow__channel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 2rem;
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-radius);
+  background: var(--cs-card);
+  transition: transform 0.4s var(--cs-ease), border-color 0.3s ease, box-shadow 0.4s var(--cs-ease);
+}
+
+.cs-flow__channel:hover {
+  transform: translateY(-0.4rem);
+  border-color: var(--cs-accent);
+  box-shadow: var(--cs-shadow);
+}
+
+.cs-flow__channel--owned {
+  border-color: var(--cs-saffron);
+  background: linear-gradient(160deg, rgba(255, 159, 28, 0.14), transparent 60%), var(--cs-card);
+}
+
+.cs-flow__badge {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 10rem;
+  background: var(--cs-saffron);
+  color: var(--cs-ink);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.cs-flow__channel-icon {
+  color: var(--cs-accent-text);
+}
+
+.cs-flow__channel-title {
+  margin: 0;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: manual;
+  font-family: var(--cs-font-display);
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--cs-fg);
+}
+
+.cs-flow__partners {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-flow__partners li {
+  padding: 0.4rem 1rem;
+  border-radius: 10rem;
+  background: var(--cs-bg);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--cs-fg);
+}
+
+.cs-flow__channel-media {
+  margin-top: auto;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--cs-radius-sm);
+}
+
+@media screen and (max-width: 749px) {
+  .cs-flow__channel {
+    padding: 1.6rem;
+  }
+
+  .cs-flow__channel-title {
+    font-size: 1.5rem;
+    hyphens: auto;
+  }
+
+  .cs-flow__badge {
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .cs-flow__channels {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.6rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .cs-flow__chain {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr) minmax(0, 1.1fr) minmax(0, 0.8fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .cs-flow__node {
+    max-width: none;
+    min-height: 18rem;
+    align-content: center;
+  }
+
+  .cs-flow__link {
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    height: auto;
+    padding: 0 1.2rem;
+  }
+
+  .cs-flow__lane {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+    height: auto;
+    text-align: center;
+  }
+
+  .cs-flow__line {
+    width: 100%;
+    height: 2px;
+    background-image: linear-gradient(to right, var(--cs-flow-line) 50%, transparent 0);
+    background-size: 10px 2px;
+  }
+
+  .cs-flow__line::after {
+    content: '';
+    position: absolute;
+    right: -0.2rem;
+    top: 50%;
+    width: 0.9rem;
+    height: 0.9rem;
+    border-top: 2px solid var(--cs-fg-muted);
+    border-right: 2px solid var(--cs-fg-muted);
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .cs-flow__lane--back .cs-flow__line::after {
+    right: auto;
+    left: -0.2rem;
+    transform: translateY(-50%) rotate(-135deg);
+  }
+
+  .cs-flow__pulse {
+    top: 50%;
+    left: 0;
+    margin: -0.5rem 0 0;
+    animation-name: cs-flow-right;
+  }
+
+  .cs-flow__lane--back .cs-flow__pulse {
+    animation-name: cs-flow-left;
+  }
+
+  .cs-flow__stem {
+    height: 6.4rem;
+  }
+
+  .cs-flow__channels {
+    grid-template-columns: repeat(var(--cs-cols, 6), minmax(0, 1fr));
+    gap: 1.2rem;
+    padding-top: 4rem;
+  }
+
+  .cs-flow__channel {
+    padding: 2rem 1.6rem;
+  }
+
+  .cs-flow__channel-title {
+    font-size: 1.6rem;
+  }
+
+  .cs-flow__partners li {
+    font-size: 1.15rem;
+  }
+
+  /* horizontal bus joining every channel to the stem */
+  .cs-flow__channels::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: calc(100% / var(--cs-cols, 6) / 2);
+    right: calc(100% / var(--cs-cols, 6) / 2);
+    height: 2px;
+    background-image: linear-gradient(to right, var(--cs-flow-line) 50%, transparent 0);
+    background-size: 10px 2px;
+  }
+
+  .cs-flow__channel::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -4rem;
+    width: 2px;
+    height: 4rem;
+    background-image: linear-gradient(to bottom, var(--cs-flow-line) 50%, transparent 0);
+    background-size: 2px 10px;
+  }
+
+  .cs-flow__channel::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -0.5rem;
+    width: 1rem;
+    height: 1rem;
+    margin-left: -0.4rem;
+    border-radius: 50%;
+    background: var(--cs-saffron);
+  }
+}
+
+@keyframes cs-flow-right {
+  0% { left: 0; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+@keyframes cs-flow-left {
+  0% { left: 100%; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { left: 0; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-flow__pulse {
+    display: none;
+  }
+}

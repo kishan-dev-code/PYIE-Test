@@ -1,0 +1,253 @@
+{{ 'custom-retail-zones.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign stats = section.blocks | where: 'type', 'stat'
+  assign zones = section.blocks | where: 'type', 'zone'
+-%}
+
+<section
+  id="cs-retail-zones-{{ section.id }}"
+  class="cs-section cs-zones cs-tone--{{ section.settings.tone }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="cs-container">
+    {%- render 'custom-section-head',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      text: section.settings.text,
+      align: 'split'
+    -%}
+
+    {%- if stats.size > 0 -%}
+      <ul class="cs-zones__stats" data-cs-reveal>
+        {%- for block in stats -%}
+          <li class="cs-zones__stat" {{ block.shopify_attributes }}>
+            <span class="cs-zones__stat-value" data-cs-count>{{ block.settings.value }}</span>
+            <span class="cs-zones__stat-label">{{ block.settings.label }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if zones.size > 0 -%}
+      <div class="cs-zones__stage" data-cs-slider-wrap>
+        <div class="cs-zones__tabs">
+          {%- for block in zones -%}
+            <button
+              type="button"
+              class="cs-zones__tab{% if forloop.first %} is-active{% endif %}"
+              data-cs-goto="{{ forloop.index0 }}"
+              aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+            >
+              <span class="cs-zones__tab-icon" aria-hidden="true">{% render 'custom-icon', icon: block.settings.icon %}</span>
+              <span class="cs-zones__tab-body">
+                <span class="cs-zones__tab-label">{{ block.settings.label }}</span>
+                <span class="cs-zones__tab-title">{{ block.settings.title }}</span>
+                {%- if block.settings.tagline != blank -%}
+                  <span class="cs-zones__tab-tagline">{{ block.settings.tagline }}</span>
+                {%- endif -%}
+              </span>
+            </button>
+          {%- endfor -%}
+        </div>
+
+        <div
+          class="cs-zones__slider cs-slider cs-slider--clip"
+          data-cs-slider='{"wrapAround": false, "cellAlign": "left", "contain": true, "adaptiveHeight": false}'
+          tabindex="0"
+          aria-label="{{ section.settings.heading | strip_html | escape }}"
+        >
+          {%- for block in zones -%}
+            {%- assign placeholder_name = 'lifestyle-' | append: forloop.index -%}
+            {%- if forloop.index > 2 -%}{%- assign placeholder_name = 'image' -%}{%- endif -%}
+            <article class="cs-zones__slide" data-cs-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+              <div class="cs-media cs-zones__media">
+                {% render 'cs-image', image: block.settings.image, sizes: '(min-width: 990px) 60vw, 100vw', placeholder: placeholder_name %}
+              </div>
+              <div class="cs-zones__panel">
+                <span class="cs-zones__panel-label">{{ block.settings.label }}</span>
+                <h3 class="cs-zones__panel-title">{{ block.settings.title }}</h3>
+                {%- if block.settings.tagline != blank -%}
+                  <p class="cs-zones__panel-tagline">{{ block.settings.tagline }}</p>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <div class="cs-zones__panel-text">{{ block.settings.text }}</div>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.closing_heading != blank or section.settings.closing_text != blank -%}
+      <div class="cs-zones__closing" data-cs-reveal>
+        {%- if section.settings.closing_heading != blank -%}
+          <h3 class="cs-zones__closing-title">{{ section.settings.closing_heading }}</h3>
+        {%- endif -%}
+        {%- if section.settings.closing_text != blank -%}
+          <p class="cs-zones__closing-text">{{ section.settings.closing_text }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom  Retail zones",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Beyond distribution"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The <em>PYIE</em> retail experience"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro text",
+      "default": "<p>India's first experiential tech retail format.</p>"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "closing_heading",
+      "label": "Closing heading",
+      "default": "Three <em>worlds</em>. One destination."
+    },
+    {
+      "type": "text",
+      "id": "closing_text",
+      "label": "Closing text",
+      "default": "Every PYIE store is built around a threefold experience — not a showroom, a destination."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" }
+      ],
+      "default": "dark"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "35"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Flagship stores (planned)"
+        }
+      ]
+    },
+    {
+      "type": "zone",
+      "name": "Zone",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "coffee", "label": "Cafe" },
+            { "value": "printer", "label": "3D printer" },
+            { "value": "store", "label": "Store" },
+            { "value": "cpu", "label": "Chip" },
+            { "value": "users", "label": "Community" }
+          ],
+          "default": "coffee"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Zone 1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "The PYIE Cafe"
+        },
+        {
+          "type": "text",
+          "id": "tagline",
+          "label": "Tagline",
+          "default": "Where every great idea starts with the perfect cup."
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Premium consumers dwell longer, connect deeper, and return more often when retail begins with hospitality.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom  Retail zones",
+      "blocks": [
+        { "type": "stat" },
+        { "type": "zone" },
+        { "type": "zone", "settings": { "icon": "printer", "label": "Zone 2", "title": "The Maker Studio", "tagline": "Design it. Print it. Take it home." } },
+        { "type": "zone", "settings": { "icon": "store", "label": "Zone 3", "title": "The Brand Floor", "tagline": "The world's best tech brands." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

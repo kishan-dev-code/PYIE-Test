@@ -1,0 +1,19 @@
+{%- liquid
+  assign cs_tag = tag | default: 'h2'
+  assign cs_align = align | default: 'left'
+-%}
+{%- if eyebrow != blank or heading != blank or text != blank -%}
+  <div class="cs-head cs-head--{{ cs_align }}" data-cs-reveal>
+    {%- if cs_align == 'split' -%}
+      <div class="cs-head__main">
+        {%- if eyebrow != blank -%}<p class="cs-eyebrow">{{ eyebrow }}</p>{%- endif -%}
+        {%- if heading != blank -%}<{{ cs_tag }} class="cs-title">{{ heading }}</{{ cs_tag }}>{%- endif -%}
+      </div>
+      {%- if text != blank -%}<div class="cs-text">{{ text }}</div>{%- endif -%}
+    {%- else -%}
+      {%- if eyebrow != blank -%}<p class="cs-eyebrow">{{ eyebrow }}</p>{%- endif -%}
+      {%- if heading != blank -%}<{{ cs_tag }} class="cs-title">{{ heading }}</{{ cs_tag }}>{%- endif -%}
+      {%- if text != blank -%}<div class="cs-text">{{ text }}</div>{%- endif -%}
+    {%- endif -%}
+  </div>
+{%- endif -%}

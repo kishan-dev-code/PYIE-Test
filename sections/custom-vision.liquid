@@ -1,0 +1,237 @@
+{{ 'custom-vision.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign tab_id = 'cs-vision-' | append: section.id
+-%}
+
+<section
+  id="{{ tab_id }}"
+  class="cs-section cs-vision cs-tone--{{ section.settings.tone }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="cs-container cs-vision__inner">
+    <div class="cs-vision__copy" data-cs-reveal>
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="cs-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      <div class="cs-vision__tabs" data-cs-tabs>
+        <div class="cs-vision__tablist" role="tablist" aria-label="{{ section.settings.eyebrow | escape }}">
+          <button
+            type="button"
+            class="cs-tab"
+            role="tab"
+            id="{{ tab_id }}-tab-1"
+            aria-controls="{{ tab_id }}-panel-1"
+            aria-selected="true"
+            tabindex="0"
+          >
+            {{- section.settings.vision_label | escape -}}
+          </button>
+          <button
+            type="button"
+            class="cs-tab"
+            role="tab"
+            id="{{ tab_id }}-tab-2"
+            aria-controls="{{ tab_id }}-panel-2"
+            aria-selected="false"
+            tabindex="-1"
+          >
+            {{- section.settings.mission_label | escape -}}
+          </button>
+        </div>
+
+        <div class="cs-vision__panel" role="tabpanel" id="{{ tab_id }}-panel-1" aria-labelledby="{{ tab_id }}-tab-1">
+          <p class="cs-vision__statement">{{ section.settings.vision_text }}</p>
+        </div>
+        <div class="cs-vision__panel" role="tabpanel" id="{{ tab_id }}-panel-2" aria-labelledby="{{ tab_id }}-tab-2" hidden>
+          <p class="cs-vision__statement">{{ section.settings.mission_text }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-vision__diagram cs-vision__diagram--{{ section.blocks.size }}" data-cs-reveal style="--cs-delay: 120ms;">
+      <svg class="cs-vision__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path d="M50 12 L24 84 L76 84 Z" />
+      </svg>
+
+      <div class="cs-vision__hub">
+        <span class="cs-vision__hub-ring" aria-hidden="true"></span>
+        {%- if section.settings.hub_image != blank -%}
+          {{ section.settings.hub_image | image_url: width: 300 | image_tag: class: 'cs-vision__hub-img', loading: 'lazy' }}
+        {%- else -%}
+          <span class="cs-vision__hub-text">{{ section.settings.hub_text }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- for block in section.blocks limit: 3 -%}
+        <div class="cs-vision__pillar cs-vision__pillar--{{ forloop.index }}" {{ block.shopify_attributes }}>
+          <span class="cs-vision__pillar-icon">{% render 'custom-icon', icon: block.settings.icon %}</span>
+          <h3 class="cs-vision__pillar-title">{{ block.settings.title }}</h3>
+          {%- if block.settings.text != blank -%}
+            <div class="cs-vision__pillar-text">{{ block.settings.text }}</div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Vision & mission",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "max_blocks": 3,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "What drives us"
+    },
+    {
+      "type": "text",
+      "id": "vision_label",
+      "label": "Tab 1 label",
+      "default": "Our Vision"
+    },
+    {
+      "type": "textarea",
+      "id": "vision_text",
+      "label": "Tab 1 statement",
+      "default": "To be India's most trusted gateway for global electronics and technology brands - the first name any brand considers when India is next."
+    },
+    {
+      "type": "text",
+      "id": "mission_label",
+      "label": "Tab 2 label",
+      "default": "Our Mission"
+    },
+    {
+      "type": "textarea",
+      "id": "mission_text",
+      "label": "Tab 2 statement",
+      "default": "To give global brands complete, ready-built market access in India from distribution, compliance, retail, and after-sales - so they can launch and scale without building any of it themselves."
+    },
+    {
+      "type": "header",
+      "content": "Pillar diagram"
+    },
+    {
+      "type": "text",
+      "id": "hub_text",
+      "label": "Centre text",
+      "default": "PYIE"
+    },
+    {
+      "type": "image_picker",
+      "id": "hub_image",
+      "label": "Centre logo",
+      "info": "Replaces the centre text."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" }
+      ],
+      "default": "dark"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Pillar",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "star", "label": "Star" },
+            { "value": "store", "label": "Store" },
+            { "value": "globe", "label": "Globe" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "monitor", "label": "Monitor" }
+          ],
+          "default": "star"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Brand equity"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "info": "Use a bulleted list for multiple points.",
+          "default": "<p>Three decades of nationwide consumer trust, built the hard way.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Vision & mission",
+      "blocks": [
+        { 
+            "type": "pillar"
+         },
+        { 
+            "type": "pillar",
+            "settings": 
+            { 
+            "icon": "store", 
+            "title": "Offline reach", 
+            "text": "<ul><li>Nationwide sales network</li><li>Service infra across regions</li><li>Established retail chains</li></ul>"
+            } 
+        },
+        { 
+            "type": "pillar", 
+            "settings": 
+            { 
+            "icon": "globe", 
+            "title": "Online-ready", 
+            "text": "<ul><li>Marketplace tenure</li><li>In-house digital execution</li><li>Live commerce capability</li></ul>"
+            } 
+    }
+      ]
+    }
+  ]
+}
+{% endschema %}

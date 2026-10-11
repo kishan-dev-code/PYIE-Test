@@ -1,0 +1,328 @@
+{{ 'custom-market.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign metrics = section.blocks | where: 'type', 'metric'
+  assign reasons = section.blocks | where: 'type', 'reason'
+
+  assign start_year = section.settings.start_year | default: 2025
+  assign end_year = section.settings.end_year | default: 2033
+  assign start_value = section.settings.start_value | default: 101 | times: 1.0
+  assign growth = section.settings.cagr | default: 7.8 | divided_by: 100.0 | plus: 1
+  assign span = end_year | minus: start_year
+
+  comment
+    Compound the start value once to find the final bar, so every bar can be scaled against it.
+  endcomment
+  assign final_value = start_value
+  for i in (1..span)
+    assign final_value = final_value | times: growth
+  endfor
+
+  # a published end figure wins over the compounded one, so the last bar matches the source
+  if section.settings.end_value != blank
+    assign final_value = section.settings.end_value | times: 1.0
+  endif
+-%}
+
+<section
+  id="cs-market-{{ section.id }}"
+  class="cs-section cs-market cs-tone--{{ section.settings.tone }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="cs-container">
+    <div class="cs-market__top">
+      {%- render 'custom-section-head',
+        eyebrow: section.settings.eyebrow,
+        heading: section.settings.heading,
+        text: section.settings.text
+      -%}
+
+      {%- if section.settings.big_value != blank -%}
+        <div class="cs-market__big" data-cs-reveal>
+          <span class="cs-market__big-value" data-cs-count>{{ section.settings.big_value }}</span>
+          <span class="cs-market__big-label">{{ section.settings.big_label }}</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="cs-market__grid">
+      <div class="cs-market__panel">
+        {%- if span > 0 -%}
+          <figure class="cs-market__chart" data-cs-reveal>
+            <figcaption class="cs-market__chart-head">
+              <span class="cs-market__chart-title">{{ section.settings.chart_title }}</span>
+              <span class="cs-market__chart-tag">{{ section.settings.cagr }}% CAGR</span>
+            </figcaption>
+
+            <div class="cs-market__bars" role="img" aria-label="{{ section.settings.chart_title | escape }}: {{ section.settings.unit_prefix }}{{ start_value | round }}{{ section.settings.unit_suffix }} in {{ start_year }} to {{ section.settings.unit_prefix }}{{ final_value | round }}{{ section.settings.unit_suffix }} in {{ end_year }}">
+              {%- assign value = start_value -%}
+              {%- for i in (0..span) -%}
+                {%- liquid
+                  if i > 0
+                    assign value = value | times: growth
+                  endif
+                  if forloop.last
+                    assign value = final_value
+                  endif
+                  assign pct = value | divided_by: final_value | times: 100 | round: 1
+                  assign year = start_year | plus: i
+                -%}
+                <div
+                  class="cs-market__bar{% if forloop.first %} is-actual{% endif %}{% if forloop.first or forloop.last %} is-labelled{% endif %}"
+                  style="--cs-h: {{ pct }}%; --cs-delay: {{ i | times: 60 }}ms;"
+                >
+                  <span class="cs-market__bar-value">{{ section.settings.unit_prefix }}{{ value | round }}{{ section.settings.unit_suffix }}</span>
+                  <span class="cs-market__bar-fill"></span>
+                  <span class="cs-market__bar-year">{{ year | append: '' | slice: 2, 2 | prepend: "'" }}</span>
+                </div>
+              {%- endfor -%}
+            </div>
+
+            {%- if section.settings.chart_note != blank -%}
+              <p class="cs-market__chart-note">{{ section.settings.chart_note }}</p>
+            {%- endif -%}
+          </figure>
+        {%- endif -%}
+
+        {%- if metrics.size > 0 -%}
+          <div class="cs-market__metrics">
+            {%- for block in metrics -%}
+              <div class="cs-market__metric" data-cs-reveal style="--cs-delay: {{ forloop.index0 | times: 80 }}ms;" {{ block.shopify_attributes }}>
+                <span class="cs-market__metric-value" data-cs-count>{{ block.settings.value }}</span>
+                <span class="cs-market__metric-label">{{ block.settings.label }}</span>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if reasons.size > 0 -%}
+        <div class="cs-market__why" data-cs-reveal style="--cs-delay: 120ms;">
+          {%- if section.settings.why_heading != blank -%}
+            <h3 class="cs-market__why-title">{{ section.settings.why_heading }}</h3>
+          {%- endif -%}
+
+          {%- for block in reasons -%}
+            <details class="cs-market__reason" name="cs-why-{{ section.id }}"{% if forloop.first %} open{% endif %} {{ block.shopify_attributes }}>
+              <summary class="cs-market__reason-head">
+                <span class="cs-market__reason-num">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+                <span class="cs-market__reason-title">{{ block.settings.title }}</span>
+                <span class="cs-market__reason-toggle" aria-hidden="true">{% render 'custom-icon', icon: 'plus' %}</span>
+              </summary>
+              <div class="cs-market__reason-body cs-text">{{ block.settings.text }}</div>
+            </details>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.closing != blank -%}
+      <blockquote class="cs-market__closing" data-cs-reveal>
+        <p>{{ section.settings.closing }}</p>
+      </blockquote>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Market opportunity",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Market opportunity & growth"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "India's electronics & durables market is a <em>generational opportunity</em>"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro text"
+    },
+    {
+      "type": "text",
+      "id": "big_value",
+      "label": "Headline number",
+      "default": "$101B+"
+    },
+    {
+      "type": "text",
+      "id": "big_label",
+      "label": "Headline number label",
+      "default": "India consumer electronics market, 2025"
+    },
+    {
+      "type": "header",
+      "content": "Growth chart",
+      "info": "Bars are compounded from the start value using the CAGR."
+    },
+    {
+      "type": "text",
+      "id": "chart_title",
+      "label": "Chart title",
+      "default": "Consumer electronics market size"
+    },
+    {
+      "type": "number",
+      "id": "start_year",
+      "label": "Start year",
+      "default": 2025
+    },
+    {
+      "type": "number",
+      "id": "end_year",
+      "label": "End year",
+      "default": 2033
+    },
+    {
+      "type": "number",
+      "id": "start_value",
+      "label": "Start value",
+      "default": 101
+    },
+    {
+      "type": "number",
+      "id": "end_value",
+      "label": "End value",
+      "info": "Optional. Sets the last bar exactly, e.g. a published forecast.",
+      "default": 183
+    },
+    {
+      "type": "text",
+      "id": "cagr",
+      "label": "CAGR %",
+      "default": "7.8"
+    },
+    {
+      "type": "text",
+      "id": "unit_prefix",
+      "label": "Value prefix",
+      "default": "$"
+    },
+    {
+      "type": "text",
+      "id": "unit_suffix",
+      "label": "Value suffix",
+      "default": "B"
+    },
+    {
+      "type": "text",
+      "id": "chart_note",
+      "label": "Chart note",
+      "default": "7.8% CAGR through 2033, reaching $183B."
+    },
+    {
+      "type": "header",
+      "content": "Why now"
+    },
+    {
+      "type": "text",
+      "id": "why_heading",
+      "label": "Heading",
+      "default": "Why now?"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "closing",
+      "label": "Closing statement",
+      "default": "A market this large, growing this fast, with this much headroom — needs a partner who has <strong>already built the infrastructure</strong> to capture it."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" }
+      ],
+      "default": "light"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "metric",
+      "name": "Metric",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "958M+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Active internet users by 2025"
+        }
+      ]
+    },
+    {
+      "type": "reason",
+      "name": "Why now point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "A rapidly affluent middle class"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Add the supporting detail here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Market opportunity",
+      "blocks": [
+        { "type": "metric" },
+        { "type": "reason" },
+        { "type": "reason" }
+      ]
+    }
+  ]
+}
+{% endschema %}

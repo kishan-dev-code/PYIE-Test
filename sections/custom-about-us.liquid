@@ -1,0 +1,291 @@
+{{ 'cs-split.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign stat_blocks = section.blocks | where: 'type', 'stat'
+  assign point_blocks = section.blocks | where: 'type', 'point'
+-%}
+
+<section
+  id="cs-split-{{ section.id }}"
+  class="cs-section cs-split cs-tone--{{ section.settings.tone }} cs-split--media-{{ section.settings.media_position }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="cs-container cs-split__inner">
+    <div class="cs-split__media" data-cs-reveal>
+      <div class="cs-media cs-split__img">
+        {% render 'cs-image', image: section.settings.image, sizes: '(min-width: 990px) 45vw, 100vw', placeholder: 'lifestyle-2' %}
+      </div>
+
+      {%- if section.settings.image_2 != blank -%}
+        <div class="cs-media cs-split__img-2">
+          {% render 'cs-image', image: section.settings.image_2, sizes: '(min-width: 990px) 20vw, 45vw' %}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.badge_value != blank -%}
+        <div class="cs-split__badge">
+          {%- if section.settings.ring_text != blank -%}
+            <svg class="cs-split__ring" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+              <defs>
+                <path id="cs-ring-{{ section.id }}" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0" />
+              </defs>
+              <text textLength="500" lengthAdjust="spacing">
+                <textPath href="#cs-ring-{{ section.id }}">{{ section.settings.ring_text | escape }}</textPath>
+              </text>
+            </svg>
+          {%- endif -%}
+          <span class="cs-split__badge-value">{{ section.settings.badge_value }}</span>
+          <span class="cs-split__badge-label">{{ section.settings.badge_label }}</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="cs-split__content">
+      {%- render 'custom-section-head',
+        eyebrow: section.settings.eyebrow,
+        heading: section.settings.heading,
+        text: section.settings.text
+      -%}
+
+      {%- if stat_blocks.size > 0 -%}
+        <div class="cs-split__stats" data-cs-reveal>
+          {%- for block in stat_blocks -%}
+            <div class="cs-split__stat" {{ block.shopify_attributes }}>
+              <span class="cs-split__stat-value" data-cs-count>{{ block.settings.value }}</span>
+              <span class="cs-split__stat-label">{{ block.settings.label }}</span>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if point_blocks.size > 0 -%}
+        <ol class="cs-split__points cs-split__points--{{ section.settings.list_style }}">
+          {%- for block in point_blocks -%}
+            <li
+              class="cs-split__point"
+              data-cs-reveal
+              style="--cs-delay: {{ forloop.index0 | times: 70 }}ms;"
+              {{ block.shopify_attributes }}
+            >
+              <span class="cs-split__marker">
+                {%- if section.settings.list_style == 'number' -%}
+                  {% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}
+                {%- else -%}
+                {% render 'custom-icon', icon: 'check' %}
+                {%- endif -%}
+              </span>
+              <div class="cs-split__point-body">
+                {%- if block.settings.title != blank -%}
+                  <h3 class="cs-split__point-title">{{ block.settings.title }}</h3>
+                {%- endif -%}
+                <div class="cs-text">{{ block.settings.text }}</div>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a
+          class="cs-btn cs-btn--primary cs-split__cta"
+          {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% else %}role="link" {% endif %}
+        >
+          {{- section.settings.button_label | escape -}}
+          <svg class="cs-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom About-Us Split",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Who we are"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Italic words are highlighted in the accent colour.",
+      "default": "About <em>Intex</em> Technologies"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro text"
+    },
+    {
+      "type": "select",
+      "id": "list_style",
+      "label": "Point marker",
+      "options": [
+        { 
+            "value": "number", 
+            "label": "Numbers" 
+        },
+        { 
+            "value": "check", 
+            "label": "Check icon"
+         }
+      ],
+      "default": "number"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Main image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Overlap image",
+      "info": "Optional small image over the corner."
+    },
+    {
+      "type": "select",
+      "id": "media_position",
+      "label": "Image position on desktop",
+      "options": [
+        { 
+            "value": "left", 
+            "label": "Left" 
+        },
+        { 
+            "value": "right", 
+            "label": "Right" 
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "badge_value",
+      "label": "Badge value",
+      "default": "1996"
+    },
+    {
+      "type": "text",
+      "id": "badge_label",
+      "label": "Badge label",
+      "default": "Founded"
+    },
+    {
+      "type": "text",
+      "id": "ring_text",
+      "label": "Rotating badge text",
+      "default": "Powered by Intex • 30 years of trust • "
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" }
+      ],
+      "default": "light"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "info": "Numbers count up on scroll, e.g. 10,000+",
+          "default": "30+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Years of industry experience"
+        }
+      ]
+    },
+    {
+      "type": "point",
+      "name": "Point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "info": "Use bold to highlight key phrases.",
+          "default": "<p>Add a key point here. Use <strong>bold</strong> to highlight what matters.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom About-Us Split",
+      "blocks": [
+        { "type": "point" },
+        { "type": "point" },
+        { "type": "point" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,306 @@
+{{ 'custom-hero-banner.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign slide_count = section.blocks.size
+  assign autoplay_ms = section.settings.autoplay_speed | times: 1000
+  assign has_autoplay = false
+  if section.settings.autoplay and slide_count > 1
+    assign has_autoplay = true
+  endif
+-%}
+
+<section
+  id="cs-hero-{{ section.id }}"
+  class="cs-section cs-hero-wrapper cs-tone--{{ section.settings.tone }}{% if has_autoplay %} cs-hero--autoplay{% endif %}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px; --cs-autoplay: {{ section.settings.autoplay_speed }}s;"
+  data-cs-slider-wrap
+>
+  <span class="cs-hero__grid" aria-hidden="true"></span>
+  <span class="cs-hero__glow" aria-hidden="true"></span>
+
+  <div class="cs-container">
+    <div
+      class="cs-hero__slider cs-slider cs-slider--clip"
+      {% if slide_count > 1 %}
+        data-cs-slider='{"wrapAround": true, "autoPlay": {% if has_autoplay %}{{ autoplay_ms }}{% else %}false{% endif %}, "selectedAttraction": 0.035, "friction": 0.32}'
+      {% endif %}
+      aria-roledescription="carousel"
+      aria-label="{{ section.settings.aria_label | escape }}"
+    >
+      {%- for block in section.blocks -%}
+        <div
+          class="cs-hero__slide"
+          data-cs-index="{{ forloop.index0 }}"
+          aria-roledescription="slide"
+          aria-label="{{ forloop.index }} / {{ slide_count }}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="cs-hero__copy">
+            {%- if block.settings.eyebrow != blank -%}
+              <p class="cs-eyebrow">{{ block.settings.eyebrow }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.heading != blank -%}
+              {%- if forloop.first -%}
+                <h1 class="cs-hero__title">{{ block.settings.heading }}</h1>
+              {%- else -%}
+                <h2 class="cs-hero__title">{{ block.settings.heading }}</h2>
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- if block.settings.text != blank -%}
+              <div class="cs-text cs-hero__text">{{ block.settings.text }}</div>
+            {%- endif -%}
+
+            {%- if block.settings.button_label != blank or block.settings.button_label_2 != blank -%}
+              <div class="cs-btn-row cs-hero__actions">
+                {%- if block.settings.button_label != blank -%}
+                  <a
+                    class="cs-btn cs-btn--primary"
+                    {% if block.settings.button_link != blank %}href="{{ block.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+                  >
+                    {{- block.settings.button_label | escape -}}
+                    <svg class="cs-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                  </a>
+                {%- endif -%}
+                {%- if block.settings.button_label_2 != blank -%}
+                  <a
+                    class="cs-btn cs-btn--ghost"
+                    {% if block.settings.button_link_2 != blank %}href="{{ block.settings.button_link_2 }}"{% else %}role="link" aria-disabled="true"{% endif %}
+                  >
+                    {{- block.settings.button_label_2 | escape -}}
+                  </a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+
+          <div class="cs-hero__visual">
+            <div class="cs-media cs-hero__media">
+              {%- liquid
+                assign placeholder_name = 'hero-apparel-' | append: forloop.index
+                if forloop.index > 3
+                  assign placeholder_name = 'lifestyle-1'
+                endif
+                render 'cs-image', image: block.settings.image, sizes: '(min-width: 990px) 45vw, 100vw', placeholder: placeholder_name, eager: forloop.first, class: 'cs-hero__img'
+              -%}
+            </div>
+
+            {%- if block.settings.chip_1_value != blank -%}
+              <div class="cs-hero__chip cs-hero__chip--one">
+                <span class="cs-hero__chip-value" data-cs-count>{{ block.settings.chip_1_value }}</span>
+                <span class="cs-hero__chip-label">{{ block.settings.chip_1_label }}</span>
+              </div>
+            {%- endif -%}
+
+            {%- if block.settings.chip_2_value != blank -%}
+              <div class="cs-hero__chip cs-hero__chip--two">
+                <span class="cs-hero__chip-value" data-cs-count>{{ block.settings.chip_2_value }}</span>
+                <span class="cs-hero__chip-label">{{ block.settings.chip_2_label }}</span>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if slide_count > 1 -%}
+      <div class="cs-hero__tabs">
+        {%- for block in section.blocks -%}
+          <button
+            type="button"
+            class="cs-hero__tab{% if forloop.first %} is-active{% endif %}"
+            data-cs-goto="{{ forloop.index0 }}"
+            aria-label="{{ 'Go to slide ' | append: forloop.index | escape }}"
+            aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+          >
+            <span class="cs-hero__tab-num">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+            <span class="cs-hero__tab-label">{{ block.settings.tab_label | default: block.settings.eyebrow }}</span>
+            <span class="cs-hero__tab-bar"><span></span></span>
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Hero Banner",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Change slides every",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 6
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Slider accessibility label",
+      "default": "PYIE highlights"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { 
+            "value": "light", 
+            "label": "White" 
+        },
+        { 
+            "value": "paper", 
+            "label": "Paper" 
+        },
+        { 
+            "value": "dark", 
+            "label": "Midnight"
+        },
+        { 
+            "value": "accent", 
+            "label": "Saffron" 
+        }
+      ],
+      "default": "dark"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab label",
+          "info": "Short label under the slider. Falls back to the eyebrow."
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "Powered by Intex"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "info": "Italic words are highlighted in the accent colour.",
+          "default": "Your <em>Go-to-Market</em> Partner for India"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Powered by Intex — 30 years of technology infrastructure.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Primary button label",
+          "default": "Partner with us"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Primary button link"
+        },
+        {
+          "type": "text",
+          "id": "button_label_2",
+          "label": "Secondary button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link_2",
+          "label": "Secondary button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Floating stats"
+        },
+        {
+          "type": "text",
+          "id": "chip_1_value",
+          "label": "Stat 1 value",
+          "info": "Numbers count up on load, e.g. 1,50,000+",
+          "default": "30+"
+        },
+        {
+          "type": "text",
+          "id": "chip_1_label",
+          "label": "Stat 1 label",
+          "default": "Years in Indian electronics"
+        },
+        {
+          "type": "text",
+          "id": "chip_2_value",
+          "label": "Stat 2 value",
+          "default": "37+"
+        },
+        {
+          "type": "text",
+          "id": "chip_2_label",
+          "label": "Stat 2 label",
+          "default": "Warehouses & dark stores"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Hero Banner",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide" }
+      ]
+    }
+  ]
+}
+{% endschema %}

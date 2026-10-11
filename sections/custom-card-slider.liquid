@@ -1,0 +1,292 @@
+{{ 'custom-card-slider.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign cards = section.blocks | where: 'type', 'card'
+  assign highlight = section.blocks | where: 'type', 'highlight' | first
+-%}
+
+<section
+  id="cs-card-slider-{{ section.id }}"
+  class="cs-section cs-cards cs-tone--{{ section.settings.tone }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+  data-cs-slider-wrap
+>
+  <div class="cs-container">
+    <div class="cs-cards__top">
+      {%- render 'custom-section-head',
+        eyebrow: section.settings.eyebrow,
+        heading: section.settings.heading,
+        text: section.settings.text
+      -%}
+
+      {%- if cards.size > 1 -%}
+        <div class="cs-slider-nav cs-cards__nav">
+          <span class="cs-counter"><span data-cs-current>01</span> / <span data-cs-total>{% if cards.size < 10 %}0{% endif %}{{ cards.size }}</span></span>
+          <button type="button" class="cs-icon-btn" data-cs-prev aria-label="Previous">
+            <svg class="cs-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>
+          </button>
+          <button type="button" class="cs-icon-btn" data-cs-next aria-label="Next">
+            <svg class="cs-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </button>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if cards.size > 0 -%}
+      <div
+        class="cs-cards__slider cs-slider"
+        data-cs-slider='{"cellAlign": "left", "contain": true, "groupCells": false, "freeScroll": false}'
+        tabindex="0"
+        aria-label="{{ section.settings.heading | strip_html | escape }}"
+      >
+        {%- for block in cards -%}
+          <article
+            class="cs-cards__card cs-cell cs-cards__card--{{ block.settings.style }}"
+            data-cs-index="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="cs-cards__card-top">
+              {%- if block.settings.icon != 'none' -%}
+                <span class="cs-icon-chip">{% render 'custom-icon', icon: block.settings.icon %}</span>
+              {%- endif -%}
+              <span class="cs-cards__index">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+            </div>
+
+            {%- if block.settings.value != blank -%}
+              <p class="cs-cards__value">{{ block.settings.value }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.title != blank -%}
+              <h3 class="cs-cards__title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.text != blank -%}
+              <div class="cs-cards__text">{{ block.settings.text }}</div>
+            {%- endif -%}
+          </article>
+        {%- endfor -%}
+      </div>
+
+      <div class="cs-progress cs-cards__progress" aria-hidden="true">
+        <span class="cs-progress__bar" data-cs-progress></span>
+      </div>
+    {%- endif -%}
+
+    {%- if highlight -%}
+      <div class="cs-cards__highlight" data-cs-reveal {{ highlight.shopify_attributes }}>
+        {%- if highlight.settings.value != blank -%}
+          <span class="cs-cards__highlight-value" data-cs-count>{{ highlight.settings.value }}</span>
+        {%- endif -%}
+        <div class="cs-cards__highlight-body">
+          {%- if highlight.settings.title != blank -%}
+            <h3 class="cs-cards__highlight-title">{{ highlight.settings.title }}</h3>
+          {%- endif -%}
+          {%- if highlight.settings.text != blank -%}
+            <div class="cs-cards__highlight-text">{{ highlight.settings.text }}</div>
+          {%- endif -%}
+        </div>
+        {%- if highlight.settings.icon != 'none' -%}
+          <span class="cs-cards__highlight-icon">{% render 'custom-icon', icon: highlight.settings.icon %}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.closing != blank -%}
+      <p class="cs-cards__closing" data-cs-reveal>{{ section.settings.closing }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Card slider",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Track record"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Italic words are highlighted in the accent colour.",
+      "default": "A <em>brand-building</em> track record"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro text"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "closing",
+      "label": "Closing line",
+      "info": "Optional statement under the cards."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" }
+      ],
+      "default": "paper"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "rocket", "label": "Rocket" },
+            { "value": "cart", "label": "Cart" },
+            { "value": "megaphone", "label": "Megaphone" },
+            { "value": "wrench", "label": "Wrench" },
+            { "value": "users", "label": "Users" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "globe", "label": "Globe" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "trophy", "label": "Trophy" },
+            { "value": "star", "label": "Star" },
+            { "value": "bolt", "label": "Bolt" },
+            { "value": "layers", "label": "Layers" },
+            { "value": "chart", "label": "Chart" },
+            { "value": "headset", "label": "Headset" },
+            { "value": "box", "label": "Box" },
+            { "value": "store", "label": "Store" },
+            { "value": "factory", "label": "Factory" },
+            { "value": "cpu", "label": "Chip" }
+          ],
+          "default": "trophy"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Big value",
+          "info": "Optional, e.g. No. 1 or 1bn+"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Card title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Short supporting text for this card.</p>"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Card style",
+          "options": [
+            { 
+                "value": "soft", 
+                "label": "Soft" 
+            },
+            { 
+                "value": "solid", 
+                "label": "Midnight" 
+            },
+            { 
+                "value": "accent", 
+                "label": "Saffron" 
+            }
+          ],
+          "default": "soft"
+        }
+      ]
+    },
+    {
+      "type": "highlight",
+      "name": "Highlight banner",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Big value",
+          "default": "9"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Business verticals"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "layers", "label": "Layers" },
+            { "value": "globe", "label": "Globe" },
+            { "value": "chart", "label": "Chart" },
+            { "value": "star", "label": "Star" }
+          ],
+          "default": "layers"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Card slider",
+      "blocks": [
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" }
+      ]
+    }
+  ]
+}
+{% endschema %}

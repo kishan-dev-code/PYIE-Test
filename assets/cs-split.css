@@ -1,0 +1,241 @@
+.cs-split__inner {
+  display: grid;
+  gap: 4.8rem;
+  align-items: start;
+}
+
+.cs-split__media {
+  position: relative;
+  padding-bottom: 3.2rem;
+}
+
+.cs-split__img {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--cs-radius-lg);
+}
+
+.cs-split__img-2 {
+  position: absolute;
+  right: -0.8rem;
+  bottom: 0;
+  width: 42%;
+  aspect-ratio: 1;
+  border: 0.6rem solid var(--cs-bg);
+  border-radius: var(--cs-radius);
+  box-shadow: var(--cs-shadow);
+}
+
+.cs-split__badge {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  background: var(--cs-saffron);
+  color: var(--cs-ink);
+  text-align: center;
+  box-shadow: var(--cs-shadow);
+}
+
+.cs-split__ring {
+  position: absolute;
+  inset: 0.4rem;
+  width: calc(100% - 0.8rem);
+  height: calc(100% - 0.8rem);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  fill: currentColor;
+  animation: cs-spin 22s linear infinite;
+}
+
+.cs-split__badge-value {
+  font-family: var(--cs-font-display);
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.cs-split__badge-label {
+  margin-top: 0.4rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@keyframes cs-spin {
+  to { transform: rotate(360deg); }
+}
+
+.cs-split .cs-head {
+  margin-bottom: 3.2rem;
+}
+
+.cs-split__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  margin-bottom: 3.2rem;
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-radius);
+  background: var(--cs-card);
+  overflow: hidden;
+}
+
+.cs-split__stat {
+  display: grid;
+  gap: 0.6rem;
+  padding: 2.4rem;
+}
+
+.cs-split__stat + .cs-split__stat {
+  border-left: 1px solid var(--cs-line);
+}
+
+.cs-split__stat-value {
+  font-family: var(--cs-font-display);
+  font-size: clamp(3.2rem, 2.6rem + 1.4vw, 4.4rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--cs-accent-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.cs-split__stat-label {
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: var(--cs-fg-muted);
+}
+
+.cs-split__points {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-split__point {
+  display: grid;
+  grid-template-columns: 4.4rem minmax(0, 1fr);
+  gap: 1.6rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--cs-line);
+}
+
+.cs-split__point:last-child {
+  border-bottom: 1px solid var(--cs-line);
+}
+
+.cs-split__marker {
+  display: inline-grid;
+  place-items: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--cs-line);
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--cs-fg);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.cs-split__marker .cs-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.cs-split__point:hover .cs-split__marker {
+  background: var(--cs-accent);
+  border-color: var(--cs-accent);
+  color: var(--cs-on-accent);
+}
+
+.cs-split__point-title {
+  margin: 0.8rem 0 0.4rem;
+  font-family: var(--cs-font-display);
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: var(--cs-fg);
+}
+
+.cs-split__point .cs-text {
+  padding-top: 0.9rem;
+  font-size: 1.55rem;
+}
+
+.cs-split__point-title + .cs-text {
+  padding-top: 0;
+}
+
+.cs-split__cta {
+  margin-top: 3.2rem;
+}
+
+@media screen and (max-width: 749px) {
+  .cs-split__stat + .cs-split__stat {
+    border-left: 0;
+    border-top: 1px solid var(--cs-line);
+  }
+
+  .cs-split__badge {
+    width: 11rem;
+    height: 11rem;
+  }
+
+  .cs-split__ring {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .cs-split__img {
+    aspect-ratio: 16 / 11;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .cs-split__inner {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 8rem;
+  }
+
+  .cs-split--media-right .cs-split__media {
+    order: 2;
+  }
+
+  .cs-split--media-right .cs-split__inner {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
+
+  .cs-split__media {
+    position: sticky;
+    top: 4rem;
+  }
+
+  .cs-split__img-2 {
+    right: -3.2rem;
+  }
+
+  .cs-split--media-right .cs-split__img-2 {
+    right: auto;
+    left: -3.2rem;
+  }
+
+  .cs-split--media-right .cs-split__badge {
+    left: auto;
+    right: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-split__ring {
+    animation: none;
+  }
+}

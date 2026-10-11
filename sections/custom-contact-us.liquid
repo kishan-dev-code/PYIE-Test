@@ -1,0 +1,319 @@
+{{ 'custom-contact.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign form_id = 'cs-contact-form-' | append: section.id
+  assign categories = section.settings.categories | split: ','
+-%}
+
+<section
+  id="cs-contact-{{ section.id }}"
+  class="cs-section cs-contact cs-tone--{{ section.settings.tone }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="cs-container">
+    <div class="cs-contact__card">
+      <div class="cs-contact__info" data-cs-reveal>
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="cs-eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="cs-title cs-contact__title">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}
+          <div class="cs-text cs-contact__text">{{ section.settings.text }}</div>
+        {%- endif -%}
+
+        <ul class="cs-contact__details">
+          {%- if section.settings.address != blank -%}
+            <li>
+              <span class="cs-contact__detail-icon">{% render 'custom-icon', icon: 'map-pin' %}</span>
+              <address>{{ section.settings.address | newline_to_br }}</address>
+            </li>
+          {%- endif -%}
+          {%- if section.settings.email != blank -%}
+            <li>
+              <span class="cs-contact__detail-icon">{% render 'custom-icon', icon: 'mail' %}</span>
+              <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
+            </li>
+          {%- endif -%}
+          {%- if section.settings.phone != blank -%}
+            <li>
+              <span class="cs-contact__detail-icon">{% render 'custom-icon', icon: 'phone' %}</span>
+              <a href="tel:{{ section.settings.phone | remove: ' ' }}">{{ section.settings.phone }}</a>
+            </li>
+          {%- endif -%}
+        </ul>
+
+        {%- if section.settings.instagram_url != blank or section.settings.linkedin_url != blank -%}
+          <div class="cs-contact__social">
+            {%- if section.settings.instagram_url != blank -%}
+              <a href="{{ section.settings.instagram_url }}" class="cs-icon-btn" target="_blank" rel="noopener" aria-label="Instagram">
+                {% render 'custom-icon', icon: 'instagram' %}
+              </a>
+            {%- endif -%}
+            {%- if section.settings.linkedin_url != blank -%}
+              <a href="{{ section.settings.linkedin_url }}" class="cs-icon-btn" target="_blank" rel="noopener" aria-label="LinkedIn">
+                {% render 'custom-icon', icon: 'linkedin' %}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="cs-contact__form-wrap" data-cs-reveal style="--cs-delay: 120ms;">
+        {%- form 'contact', id: form_id, class: 'cs-contact__form' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="cs-contact__notice cs-contact__notice--success" role="status" tabindex="-1" autofocus>
+              {% render 'custom-icon', icon: 'check' %}
+              <span>
+                {%- if section.settings.success_message != blank -%}
+                  {{ section.settings.success_message }}
+                {%- else -%}
+                  {{ 'templates.contact.form.post_success' | t }}
+                {%- endif -%}
+              </span>
+            </div>
+          {%- elsif form.errors -%}
+            <div class="cs-contact__notice cs-contact__notice--error" role="alert" tabindex="-1" autofocus>
+              <p>{{ 'templates.contact.form.error_heading' | t }}</p>
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.form_heading != blank -%}
+            <h3 class="cs-contact__form-title">{{ section.settings.form_heading }}</h3>
+          {%- endif -%}
+
+          <div class="cs-contact__grid">
+            <div class="cs-field">
+              <input
+                class="cs-field__input"
+                type="text"
+                id="{{ form_id }}-name"
+                name="contact[{{ 'templates.contact.form.name' | t }}]"
+                value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                autocomplete="name"
+                placeholder=" "
+                required
+              >
+              <label class="cs-field__label" for="{{ form_id }}-name">{{ 'templates.contact.form.name' | t }} *</label>
+            </div>
+
+            <div class="cs-field">
+              <input
+                class="cs-field__input"
+                type="email"
+                id="{{ form_id }}-email"
+                name="contact[email]"
+                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                autocomplete="email"
+                spellcheck="false"
+                autocapitalize="off"
+                placeholder=" "
+                required
+                {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="{{ form_id }}-email-error"{% endif %}
+              >
+              <label class="cs-field__label" for="{{ form_id }}-email">{{ 'templates.contact.form.email' | t }} *</label>
+              {%- if form.errors contains 'email' -%}
+                <small class="cs-field__error" id="{{ form_id }}-email-error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</small>
+              {%- endif -%}
+            </div>
+
+            <div class="cs-field">
+              <input
+                class="cs-field__input"
+                type="tel"
+                id="{{ form_id }}-phone"
+                name="contact[{{ 'templates.contact.form.phone' | t }}]"
+                value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+                autocomplete="tel"
+                pattern="[0-9\-\+\s]*"
+                placeholder=" "
+              >
+              <label class="cs-field__label" for="{{ form_id }}-phone">{{ 'templates.contact.form.phone' | t }}</label>
+            </div>
+
+            <div class="cs-field">
+              <input
+                class="cs-field__input"
+                type="text"
+                id="{{ form_id }}-company"
+                name="contact[{{ section.settings.company_label | escape }}]"
+                autocomplete="organization"
+                placeholder=" "
+              >
+              <label class="cs-field__label" for="{{ form_id }}-company">{{ section.settings.company_label }}</label>
+            </div>
+
+            {%- if categories.size > 0 -%}
+              <div class="cs-field cs-field--full cs-field--select">
+                <select class="cs-field__input" id="{{ form_id }}-category" name="contact[{{ section.settings.category_label | escape }}]">
+                  {%- for category in categories -%}
+                    <option value="{{ category | strip | escape }}">{{ category | strip }}</option>
+                  {%- endfor -%}
+                </select>
+                <label class="cs-field__label cs-field__label--static" for="{{ form_id }}-category">{{ section.settings.category_label }}</label>
+                {% render 'custom-icon', icon: 'arrow-right', class: 'cs-field__chevron' %}
+              </div>
+            {%- endif -%}
+
+            <div class="cs-field cs-field--full">
+              <textarea
+                class="cs-field__input cs-field__input--area"
+                rows="5"
+                id="{{ form_id }}-body"
+                name="contact[{{ 'templates.contact.form.comment' | t }}]"
+                placeholder=" "
+              >{{- form.body -}}</textarea>
+              <label class="cs-field__label" for="{{ form_id }}-body">{{ 'templates.contact.form.comment' | t }}</label>
+            </div>
+          </div>
+
+          <button type="submit" class="cs-btn cs-btn--primary cs-contact__submit">
+            {{- section.settings.submit_label | default: 'Send' | escape -}}
+            {% render 'custom-icon', icon: 'arrow-right' %}
+          </button>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Contact Us",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Partner with us"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Ready to bring your brand to <em>India</em>?"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Tell us about your brand and category. Our team will come back with a launch plan.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "default": "PYIE, 4th Floor, AIHP Milestone, 448–451,\nUdyog Vihar Phase V Rd, Gurugram, Haryana 122016"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram link"
+    },
+    {
+      "type": "url",
+      "id": "linkedin_url",
+      "label": "LinkedIn link"
+    },
+    {
+      "type": "header",
+      "content": "Form"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form heading",
+      "default": "Start the conversation"
+    },
+    {
+      "type": "text",
+      "id": "company_label",
+      "label": "Company field label",
+      "default": "Brand / company"
+    },
+    {
+      "type": "text",
+      "id": "category_label",
+      "label": "Category field label",
+      "default": "Category"
+    },
+    {
+      "type": "textarea",
+      "id": "categories",
+      "label": "Category options",
+      "info": "Comma separated.",
+      "default": "Consumer electronics, IT & mobile accessories, Home & kitchen, Audio, Displays, Other"
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Button label",
+      "default": "Send enquiry"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thanks — we've got your details and will be in touch shortly."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" }
+      ],
+      "default": "paper"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Contact Us"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,276 @@
+{{ 'custom-distribution-flow.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="cs-flow-{{ section.id }}"
+  class="cs-section cs-flow cs-tone--{{ section.settings.tone }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="cs-container">
+    {%- render 'custom-section-head',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      text: section.settings.text,
+      align: 'center'
+    -%}
+
+    <div class="cs-flow__chain" data-cs-reveal>
+      <div class="cs-flow__node cs-flow__node--brand">
+        <span class="cs-flow__node-icon">{% render 'custom-icon', icon: 'globe' %}</span>
+        <span class="cs-flow__node-title">{{ section.settings.brand_label }}</span>
+      </div>
+
+      <div class="cs-flow__link" aria-hidden="true">
+        <span class="cs-flow__line"><span class="cs-flow__pulse"></span></span>
+      </div>
+
+      <div class="cs-flow__node cs-flow__node--core">
+        <span class="cs-flow__node-kicker">{{ section.settings.core_kicker }}</span>
+        <span class="cs-flow__node-logo">{{ section.settings.core_name }}</span>
+        <span class="cs-flow__node-title">{{ section.settings.core_label }}</span>
+      </div>
+
+      <div class="cs-flow__link cs-flow__link--both">
+        <span class="cs-flow__lane">
+          <span class="cs-flow__lane-label">{{ section.settings.order_label }}</span>
+          <span class="cs-flow__line" aria-hidden="true"><span class="cs-flow__pulse"></span></span>
+        </span>
+        <span class="cs-flow__lane cs-flow__lane--back">
+          <span class="cs-flow__line" aria-hidden="true"><span class="cs-flow__pulse"></span></span>
+          <span class="cs-flow__lane-label">{{ section.settings.delivery_label }}</span>
+        </span>
+      </div>
+
+      <div class="cs-flow__node cs-flow__node--hub">
+        <span class="cs-flow__node-icon">{% render 'custom-icon', icon: 'factory' %}</span>
+        <span class="cs-flow__node-kicker">{{ section.settings.core_name }}</span>
+        <span class="cs-flow__node-title">{{ section.settings.hub_label }}</span>
+      </div>
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <span class="cs-flow__stem" aria-hidden="true"></span>
+
+      <ul class="cs-flow__channels" style="--cs-cols: {{ section.blocks.size }};">
+        {%- for block in section.blocks -%}
+          <li
+            class="cs-flow__channel{% if block.settings.owned %} cs-flow__channel--owned{% endif %}"
+            data-cs-reveal
+            style="--cs-delay: {{ forloop.index0 | times: 70 }}ms;"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.owned -%}
+              <span class="cs-flow__badge">{{ section.settings.core_name }}</span>
+            {%- endif -%}
+            <span class="cs-flow__channel-icon">{% render 'custom-icon', icon: block.settings.icon %}</span>
+            <h3 class="cs-flow__channel-title">{{ block.settings.title }}</h3>
+
+            {%- if block.settings.partners != blank -%}
+              {%- assign partners = block.settings.partners | split: ',' -%}
+              <ul class="cs-flow__partners">
+                {%- for partner in partners -%}
+                  <li>{{ partner | strip | escape }}</li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+            {%- if block.settings.image != blank -%}
+              <div class="cs-media cs-flow__channel-media">
+                {% render 'cs-image', image: block.settings.image, sizes: '(min-width: 990px) 16vw, 45vw' %}
+              </div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Distribution flow",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "max_blocks": 6,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "How it works"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "An integrated & <em>effortless</em> flow"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro text"
+    },
+    {
+      "type": "header",
+      "content": "Flow nodes"
+    },
+    {
+      "type": "text",
+      "id": "brand_label",
+      "label": "Start node",
+      "default": "Global Brand"
+    },
+    {
+      "type": "text",
+      "id": "core_name",
+      "label": "Brand name",
+      "default": "PYIE"
+    },
+    {
+      "type": "text",
+      "id": "core_kicker",
+      "label": "Brand tagline",
+      "default": "Powered by Intex"
+    },
+    {
+      "type": "text",
+      "id": "core_label",
+      "label": "Middle node label",
+      "default": "Distributor & Aggregator"
+    },
+    {
+      "type": "text",
+      "id": "hub_label",
+      "label": "End node label",
+      "default": "Manufacturing Hub"
+    },
+    {
+      "type": "text",
+      "id": "order_label",
+      "label": "Outgoing arrow label",
+      "default": "Order placed"
+    },
+    {
+      "type": "text",
+      "id": "delivery_label",
+      "label": "Return arrow label",
+      "default": "Products delivered"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" }
+      ],
+      "default": "paper"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "channel",
+      "name": "Sales channel",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "cart", "label": "Cart" },
+            { "value": "store", "label": "Store" },
+            { "value": "bolt", "label": "Bolt" },
+            { "value": "monitor", "label": "Monitor" },
+            { "value": "phone", "label": "Phone" },
+            { "value": "globe", "label": "Globe" },
+            { "value": "truck", "label": "Truck" }
+          ],
+          "default": "cart"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Channel",
+          "default": "Marketplace Partnership"
+        },
+        {
+          "type": "text",
+          "id": "partners",
+          "label": "Partners",
+          "info": "Comma separated, e.g. Amazon, Flipkart",
+          "default": "Amazon, Flipkart"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Optional – logos, screenshot or QR code."
+        },
+        {
+          "type": "checkbox",
+          "id": "owned",
+          "label": "Own channel",
+          "info": "Adds the brand tag and highlight.",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Distribution flow",
+      "blocks": [
+        { 
+          "type": "channel"
+         },
+        { 
+          "type": "channel", 
+          "settings": 
+          { 
+            "icon": "store", 
+            "title": "Retail Chains", 
+            "partners": "Croma, Reliance Digital, Vijay Sales"
+          }
+       },
+        { 
+          "type": "channel", 
+          "settings": 
+          { 
+            "icon": "bolt", 
+            "title": "Quick Commerce", 
+            "partners": "Blinkit, Zepto, Swiggy Instamart"
+          }
+       }
+      ]
+    }
+  ]
+}
+{% endschema %}

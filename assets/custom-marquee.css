@@ -1,0 +1,56 @@
+.cs-marquee-wrapper {
+  padding-top: var(--cs-pt, 24px);
+  padding-bottom: var(--cs-pb, 24px);
+}
+
+.cs-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: cs-marquee var(--cs-marquee-speed, 36s) linear infinite;
+}
+
+.cs-marquee--reverse .cs-marquee__track {
+  animation-direction: reverse;
+}
+
+.cs-marquee:hover .cs-marquee__track {
+  animation-play-state: paused;
+}
+
+.cs-marquee__group {
+  display: flex;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-marquee__item {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+  padding-right: 3.2rem;
+  font-family: var(--cs-font-display);
+  font-size: clamp(1.8rem, 1.4rem + 1vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.cs-marquee__sep {
+  width: 2rem;
+  height: 2rem;
+  fill: currentColor;
+  stroke-width: 1;
+}
+
+@keyframes cs-marquee {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-marquee__track {
+    animation: none;
+  }
+}

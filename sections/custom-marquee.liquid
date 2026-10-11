@@ -1,0 +1,126 @@
+{{ 'custom-marquee.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="cs-marquee-{{ section.id }}"
+  class="cs-section cs-marquee-wrapper cs-tone--{{ section.settings.tone }}{% if section.settings.reverse %} cs-marquee--reverse{% endif %}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px; --cs-marquee-speed: {{ section.settings.speed }}s;"
+>
+  {%- if section.blocks.size > 0 -%}
+    <div class="cs-marquee__track">
+      {%- comment -%} Two identical groups so the loop is seamless; the second is hidden from screen readers. {%- endcomment -%}
+      {%- for i in (1..2) -%}
+        <ul class="cs-marquee__group"{% if i == 2 %} aria-hidden="true"{% endif %}>
+          {%- for block in section.blocks -%}
+            <li class="cs-marquee__item" {% if i == 1 %}{{ block.shopify_attributes }}{% endif %}>
+              <span>{{ block.settings.text | escape }}</span>
+              <svg class="cs-icon cs-marquee__sep" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path></svg>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Custom Marquee",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Loop duration",
+      "info": "Lower is faster.",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "unit": "s",
+      "default": 36
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse",
+      "label": "Scroll right to left",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { 
+            "value": "light", 
+            "label": "White" 
+        },
+        { 
+            "value": "paper", 
+            "label": "Paper" 
+        },
+        { 
+            "value": "dark", 
+            "label": "Midnight" 
+        },
+        { 
+            "value": "accent", 
+            "label": "Saffron" 
+        }
+      ],
+      "default": "accent"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Pan-India distribution"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Marquee",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Brand launches" } },
+        { "type": "item", "settings": { "text": "Compliance & certifications" } },
+        { "type": "item", "settings": { "text": "Pan-India distribution" } },
+        { "type": "item", "settings": { "text": "After-sales & installation" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

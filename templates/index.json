@@ -1,0 +1,1192 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_hero_banner_7ppRFV": {
+      "type": "custom-hero-banner",
+      "blocks": {
+        "slide_kzFRCc": {
+          "type": "slide",
+          "settings": {
+            "tab_label": "GTM partner",
+            "eyebrow": "Powered by Intex",
+            "heading": "Your <em>Go-to-Market</em> Partner for India",
+            "text": "<p>Powered by Intex — 30 years of technology infrastructure. The single partner that takes global electronics and technology brands into India, from first shipment to nationwide scale.</p>",
+            "button_label": "Partner with us",
+            "button_link": "",
+            "button_label_2": "Explore products",
+            "button_link_2": "",
+            "chip_1_value": "30+",
+            "chip_1_label": "Years in Indian consumer electronics",
+            "chip_2_value": "37+",
+            "chip_2_label": "Strategic warehouses & dark stores"
+          }
+        },
+        "slide_B38JjN": {
+          "type": "slide",
+          "settings": {
+            "tab_label": "Market access",
+            "eyebrow": "Ready-built market access",
+            "heading": "Launch and scale&nbsp;<em>without building it yourself</em>",
+            "text": "<p>Distribution, compliance, retail and after-sales — complete, ready-built market access in India for global brands.</p>",
+            "button_label": "Partner with us",
+            "button_link": "",
+            "button_label_2": "",
+            "button_link_2": "",
+            "chip_1_value": "18,000+",
+            "chip_1_label": "PIN codes covered",
+            "chip_2_value": "1,50,000+",
+            "chip_2_label": "Retail touchpoints"
+          }
+        },
+        "slide_reWdrw": {
+          "type": "slide",
+          "settings": {
+            "tab_label": "Retail experience",
+            "eyebrow": "The PYIE Retail Experience",
+            "heading": "India's first <em>experiential </em>&nbsp;tech retail format",
+            "text": "<p>35 flagship stores planned across 30 cities — a cafe, a maker studio and a curated brand floor under one roof.</p>",
+            "button_label": "Partner with us",
+            "button_link": "",
+            "button_label_2": "",
+            "button_link_2": "",
+            "chip_1_value": "30",
+            "chip_1_label": "Flagship stores planned",
+            "chip_2_value": "20+",
+            "chip_2_label": "Brands showcased in-store"
+          }
+        }
+      },
+      "block_order": [
+        "slide_kzFRCc",
+        "slide_B38JjN",
+        "slide_reWdrw"
+      ],
+      "name": "Custom Hero Banner",
+      "settings": {
+        "autoplay": true,
+        "autoplay_speed": 6,
+        "aria_label": "PYIE highlights",
+        "tone": "dark",
+        "padding_top": 96,
+        "padding_bottom": 64
+      }
+    },
+    "custom_marquee_TRjj7Q": {
+      "type": "custom-marquee",
+      "blocks": {
+        "item_rpWc7E": {
+          "type": "item",
+          "settings": {
+            "text": "Brand launches"
+          }
+        },
+        "item_nHQP68": {
+          "type": "item",
+          "settings": {
+            "text": "Compliance & certifications"
+          }
+        },
+        "item_YqrcmF": {
+          "type": "item",
+          "settings": {
+            "text": "Pan-India distribution"
+          }
+        },
+        "item_pgLRVG": {
+          "type": "item",
+          "settings": {
+            "text": "After-sales & installation"
+          }
+        }
+      },
+      "block_order": [
+        "item_rpWc7E",
+        "item_nHQP68",
+        "item_YqrcmF",
+        "item_pgLRVG"
+      ],
+      "name": "Custom Marquee",
+      "settings": {
+        "speed": 36,
+        "reverse": true,
+        "tone": "accent",
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+    },
+    "custom_about_us_RazkP4": {
+      "type": "custom-about-us",
+      "blocks": {
+        "point_LjEzNM": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p><strong>Founded in 1996</strong>, Intex Technologies is an established Indian consumer-electronics company with 30+ years of industry experience.</p>"
+          }
+        },
+        "point_yVgLkh": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p>Diversified technology portfolio spanning <strong>consumer durables, IT accessories, display solutions, mobile accessories and lifestyle electronics</strong>.</p><p></p>"
+          }
+        },
+        "point_bpFWjG": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p>Broad product ecosystem extending across <strong>security & surveillance, biometrics and other electronics categories</strong>.</p>"
+          }
+        },
+        "point_nGURjP": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p>Strong consumer-facing brand built around <strong>accessible, reliable and technology-led products across multiple price points</strong>.</p>"
+          }
+        },
+        "point_RPwpmp": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p>End-to-end market presence spanning <strong>product development, distribution, retail and after-sales support</strong> across its diverse portfolio.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "point_LjEzNM",
+        "point_yVgLkh",
+        "point_bpFWjG",
+        "point_nGURjP",
+        "point_RPwpmp"
+      ],
+      "name": "Custom About-Us Split",
+      "settings": {
+        "eyebrow": "Who we are",
+        "heading": "About <em>Intex</em> Technologies",
+        "text": "",
+        "list_style": "number",
+        "button_label": "",
+        "button_link": "",
+        "media_position": "left",
+        "badge_value": "1996",
+        "badge_label": "Founded",
+        "ring_text": "Powered by Intex • 30 years of trust •",
+        "tone": "light",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "custom_card_slider_AwqmMy": {
+      "type": "custom-card-slider",
+      "blocks": {
+        "card_eJNmUf": {
+          "type": "card",
+          "settings": {
+            "icon": "trophy",
+            "value": "No. 1",
+            "title": "India's No. 1 mobile brand",
+            "text": "<p>Intex became India's No. 1 mobile brand — a milestone earned through nationwide retail presence and sustained consumer trust, not a single campaign.</p>",
+            "style": "solid"
+          }
+        },
+        "card_PkLGke": {
+          "type": "card",
+          "settings": {
+            "icon": "star",
+            "value": "1bn+",
+            "title": "IPL ownership",
+            "text": "<p>Intex owned the Gujarat Lions franchise in the Indian Premier League — India's biggest cricket league, watched by 1bn+ viewers annually — giving the group nationwide brand visibility at the highest level of Indian sport.</p>",
+            "style": "soft"
+          }
+        },
+        "card_nTxMBR": {
+          "type": "card",
+          "settings": {
+            "icon": "megaphone",
+            "value": "",
+            "title": "Celebrity endorsement campaigns",
+            "text": "<p>Celebrity endorsement campaigns run at national scale for flagship product launches.</p>",
+            "style": "soft"
+          }
+        },
+        "card_nXDenw": {
+          "type": "card",
+          "settings": {
+            "icon": "bolt",
+            "value": "5 sec",
+            "title": "1 product sold every 5 seconds",
+            "text": "<p>Consumer trust at volume: 1 product sold every 5 seconds, 1 billion+ products sold to date.</p>",
+            "style": "accent"
+          }
+        },
+        "highlight_t83M6Y": {
+          "type": "highlight",
+          "settings": {
+            "value": "9",
+            "title": "Business verticals",
+            "text": "<p>Diversified marketing muscle across 9 business verticals, giving partner brands access to cross-sell and shared audience reach most single-category distributors can't offer.</p>",
+            "icon": "layers"
+          }
+        }
+      },
+      "block_order": [
+        "card_eJNmUf",
+        "card_PkLGke",
+        "card_nTxMBR",
+        "card_nXDenw",
+        "highlight_t83M6Y"
+      ],
+      "name": "Custom Card slider",
+      "settings": {
+        "eyebrow": "Track record",
+        "heading": "A <em>brand-building</em> track record &nbsp;track record, not just a distribution network",
+        "text": "",
+        "closing": "",
+        "tone": "paper",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "custom_about_us_HeAt7f": {
+      "type": "custom-about-us",
+      "blocks": {
+        "point_PPRkgV": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p><strong>PYIE (Powered by Intex)</strong> is the single partner that takes global electronics and technology brands into India — from first shipment to nationwide scale.</p>"
+          }
+        },
+        "point_DaUAm9": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p>Led by a founding team with <strong>30 years</strong> in Indian consumer electronics.</p>"
+          }
+        },
+        "point_T8geae": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p>Compliance handled <strong>end-to-end</strong>: certifications and regulatory approvals managed in-house, not left for the brand to navigate alone.</p>"
+          }
+        },
+        "point_jg3QdQ": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p>Pan-India distribution runs through <strong>37 strategic warehouses and dark stores</strong> in major cities, built for reach, speed, and reliability.</p>"
+          }
+        },
+        "point_Kmi8RF": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p>Sales support doesn't stop at the sale: <strong>dedicated pre- and post-sales service, plus demo and installation</strong> — virtual or in-person — across consumer electronics and home & kitchen categories.</p>"
+          }
+        },
+        "point_gaaPHM": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p>Built on — and backed by — <strong>Intex Technologies' 30-year manufacturing and distribution infrastructure</strong>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "point_PPRkgV",
+        "point_DaUAm9",
+        "point_T8geae",
+        "point_jg3QdQ",
+        "point_Kmi8RF",
+        "point_gaaPHM"
+      ],
+      "name": "Custom About-Us Split",
+      "settings": {
+        "eyebrow": "PYIE — Powered by Intex",
+        "heading": "India's <em>GTM partner</em>, built for leading global brands",
+        "text": "",
+        "list_style": "check",
+        "button_label": "Talk to our team",
+        "button_link": "#",
+        "media_position": "right",
+        "badge_value": "1996",
+        "badge_label": "Founded",
+        "ring_text": "Powered by Intex • 30 years of trust •",
+        "tone": "light",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "custom_card_slider_gxzMpL": {
+      "type": "custom-card-slider",
+      "blocks": {
+        "card_3cpMXX": {
+          "type": "card",
+          "settings": {
+            "icon": "rocket",
+            "value": "",
+            "title": "Official Brand Launches",
+            "text": "<p>Seamless entry into the Indian market with compliant, strategic, and high-impact product launches.</p>",
+            "style": "soft"
+          }
+        },
+        "card_VkyE9X": {
+          "type": "card",
+          "settings": {
+            "icon": "cart",
+            "value": "",
+            "title": "E-commerce & Retail Partner",
+            "text": "<p>Multi-channel presence across leading marketplaces and offline retail networks.</p>",
+            "style": "soft"
+          }
+        },
+        "card_P6xpnG": {
+          "type": "card",
+          "settings": {
+            "icon": "megaphone",
+            "value": "",
+            "title": "Localized Marketing & Brand Building",
+            "text": "<p>India-first storytelling, influencer strategy, and performance marketing that resonates locally.</p>",
+            "style": "solid"
+          }
+        },
+        "card_4Fmemc": {
+          "type": "card",
+          "settings": {
+            "icon": "wrench",
+            "value": "",
+            "title": "After-Sales Support & Warranty",
+            "text": "<p>Reliable service infrastructure ensuring customer confidence, satisfaction, and retention.</p>",
+            "style": "soft"
+          }
+        },
+        "card_GwDMDc": {
+          "type": "card",
+          "settings": {
+            "icon": "users",
+            "value": "",
+            "title": "Customer Education & Community",
+            "text": "<p>Building engaged user communities through education, content, and long-term relationship building.</p>",
+            "style": "soft"
+          }
+        }
+      },
+      "block_order": [
+        "card_3cpMXX",
+        "card_VkyE9X",
+        "card_P6xpnG",
+        "card_4Fmemc",
+        "card_GwDMDc"
+      ],
+      "name": "Custom Card slider",
+      "settings": {
+        "eyebrow": "What we do",
+        "heading": "End-to-end market <em>launch & growth</em>",
+        "text": "<p>PYIE manages the complete lifecycle of global tech products in India — from launch to long-term growth, customer trust, and brand leadership.</p>",
+        "closing": "We don't just sell products — <strong>we build long-term brand presence.</strong>",
+        "tone": "paper",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "custom_vision_fyxRwb": {
+      "type": "custom-vision",
+      "blocks": {
+        "pillar_V4KWBr": {
+          "type": "pillar",
+          "settings": {
+            "icon": "star",
+            "title": "Brand equity",
+            "text": "<p>Three decades of nationwide consumer trust, built the hard way.</p>"
+          }
+        },
+        "pillar_4MwiCh": {
+          "type": "pillar",
+          "settings": {
+            "icon": "store",
+            "title": "Offline reach",
+            "text": "<ul><li>Nationwide sales network</li><li>Service infra across regions</li><li>Established retail chains</li></ul>"
+          }
+        },
+        "pillar_CftPP4": {
+          "type": "pillar",
+          "settings": {
+            "icon": "globe",
+            "title": "Online-ready",
+            "text": "<ul><li>Marketplace tenure</li><li>In-house digital execution</li><li>Live commerce capability</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "pillar_V4KWBr",
+        "pillar_4MwiCh",
+        "pillar_CftPP4"
+      ],
+      "name": "Custom Vision & mission",
+      "settings": {
+        "eyebrow": "What drives us",
+        "vision_label": "Our Vision",
+        "vision_text": "To be India's most trusted gateway for global electronics and technology brands - the first name any brand considers when India is next.",
+        "mission_label": "Our Mission",
+        "mission_text": "To give global brands complete, ready-built market access in India from distribution, compliance, retail, and after-sales - so they can launch and scale without building any of it themselves.",
+        "hub_text": "PYIE",
+        "tone": "dark",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
+    },
+    "custom_market_Mdpreh": {
+      "type": "custom-market",
+      "blocks": {
+        "metric_NHJTDQ": {
+          "type": "metric",
+          "settings": {
+            "value": "$4,048",
+            "label": "Projected GDP per capita by 2030 (from $2,675 in 2025)"
+          }
+        },
+        "metric_bJpYfx": {
+          "type": "metric",
+          "settings": {
+            "value": "958M+",
+            "label": "Active internet users by 2025"
+          }
+        },
+        "reason_8trbpP": {
+          "type": "reason",
+          "settings": {
+            "title": "A rapidly affluent middle class",
+            "text": "<p><strong>31%</strong> of India's population today, rising to <strong>38% by 2031</strong> — with consumer spending set to grow from <strong>$1.9 trillion to $5.2 trillion</strong> over the same period.</p>"
+          }
+        },
+        "reason_CJMGxt": {
+          "type": "reason",
+          "settings": {
+            "title": "E-commerce inflection point",
+            "text": "<p>India's GDP per capita is set to cross the <strong>$4,000 mark by 2030</strong> — the level at which discretionary and online spending has historically accelerated sharply in other markets. Online retail GMV is already growing <strong>20%+ annually</strong>, from $65–66B in 2025 to a projected <strong>$170–180B by 2030</strong>.</p>"
+          }
+        },
+        "reason_q6p3ie": {
+          "type": "reason",
+          "settings": {
+            "title": "Deep headroom in durables",
+            "text": "<p>Only <strong>10–15% of Indian households</strong> own an air conditioner and <strong>20–22%</strong> own a washing machine, against near-total penetration in China and Malaysia — meaning category growth is still largely ahead, not behind.</p>"
+          }
+        },
+        "reason_3kf8MG": {
+          "type": "reason",
+          "settings": {
+            "title": "A manufacturing tailwind",
+            "text": "<p>India's electronics production has grown <strong>7x in a decade</strong> to <strong>₹13.11 lakh crore in FY26</strong>, with exports up 11x — electronics is now India's third-largest export category.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "metric_NHJTDQ",
+        "metric_bJpYfx",
+        "reason_8trbpP",
+        "reason_CJMGxt",
+        "reason_q6p3ie",
+        "reason_3kf8MG"
+      ],
+      "name": "Custom Market opportunity",
+      "settings": {
+        "eyebrow": "Market opportunity & growth",
+        "heading": "India's electronics & durables market is a <em>generational opportunity</em>",
+        "text": "",
+        "big_value": "$101B+",
+        "big_label": "India consumer electronics market, 2025",
+        "chart_title": "Consumer electronics market size",
+        "start_year": 2025,
+        "end_year": 2033,
+        "start_value": 101,
+        "end_value": 183,
+        "cagr": "7.8",
+        "unit_prefix": "$",
+        "unit_suffix": "B",
+        "chart_note": "7.8% CAGR through 2033, reaching $183B.",
+        "why_heading": "Why now?",
+        "closing": "A market this large, growing this fast, with this much headroom — needs a partner who has <strong>already built the infrastructure</strong> to capture it.",
+        "tone": "light",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "custom_distribution_flow_q6MXCd": {
+      "type": "custom-distribution-flow",
+      "blocks": {
+        "channel_Mnfpm9": {
+          "type": "channel",
+          "settings": {
+            "icon": "cart",
+            "title": "Marketplace Partnership",
+            "partners": "Amazon, Flipkart",
+            "owned": false
+          }
+        },
+        "channel_DeW8Un": {
+          "type": "channel",
+          "settings": {
+            "icon": "store",
+            "title": "Retail Chains",
+            "partners": "Croma, Reliance Digital, Vijay Sales",
+            "owned": false
+          }
+        },
+        "channel_JnpRKM": {
+          "type": "channel",
+          "settings": {
+            "icon": "bolt",
+            "title": "Quick Commerce",
+            "partners": "Blinkit, Zepto, Swiggy Instamart",
+            "owned": false
+          }
+        },
+        "channel_QEjcff": {
+          "type": "channel",
+          "settings": {
+            "icon": "monitor",
+            "title": "D2C Websites",
+            "partners": "Brand-owned storefronts",
+            "owned": false
+          }
+        },
+        "channel_4McQLM": {
+          "type": "channel",
+          "settings": {
+            "icon": "store",
+            "title": "Retail Chain",
+            "partners": "PYIE flagship stores",
+            "owned": true
+          }
+        },
+        "channel_fdW9dn": {
+          "type": "channel",
+          "settings": {
+            "icon": "phone",
+            "title": "App & Website",
+            "partners": "Shop direct",
+            "owned": true
+          }
+        }
+      },
+      "block_order": [
+        "channel_Mnfpm9",
+        "channel_DeW8Un",
+        "channel_JnpRKM",
+        "channel_QEjcff",
+        "channel_4McQLM",
+        "channel_fdW9dn"
+      ],
+      "name": "Custom Distribution flow",
+      "settings": {
+        "eyebrow": "How it works",
+        "heading": "An integrated & <em>effortless</em> flow",
+        "text": "<p>One partner between your brand and every channel that sells in India.</p>",
+        "brand_label": "Global Brand",
+        "core_name": "PYIE",
+        "core_kicker": "Powered by Intex",
+        "core_label": "Distributor & Aggregator",
+        "hub_label": "Manufacturing Hub",
+        "order_label": "Order placed",
+        "delivery_label": "Products delivered",
+        "tone": "paper",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "custom_statistics_points_zXeyVW": {
+      "type": "custom-statistics-points",
+      "blocks": {
+        "stat_exFYKg": {
+          "type": "stat",
+          "settings": {
+            "value": "1,50,000+",
+            "label": "Retail touchpoints",
+            "icon": "store",
+            "featured": true
+          }
+        },
+        "stat_Pm8A3q": {
+          "type": "stat",
+          "settings": {
+            "value": "25,000+",
+            "label": "Distributors",
+            "icon": "users",
+            "featured": false
+          }
+        },
+        "stat_mAXyMx": {
+          "type": "stat",
+          "settings": {
+            "value": "18,000+",
+            "label": "PIN codes covered",
+            "icon": "map-pin",
+            "featured": false
+          }
+        },
+        "stat_j8tb3w": {
+          "type": "stat",
+          "settings": {
+            "value": "37+",
+            "label": "Warehouses",
+            "icon": "factory",
+            "featured": false
+          }
+        },
+        "stat_6QVqdG": {
+          "type": "stat",
+          "settings": {
+            "value": "500+",
+            "label": "Service centers",
+            "icon": "wrench",
+            "featured": false
+          }
+        },
+        "stat_UeXa9k": {
+          "type": "stat",
+          "settings": {
+            "value": "30",
+            "label": "Branches, HQ New Delhi",
+            "icon": "globe",
+            "featured": false
+          }
+        },
+        "stat_beRT44": {
+          "type": "stat",
+          "settings": {
+            "value": "24+",
+            "label": "States & UTs",
+            "icon": "map-pin",
+            "featured": false
+          }
+        },
+        "point_t3Hkyt": {
+          "type": "point",
+          "settings": {
+            "text": "<p>Existing offline channel layout spans <strong>key accounts, established retail chains, specialty stores, and regional distribution</strong> — not built from scratch for every new brand.</p>"
+          }
+        },
+        "point_GFUjiq": {
+          "type": "point",
+          "settings": {
+            "text": "<p><strong>Deliver-at-scale supply chain:</strong> established warehousing and fulfilment infrastructure enables nationwide availability from Day 1, not after a multi-year ramp.</p>"
+          }
+        },
+        "point_VAKL8b": {
+          "type": "point",
+          "settings": {
+            "text": "<p>Strong, long-standing retail relationships across India, giving new brands <strong>immediate shelf access</strong> rather than a cold start.</p>"
+          }
+        },
+        "point_HHW4fh": {
+          "type": "point",
+          "settings": {
+            "text": "<p><strong>7 manufacturing facilities</strong> and an end-to-end market presence spanning product development, distribution, retail, and after-sales support.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "stat_exFYKg",
+        "stat_Pm8A3q",
+        "stat_mAXyMx",
+        "stat_j8tb3w",
+        "stat_6QVqdG",
+        "stat_UeXa9k",
+        "stat_beRT44",
+        "point_t3Hkyt",
+        "point_GFUjiq",
+        "point_VAKL8b",
+        "point_HHW4fh"
+      ],
+      "name": "Custom Stats with points",
+      "settings": {
+        "eyebrow": "Distribution",
+        "heading": "India's deepest <em>offline distribution</em> network*",
+        "text": "<p>Existing channels, warehousing and retail relationships — available to partner brands from Day 1.</p>",
+        "footnote": "*Infrastructure, network, and performance figures marked with an asterisk (*) - offline distribution, service network, and marketing/brand milestones - reflect Intex Technologies' national infrastructure and track record, extended to PYIE's brand partners as part of the PYIE (Powered by Intex) partnership model.",
+        "tone": "dark",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "custom_gallery_slider_mrnXnL": {
+      "type": "custom-gallery-slider",
+      "blocks": {
+        "image_TG8Fha": {
+          "type": "image",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "image_yLzQCP": {
+          "type": "image",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "image_fiVcQP": {
+          "type": "image",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "image_A6cAPa": {
+          "type": "image",
+          "settings": {
+            "caption": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_TG8Fha",
+        "image_yLzQCP",
+        "image_fiVcQP",
+        "image_A6cAPa"
+      ],
+      "name": "Custom Gallery slider",
+      "settings": {
+        "eyebrow": "On the ground",
+        "heading": "Stores are <em>turning</em> nationwide",
+        "text": "<p>Intex signages are transforming stores nationwide.</p>",
+        "autoplay": true,
+        "autoplay_speed": 4,
+        "parallax": true,
+        "cell_size": "medium",
+        "tone": "light",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "custom_statistics_points_4LUHbp": {
+      "type": "custom-statistics-points",
+      "blocks": {
+        "stat_iCbVcm": {
+          "type": "stat",
+          "settings": {
+            "value": "18,000+",
+            "label": "PIN codes serviceable",
+            "icon": "map-pin",
+            "featured": true
+          }
+        },
+        "stat_TGNXaw": {
+          "type": "stat",
+          "settings": {
+            "value": "500+",
+            "label": "Authorized service partners",
+            "icon": "wrench",
+            "featured": false
+          }
+        },
+        "stat_d6cmC3": {
+          "type": "stat",
+          "settings": {
+            "value": "24+",
+            "label": "States & UTs covered",
+            "icon": "globe",
+            "featured": false
+          }
+        },
+        "stat_K3WMRz": {
+          "type": "stat",
+          "settings": {
+            "value": "30K+",
+            "label": "Monthly calls",
+            "icon": "headset",
+            "featured": false
+          }
+        },
+        "stat_YmGCKx": {
+          "type": "stat",
+          "settings": {
+            "value": "37+",
+            "label": "Warehouses",
+            "icon": "box",
+            "featured": false
+          }
+        },
+        "stat_J7UXaD": {
+          "type": "stat",
+          "settings": {
+            "value": "12,000+",
+            "label": "Monthly installations",
+            "icon": "truck",
+            "featured": false
+          }
+        },
+        "stat_GYzVMD": {
+          "type": "stat",
+          "settings": {
+            "value": "10+",
+            "label": "Refurbishment centres",
+            "icon": "factory",
+            "featured": false
+          }
+        },
+        "point_ReJKJy": {
+          "type": "point",
+          "settings": {
+            "text": "<p>Nationwide after-sales network built over 30 years, not stood up per-brand — <strong>new partner brands plug into an existing, proven service backbone</strong>.</p>"
+          }
+        },
+        "point_7dqheY": {
+          "type": "point",
+          "settings": {
+            "text": "<p>Service infrastructure spans <strong>metro, tier-2/3, and rural geographies</strong> alike, closing a gap most global brands cannot solve on entry.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "stat_iCbVcm",
+        "stat_TGNXaw",
+        "stat_d6cmC3",
+        "stat_K3WMRz",
+        "stat_YmGCKx",
+        "stat_J7UXaD",
+        "stat_GYzVMD",
+        "point_ReJKJy",
+        "point_7dqheY"
+      ],
+      "name": "Custom Stats with points",
+      "settings": {
+        "eyebrow": "After-sales",
+        "heading": "After-sales support that reaches <em>every corner of India</em>*",
+        "text": "",
+        "footnote": "",
+        "tone": "paper",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "custom_partner_kKAH7L": {
+      "type": "custom-partner",
+      "blocks": {
+        "partner_PD9q6y": {
+          "type": "partner",
+          "settings": {
+            "name": "Keychron",
+            "description": "Top 10 global mechanical keyboard brand",
+            "tag": "Exclusive partner"
+          }
+        },
+        "partner_QzJbqX": {
+          "type": "partner",
+          "settings": {
+            "name": "Arzopa",
+            "description": "Portable monitor brand",
+            "tag": "Exclusive partner"
+          }
+        },
+        "partner_gpxUDQ": {
+          "type": "partner",
+          "settings": {
+            "name": "Aukey",
+            "description": "Fast-charging accessories brand, part of a USD 2Bn group",
+            "tag": "Exclusive partner"
+          }
+        },
+        "partner_xYLxip": {
+          "type": "partner",
+          "settings": {
+            "name": "Hohem",
+            "description": "Global leader in AI tracking gimbals",
+            "tag": "Exclusive partner"
+          }
+        },
+        "partner_rVgFLK": {
+          "type": "partner",
+          "settings": {
+            "name": "Inateck",
+            "description": "Red Dot Award-winning PC accessories brand",
+            "tag": "Exclusive partner"
+          }
+        },
+        "partner_Lj7pyF": {
+          "type": "partner",
+          "settings": {
+            "name": "Intex",
+            "description": "Consumer durables, IT/mobile accessories, audio, surveillance, displays",
+            "tag": "Own brand"
+          }
+        }
+      },
+      "block_order": [
+        "partner_PD9q6y",
+        "partner_QzJbqX",
+        "partner_gpxUDQ",
+        "partner_xYLxip",
+        "partner_rVgFLK",
+        "partner_Lj7pyF"
+      ],
+      "name": "Custom Partner logos",
+      "settings": {
+        "eyebrow": "Brand partners",
+        "heading": "<em>Trusted</em> by global category leaders",
+        "text": "<p>A growing roster of global electronics leaders choosing one India GTM partner for exclusive, long-term market entry.</p>",
+        "footnote": "10-year exclusive distribution contracts unless noted",
+        "autoplay": true,
+        "autoplay_speed": 3,
+        "tone": "light",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "custom_retail_zone_a3gF7A": {
+      "type": "custom-retail-zone",
+      "blocks": {
+        "stat_FJzqKQ": {
+          "type": "stat",
+          "settings": {
+            "value": "35",
+            "label": "Flagship stores (planned nationwide rollout)"
+          }
+        },
+        "stat_CML8rt": {
+          "type": "stat",
+          "settings": {
+            "value": "30",
+            "label": "Cities"
+          }
+        },
+        "stat_g3zaNY": {
+          "type": "stat",
+          "settings": {
+            "value": "3",
+            "label": "Zones per store"
+          }
+        },
+        "stat_nBF9CY": {
+          "type": "stat",
+          "settings": {
+            "value": "20+",
+            "label": "Brands showcased in-store"
+          }
+        },
+        "zone_PFVWjN": {
+          "type": "zone",
+          "settings": {
+            "icon": "coffee",
+            "label": "Zone 1",
+            "title": "The PYIE Cafe",
+            "tagline": "Where every great idea starts with the perfect cup.",
+            "text": "<p>Premium consumers dwell longer, connect deeper, and return more often when retail begins with hospitality.</p>"
+          }
+        },
+        "zone_qh8cQd": {
+          "type": "zone",
+          "settings": {
+            "icon": "printer",
+            "label": "Zone 2",
+            "title": "The Maker Studio",
+            "tagline": "Design it. Print it. Take it home.",
+            "text": "<p>Premium consumers dwell longer, connect deeper, and return more often when retail begins with hospitality.</p>"
+          }
+        },
+        "zone_FfyPBw": {
+          "type": "zone",
+          "settings": {
+            "icon": "store",
+            "label": "Zone 3",
+            "title": "The Brand Floor",
+            "tagline": "The world's best tech brands.",
+            "text": "<p>Premium consumers dwell longer, connect deeper, and return more often when retail begins with hospitality.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "stat_FJzqKQ",
+        "stat_CML8rt",
+        "stat_g3zaNY",
+        "stat_nBF9CY",
+        "zone_PFVWjN",
+        "zone_qh8cQd",
+        "zone_FfyPBw"
+      ],
+      "name": "Custom  Retail zones",
+      "settings": {
+        "eyebrow": "Beyond distribution",
+        "heading": "The <em>PYIE</em> retail experience",
+        "text": "<p>India's first experiential tech retail format.</p>",
+        "closing_heading": "Three <em>worlds</em>. One destination.",
+        "closing_text": "Every PYIE store is built around a threefold experience — not a showroom, a destination.",
+        "tone": "dark",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "custom_about_us_EDFyXt": {
+      "type": "custom-about-us",
+      "blocks": {
+        "stat_xM7EDk": {
+          "type": "stat",
+          "settings": {
+            "value": "7",
+            "label": "Manufacturing facilities nationwide"
+          }
+        },
+        "stat_qdagAt": {
+          "type": "stat",
+          "settings": {
+            "value": "10,000+",
+            "label": "Employees across manufacturing operations"
+          }
+        },
+        "stat_LFcyjA": {
+          "type": "stat",
+          "settings": {
+            "value": "40M+",
+            "label": "Units a year at the largest facility"
+          }
+        },
+        "point_XL6xj3": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p>A manufacturing footprint that runs from the hills of the north down to the industrial plains — producing <strong>consumer electronics, home appliances, batteries, chargers, and audio products under one roof</strong>, not a single-category contract line</p>"
+          }
+        },
+        "point_AE4X37": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p><strong>Consolidated, scaled production:</strong> the largest single facility alone carries a manufacturing capacity of 40 million+ units a year — output at a scale most category-specific manufacturers never reach, replacing what was previously a fragmented, lower-capacity, multi-plant setup.</p>"
+          }
+        },
+        "point_wC7Qbx": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p><strong>A manufacturing-first heritage</strong>, not a recent pivot: domestic production commitment dating back to 2001 — well ahead of the national Make in India push.</p>"
+          }
+        },
+        "point_XNqFkf": {
+          "type": "point",
+          "settings": {
+            "title": "",
+            "text": "<p><strong>Category depth:</strong> the same manufacturing backbone spans consumer electronics, home appliances, and accessories, giving partner brands access to a genuinely diversified production system.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "stat_xM7EDk",
+        "stat_qdagAt",
+        "stat_LFcyjA",
+        "point_XL6xj3",
+        "point_AE4X37",
+        "point_wC7Qbx",
+        "point_XNqFkf"
+      ],
+      "name": "Custom About-Us Split",
+      "settings": {
+        "eyebrow": "Make in India",
+        "heading": "A Make in India - <em>ready</em> infrastructure",
+        "text": "<p><strong>India's leading manufacturing-led business house</strong>, operating an extensive production ecosystem across multiple facilities nationwide — backed by <strong>robust quality systems</strong> and a supply chain built to serve every corner of the country.</p>",
+        "list_style": "number",
+        "button_label": "",
+        "button_link": "",
+        "media_position": "right",
+        "badge_value": "1996",
+        "badge_label": "Founded",
+        "ring_text": "Powered by Intex • 30 years of trust •",
+        "tone": "light",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "custom_gallery_slider_h9FCwm": {
+      "type": "custom-gallery-slider",
+      "blocks": {
+        "image_BPzwQK": {
+          "type": "image",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "image_EPtXiF": {
+          "type": "image",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "image_bHDPz4": {
+          "type": "image",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "image_NH3Mrf": {
+          "type": "image",
+          "settings": {
+            "caption": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_BPzwQK",
+        "image_EPtXiF",
+        "image_bHDPz4",
+        "image_NH3Mrf"
+      ],
+      "name": "Custom Gallery slider",
+      "settings": {
+        "eyebrow": "Inside the facilities",
+        "heading": "Built to manufacture <em>at scale</em>",
+        "text": "<p>Consumer electronics, home appliances, batteries, chargers, and audio products under one roof.</p>",
+        "autoplay": true,
+        "autoplay_speed": 4,
+        "parallax": true,
+        "cell_size": "small",
+        "tone": "paper",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "custom_featured_product_slider_EEDLrd": {
+      "type": "custom-featured-product-slider",
+      "name": "Featured Product Slider",
+      "settings": {
+        "eyebrow": "Products",
+        "heading": "Products built to solve <em>real-world challenges</em>",
+        "text": "<p>Designed for scalability, reliability, and real impact.</p>",
+        "collection": "",
+        "products_to_show": 8,
+        "show_vendor": true,
+        "button_label": "Check products",
+        "button_link": "",
+        "tone": "paper",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": [
+    "custom_hero_banner_7ppRFV",
+    "custom_marquee_TRjj7Q",
+    "custom_about_us_RazkP4",
+    "custom_card_slider_AwqmMy",
+    "custom_about_us_HeAt7f",
+    "custom_card_slider_gxzMpL",
+    "custom_vision_fyxRwb",
+    "custom_market_Mdpreh",
+    "custom_distribution_flow_q6MXCd",
+    "custom_statistics_points_zXeyVW",
+    "custom_gallery_slider_mrnXnL",
+    "custom_statistics_points_4LUHbp",
+    "custom_partner_kKAH7L",
+    "custom_retail_zone_a3gF7A",
+    "custom_about_us_EDFyXt",
+    "custom_gallery_slider_h9FCwm",
+    "custom_featured_product_slider_EEDLrd"
+  ]
+}

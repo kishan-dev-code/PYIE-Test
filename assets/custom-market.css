@@ -1,0 +1,360 @@
+.cs-market__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 3.2rem;
+  margin-bottom: 4.8rem;
+}
+
+.cs-market__top .cs-head {
+  margin-bottom: 0;
+}
+
+.cs-market__big {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.cs-market__big-value {
+  font-family: var(--cs-font-display);
+  font-size: clamp(5.6rem, 3.6rem + 6vw, 12rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  color: var(--cs-accent-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.cs-market__big-label {
+  max-width: 28rem;
+  font-size: 1.4rem;
+  line-height: 1.45;
+  color: var(--cs-fg-muted);
+}
+
+.cs-market__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.4rem;
+}
+
+.cs-market__panel {
+  display: grid;
+  gap: 2.4rem;
+  align-content: start;
+}
+
+.cs-market__chart {
+  margin: 0;
+  padding: 2.8rem;
+  border-radius: var(--cs-radius-lg);
+  background: var(--cs-ink);
+  color: #eef3f4;
+}
+
+.cs-market__chart-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-bottom: 3.2rem;
+}
+
+.cs-market__chart-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.cs-market__chart-tag {
+  padding: 0.6rem 1.4rem;
+  border-radius: 10rem;
+  background: var(--cs-saffron);
+  color: var(--cs-ink);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.cs-market__bars {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  align-items: end;
+  gap: 0.8rem;
+  height: 24rem;
+}
+
+.cs-market__bar {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100%;
+}
+
+.cs-market__bar-fill {
+  align-self: end;
+  height: var(--cs-h, 50%);
+  border-radius: 0.8rem 0.8rem 0.2rem 0.2rem;
+  background: linear-gradient(180deg, rgba(255, 159, 28, 0.85), rgba(255, 159, 28, 0.25));
+  transform-origin: bottom;
+  transition: transform 1s var(--cs-ease), background-color 0.3s ease;
+  transition-delay: var(--cs-delay, 0ms);
+}
+
+.cs-market__bar.is-actual .cs-market__bar-fill {
+  background: var(--cs-teal);
+}
+
+.cs-js .cs-market__chart:not(.is-in) .cs-market__bar-fill {
+  transform: scaleY(0);
+}
+
+.cs-market__bar-value {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--cs-h, 50%) + 2.8rem);
+  transform: translateX(-50%);
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.6rem;
+  background: #fff;
+  color: var(--cs-ink);
+  font-size: 1.2rem;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.cs-market__bar.is-labelled .cs-market__bar-value,
+.cs-market__bar:hover .cs-market__bar-value {
+  opacity: 1;
+}
+
+.cs-market__bar:hover .cs-market__bar-fill {
+  background: var(--cs-saffron);
+}
+
+.cs-market__bar-year {
+  padding-top: 0.8rem;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #a5b8c0;
+  font-variant-numeric: tabular-nums;
+}
+
+.cs-market__chart-note {
+  margin: 2.4rem 0 0;
+  font-size: 1.4rem;
+  color: #a5b8c0;
+}
+
+/* metrics */
+.cs-market__metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.6rem;
+}
+
+.cs-market__metric {
+  display: grid;
+  gap: 0.6rem;
+  padding: 2.4rem;
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-radius);
+  background: var(--cs-card);
+}
+
+.cs-market__metric-value {
+  font-family: var(--cs-font-display);
+  font-size: 3.6rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--cs-fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.cs-market__metric-label {
+  font-size: 1.4rem;
+  line-height: 1.45;
+  color: var(--cs-fg-muted);
+}
+
+/* why now */
+.cs-market__why {
+  padding: 2.8rem;
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-radius-lg);
+  background: var(--cs-card);
+}
+
+.cs-market__why-title {
+  margin: 0 0 1.6rem;
+  font-family: var(--cs-font-display);
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--cs-fg);
+}
+
+.cs-market__reason {
+  border-top: 1px solid var(--cs-line);
+}
+
+.cs-market__reason-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 2rem 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.cs-market__reason-head::-webkit-details-marker {
+  display: none;
+}
+
+.cs-market__reason-num {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--cs-accent-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.cs-market__reason-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--cs-fg);
+}
+
+.cs-market__reason-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  border: 1px solid var(--cs-line);
+  transition: transform 0.35s var(--cs-ease), background-color 0.25s ease;
+}
+
+.cs-market__reason-toggle .cs-icon {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.cs-market__reason[open] .cs-market__reason-toggle {
+  transform: rotate(45deg);
+  background: var(--cs-accent);
+  border-color: var(--cs-accent);
+  color: var(--cs-on-accent);
+}
+
+.cs-market__reason-body {
+  padding: 0 0 2.4rem 3.6rem;
+  font-size: 1.5rem;
+  animation: cs-market-open 0.45s var(--cs-ease);
+}
+
+@keyframes cs-market-open {
+  from { opacity: 0; transform: translateY(-0.8rem); }
+  to { opacity: 1; transform: none; }
+}
+
+.cs-market__closing {
+  position: relative;
+  margin: 4rem 0 0;
+  border: 0;
+  font-style: normal;
+  padding: 3.2rem 3.2rem 3.2rem 4rem;
+  border-radius: var(--cs-radius);
+  background: var(--cs-saffron);
+  color: var(--cs-ink);
+}
+
+.cs-market__closing::before {
+  content: '';
+  position: absolute;
+  left: 2rem;
+  top: 3.2rem;
+  bottom: 3.2rem;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--cs-ink);
+}
+
+.cs-market__closing p {
+  margin: 0;
+  font-style: normal;
+  font-family: var(--cs-font-display);
+  font-size: clamp(2rem, 1.6rem + 1vw, 2.8rem);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+@media screen and (max-width: 749px) {
+  .cs-market__chart,
+  .cs-market__why {
+    padding: 2.4rem 2rem;
+  }
+
+  .cs-market__bars {
+    gap: 0.5rem;
+  }
+
+  /* only the first and last year fit on small screens */
+  .cs-market__bar:not(.is-labelled) .cs-market__bar-year {
+    visibility: hidden;
+  }
+
+  .cs-market__reason-body {
+    padding-left: 0;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .cs-market__top {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 6.4rem;
+    margin-bottom: 6.4rem;
+  }
+
+  .cs-market__big {
+    text-align: right;
+    justify-items: end;
+  }
+
+  .cs-market__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 3.2rem;
+  }
+
+  .cs-market__chart,
+  .cs-market__why {
+    padding: 4rem;
+  }
+
+  .cs-market__bars {
+    height: 28rem;
+    gap: 1.2rem;
+  }
+
+  .cs-market__closing {
+    padding: 4rem 4.8rem 4rem 6.4rem;
+  }
+
+  .cs-market__closing::before {
+    left: 3.2rem;
+    top: 4rem;
+    bottom: 4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-market__bar-fill,
+  .cs-market__reason-body {
+    transition: none;
+    animation: none;
+  }
+}

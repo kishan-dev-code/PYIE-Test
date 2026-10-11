@@ -1,0 +1,251 @@
+.cs-vision__inner {
+  display: grid;
+  gap: 6.4rem;
+  align-items: center;
+}
+
+.cs-vision__tablist {
+  display: inline-flex;
+  gap: 0.4rem;
+  padding: 0.4rem;
+  margin-bottom: 3.2rem;
+  border: 1px solid var(--cs-line);
+  border-radius: 10rem;
+}
+
+.cs-tab {
+  min-height: 4.4rem;
+  padding: 0 2.4rem;
+  border: 0;
+  border-radius: 10rem;
+  background: transparent;
+  color: var(--cs-fg-muted);
+  font: inherit;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.cs-tab[aria-selected='true'] {
+  background: var(--cs-accent);
+  color: var(--cs-on-accent);
+}
+
+.cs-vision__panel {
+  animation: cs-vision-in 0.6s var(--cs-ease);
+}
+
+.cs-vision__statement {
+  margin: 0;
+  font-family: var(--cs-font-display);
+  font-size: clamp(2.6rem, 1.8rem + 2vw, 4.2rem);
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  color: var(--cs-fg);
+}
+
+@keyframes cs-vision-in {
+  from { opacity: 0; transform: translateY(1.2rem); }
+  to { opacity: 1; transform: none; }
+}
+
+/* diagram â€“ mobile: hub on top, pillars stacked */
+.cs-vision__diagram {
+  position: relative;
+  display: grid;
+  gap: 1.6rem;
+  justify-items: center;
+}
+
+.cs-vision__lines {
+  display: none;
+}
+
+.cs-vision__hub {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 14rem;
+  height: 14rem;
+  margin: 4rem 0 5.2rem;
+  border-radius: 50%;
+  background: var(--cs-saffron);
+  color: var(--cs-ink);
+  box-shadow: 0 0 0 1.2rem rgba(255, 159, 28, 0.14), 0 0 0 2.4rem rgba(255, 159, 28, 0.06);
+}
+
+.cs-vision__hub-ring {
+  position: absolute;
+  inset: -3.6rem;
+  border: 1.5px dashed var(--cs-line);
+  border-radius: 50%;
+  animation: cs-vision-spin 30s linear infinite;
+}
+
+.cs-vision__hub-ring::before {
+  content: '';
+  position: absolute;
+  top: -0.5rem;
+  left: 50%;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--cs-saffron);
+}
+
+.cs-vision__hub-text {
+  font-family: var(--cs-font-display);
+  font-size: 3.2rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.cs-vision__hub-img {
+  width: 70%;
+  height: auto;
+}
+
+@keyframes cs-vision-spin {
+  to { transform: rotate(360deg); }
+}
+
+.cs-vision__pillar {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 2.4rem;
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-radius);
+  background: var(--cs-card);
+  transition: transform 0.4s var(--cs-ease), border-color 0.3s ease;
+}
+
+.cs-vision__pillar:hover {
+  transform: translateY(-0.4rem);
+  border-color: var(--cs-accent);
+}
+
+.cs-vision__pillar-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  margin-bottom: 1.6rem;
+  border-radius: 50%;
+  background: rgba(255, 159, 28, 0.16);
+  color: var(--cs-accent-text);
+}
+
+.cs-vision__pillar-icon .cs-icon {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+.cs-vision__pillar-title {
+  margin: 0 0 0.8rem;
+  font-family: var(--cs-font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--cs-fg);
+}
+
+.cs-vision__pillar-text {
+  font-size: 1.45rem;
+  line-height: 1.55;
+  color: var(--cs-fg-muted);
+}
+
+.cs-vision__pillar-text p,
+.cs-vision__pillar-text ul {
+  margin: 0;
+}
+
+.cs-vision__pillar-text ul {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-vision__pillar-text li {
+  position: relative;
+  padding-left: 1.8rem;
+}
+
+.cs-vision__pillar-text li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.75em;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--cs-accent);
+}
+
+/* diagram â€“ desktop: triangle */
+@media screen and (min-width: 990px) {
+  .cs-vision__inner {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 8rem;
+  }
+
+  .cs-vision__diagram--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      'p1 p1'
+      'hub hub'
+      'p2 p3';
+    gap: 0 3.2rem;
+    align-items: start;
+  }
+
+  .cs-vision__diagram--3 .cs-vision__lines {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: var(--cs-line);
+  }
+
+  .cs-vision__diagram--3 .cs-vision__lines path {
+    stroke-width: 1.5;
+    stroke-dasharray: 6 6;
+    vector-effect: non-scaling-stroke;
+    animation: cs-vision-dash 1.2s linear infinite;
+  }
+
+  .cs-vision__diagram--3 .cs-vision__hub {
+    grid-area: hub;
+    margin: 4.8rem 0;
+  }
+
+  .cs-vision__pillar--1 {
+    grid-area: p1;
+    max-width: 34rem;
+  }
+
+  .cs-vision__pillar--2 {
+    grid-area: p2;
+  }
+
+  .cs-vision__pillar--3 {
+    grid-area: p3;
+  }
+}
+
+@keyframes cs-vision-dash {
+  to { stroke-dashoffset: -12; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-vision__hub-ring,
+  .cs-vision__lines path,
+  .cs-vision__panel {
+    animation: none;
+  }
+}

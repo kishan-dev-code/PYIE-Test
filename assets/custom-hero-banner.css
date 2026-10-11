@@ -1,0 +1,293 @@
+.cs-hero-wrapper {
+  isolation: isolate;
+}
+
+.cs-hero__grid {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(var(--cs-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cs-line) 1px, transparent 1px);
+  background-size: 6.4rem 6.4rem;
+  mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 70%);
+  opacity: 0.6;
+}
+
+.cs-hero__glow {
+  display: block;
+  position: absolute;
+  z-index: -1;
+  top: -20%;
+  right: -10%;
+  width: 60vw;
+  height: 60vw;
+  max-width: 80rem;
+  max-height: 80rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 159, 28, 0.35) 0%, rgba(31, 163, 154, 0.12) 45%, transparent 70%);
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+.cs-hero__slider {
+  margin: 0 -1.6rem;
+}
+
+.cs-hero__slide {
+  width: 100%;
+  display: grid;
+  gap: 4rem;
+  padding: 0 1.6rem;
+  align-items: center;
+}
+
+.cs-hero__slider:not(.flickity-enabled) .cs-hero__slide + .cs-hero__slide {
+  display: none;
+}
+
+.flickity-enabled .cs-hero__slide:not(.is-selected) .cs-hero__copy > * {
+  opacity: 0;
+  transform: translateY(1.6rem);
+}
+
+.cs-hero__copy > * {
+  transition: opacity 0.7s var(--cs-ease), transform 0.7s var(--cs-ease);
+}
+
+.cs-hero__copy > *:nth-child(2) { transition-delay: 0.08s; }
+.cs-hero__copy > *:nth-child(3) { transition-delay: 0.16s; }
+.cs-hero__copy > *:nth-child(4) { transition-delay: 0.24s; }
+
+.cs-hero__title {
+  margin: 0 0 2.4rem;
+  font-family: var(--cs-font-display);
+  font-weight: 700;
+  font-size: clamp(3.8rem, 2.4rem + 4.2vw, 7.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--cs-fg);
+}
+
+.cs-hero__title em,
+.cs-hero__title i {
+  font-style: normal;
+  color: var(--cs-accent-text);
+}
+
+.cs-hero__text {
+  max-width: 52rem;
+  font-size: 1.7rem;
+}
+
+.cs-hero__actions {
+  margin-top: 3.2rem;
+}
+
+.cs-hero__visual {
+  position: relative;
+  padding: 2.4rem 0;
+}
+
+.cs-hero__media {
+  aspect-ratio: 4 / 5;
+  max-height: 64rem;
+  border-radius: var(--cs-radius-lg);
+  box-shadow: var(--cs-shadow);
+}
+
+.flickity-enabled .cs-hero__media img,
+.flickity-enabled .cs-hero__media svg {
+  transform: scale(1.08);
+  transition: transform 1.6s var(--cs-ease);
+}
+
+.cs-hero__slide.is-selected .cs-hero__media img,
+.cs-hero__slide.is-selected .cs-hero__media svg {
+  transform: scale(1);
+}
+
+.cs-hero__chip {
+  position: absolute;
+  display: grid;
+  gap: 0.4rem;
+  min-width: 16rem;
+  max-width: 22rem;
+  padding: 1.6rem 2rem;
+  border-radius: var(--cs-radius);
+  background: var(--cs-white);
+  color: var(--cs-ink);
+  box-shadow: var(--cs-shadow);
+  transition: transform 0.8s var(--cs-ease), opacity 0.8s var(--cs-ease);
+}
+
+.cs-hero__chip--one {
+  left: -0.8rem;
+  bottom: 0;
+}
+
+.cs-hero__chip--two {
+  right: -0.8rem;
+  top: 4.8rem;
+  background: var(--cs-saffron);
+}
+
+.flickity-enabled .cs-hero__slide:not(.is-selected) .cs-hero__chip {
+  opacity: 0;
+  transform: translateY(2rem);
+}
+
+.cs-hero__chip-value {
+  font-family: var(--cs-font-display);
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.cs-hero__chip-label {
+  font-size: 1.3rem;
+  line-height: 1.35;
+  opacity: 0.8;
+}
+
+.cs-hero__tabs {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+  margin-top: 4rem;
+}
+
+.cs-hero__tab {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.4rem 1.2rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cs-fg-muted);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cs-hero__tab-num {
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.cs-hero__tab-label {
+  display: none;
+  font-size: 1.3rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cs-hero__tab-bar {
+  grid-column: 1 / -1;
+  position: relative;
+  height: 2px;
+  background: var(--cs-line);
+  overflow: hidden;
+}
+
+.cs-hero__tab-bar span {
+  position: absolute;
+  inset: 0;
+  background: var(--cs-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.cs-hero__tab.is-active {
+  color: var(--cs-fg);
+}
+
+.cs-hero__tab.is-active .cs-hero__tab-bar span {
+  transform: scaleX(1);
+}
+
+.cs-hero--autoplay.is-ticking .cs-hero__tab.is-active .cs-hero__tab-bar span {
+  animation: cs-hero-tick var(--cs-autoplay, 6s) linear forwards;
+}
+
+.cs-hero--autoplay:hover .cs-hero__tab-bar span {
+  animation-play-state: paused;
+}
+
+@keyframes cs-hero-tick {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media screen and (max-width: 749px) {
+  .cs-hero__chip {
+    min-width: 0;
+    max-width: 18rem;
+    padding: 1.2rem 1.6rem;
+  }
+
+  .cs-hero__chip-value {
+    font-size: 2.6rem;
+  }
+
+  .cs-hero__chip-label {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .cs-hero__slider {
+    margin: 0 -3.2rem;
+  }
+
+  .cs-hero__slide {
+    padding: 0 3.2rem;
+  }
+
+  .cs-hero__tab-label {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .cs-hero__slider {
+    margin: 0 -5rem;
+  }
+
+  .cs-hero__slide {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 6.4rem;
+    padding: 0 5rem;
+  }
+
+  .cs-hero__media {
+    aspect-ratio: 5 / 6;
+  }
+
+  .cs-hero__chip--one {
+    left: -4rem;
+    bottom: 4rem;
+  }
+
+  .cs-hero__chip--two {
+    right: -2.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-hero__copy > *,
+  .cs-hero__chip,
+  .cs-hero__media img,
+  .cs-hero__media svg {
+    transition: none;
+    transform: none !important;
+  }
+}

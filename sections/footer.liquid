@@ -1,0 +1,495 @@
+{{ 'custom-footer.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign brand_name = section.settings.logo_text | default: shop.name
+  assign current_year = 'now' | date: '%Y'
+  assign wa_url = blank
+  if section.settings.whatsapp_number != blank
+    assign wa_digits = section.settings.whatsapp_number | remove: '+' | remove: ' ' | remove: '-' | remove: '(' | remove: ')'
+    assign wa_url = 'https://wa.me/' | append: wa_digits
+    if section.settings.whatsapp_message != blank
+      assign wa_text = section.settings.whatsapp_message | url_encode | replace: '+', '%20'
+      assign wa_url = wa_url | append: '?text=' | append: wa_text
+    endif
+  endif
+
+  # WhatsApp shows as the large button when it has a label, otherwise as a social icon
+  assign wa_as_icon = false
+  if wa_url != blank and section.settings.whatsapp_label == blank
+    assign wa_as_icon = true
+  endif
+
+  assign has_social = false
+  if section.settings.instagram_url != blank or section.settings.linkedin_url != blank or section.settings.youtube_url != blank or wa_as_icon
+    assign has_social = true
+  endif
+-%}
+
+
+<footer
+  class="cs-footer cs-tone--{{ section.settings.tone }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px;"
+>
+  {%- if section.settings.cta_heading != blank -%}
+    <div class="cs-container">
+      <div class="cs-footer__cta" data-cs-reveal>
+        <div class="cs-footer__cta-copy">
+          <h2 class="cs-footer__cta-title">{{ section.settings.cta_heading }}</h2>
+          {%- if section.settings.cta_text != blank -%}
+            <p class="cs-footer__cta-text">{{ section.settings.cta_text }}</p>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.cta_label != blank -%}
+          <a
+            class="cs-footer__cta-btn"
+            {% if section.settings.cta_link != blank %}href="{{ section.settings.cta_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+          >
+            <span>{{ section.settings.cta_label | escape }}</span>
+            <span class="cs-footer__cta-arrow">{% render 'custom-icon', icon: 'arrow-up-right' %}</span>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="cs-container cs-footer__grid" style="--cs-cols: {{ section.blocks.size | at_least: 1 }};">
+    <div class="cs-footer__brand">
+      <a href="{{ routes.root_url }}" class="cs-footer__logo">
+        {%- if section.settings.logo != blank -%}
+          <span class="cs-footer__logo-media" style="--cs-logo-w: {{ section.settings.logo_width }}px;">
+            {%- assign logo_width_2x = section.settings.logo_width | times: 2 -%}
+            {{ section.settings.logo | image_url: width: logo_width_2x | image_tag: alt: brand_name, loading: 'lazy' }}
+          </span>
+        {%- else -%}
+          <span class="cs-footer__wordmark">{{ brand_name | escape }}</span>
+        {%- endif -%}
+      </a>
+
+      {%- if section.settings.about != blank -%}
+        <div class="cs-footer__about">{{ section.settings.about }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.tagline != blank -%}
+        <p class="cs-footer__tagline">{{ section.settings.tagline }}</p>
+      {%- endif -%}
+
+      {%- if has_social -%}
+        <ul class="cs-footer__social" role="list">
+          {%- if section.settings.instagram_url != blank -%}
+            <li>
+              <a href="{{ section.settings.instagram_url }}" class="cs-icon-btn" target="_blank" rel="noopener" aria-label="{{ 'general.social.links.instagram' | t }}">
+                {% render 'custom-icon', icon: 'instagram' %}
+              </a>
+            </li>
+          {%- endif -%}
+          {%- if section.settings.linkedin_url != blank -%}
+            <li>
+              <a href="{{ section.settings.linkedin_url }}" class="cs-icon-btn" target="_blank" rel="noopener" aria-label="LinkedIn">
+                {% render 'custom-icon', icon: 'linkedin' %}
+              </a>
+            </li>
+          {%- endif -%}
+          {%- if section.settings.youtube_url != blank -%}
+            <li>
+              <a href="{{ section.settings.youtube_url }}" class="cs-icon-btn" target="_blank" rel="noopener" aria-label="{{ 'general.social.links.youtube' | t }}">
+                {% render 'custom-icon', icon: 'youtube' %}
+              </a>
+            </li>
+          {%- endif -%}
+          {%- if wa_as_icon -%}
+            <li>
+              <a href="{{ wa_url }}" class="cs-icon-btn cs-footer__wa-icon" target="_blank" rel="noopener" aria-label="WhatsApp">
+                {% render 'custom-icon', icon: 'whatsapp' %}
+              </a>
+            </li>
+          {%- endif -%}
+            {%- if wa_url != blank and section.settings.whatsapp_label != blank -%}
+          <a href="{{ wa_url }}" class="cs-footer__whatsapp" target="_blank" rel="noopener">
+            <span class="cs-footer__whatsapp-icon">{% render 'custom-icon', icon: 'whatsapp' %}</span>
+            <span class="cs-footer__whatsapp-copy">
+              <span class="cs-footer__whatsapp-label">{{ section.settings.whatsapp_label | escape }}</span>
+              <span class="cs-footer__whatsapp-number">{{ section.settings.whatsapp_number | escape }}</span>
+            </span>
+            {% render 'custom-icon', icon: 'arrow-up-right', class: 'cs-footer__whatsapp-arrow' %}
+          </a>
+        {%- endif -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    {%- for block in section.blocks -%}
+      <div class="cs-footer__col cs-footer__col--{{ block.type }}" {{ block.shopify_attributes }}>
+        {%- if block.settings.heading != blank -%}
+          <h3 class="cs-footer__heading">{{ block.settings.heading }}</h3>
+        {%- endif -%}
+
+        {%- case block.type -%}
+          {%- when 'menu' -%}
+            {%- if block.settings.menu.links.size > 0 -%}
+              <ul class="cs-footer__links" role="list">
+                {%- for link in block.settings.menu.links -%}
+                  <li>
+                    <a href="{{ link.url }}" class="cs-footer__link{% if link.active %} is-active{% endif %}" {% if link.current %}aria-current="page"{% endif %}>
+                      {{- link.title | escape -}}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+          {%- when 'contact' -%}
+            <ul class="cs-footer__contact" role="list">
+              {%- if block.settings.address != blank -%}
+                <li>
+                  {% render 'custom-icon', icon: 'map-pin' %}
+                  <address>{{ block.settings.address | newline_to_br }}</address>
+                </li>
+              {%- endif -%}
+              {%- if block.settings.email != blank -%}
+                <li>
+                  {% render 'custom-icon', icon: 'mail' %}
+                  <a href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a>
+                </li>
+              {%- endif -%}
+              {%- if block.settings.phone != blank -%}
+                <li>
+                  {% render 'custom-icon', icon: 'phone' %}
+                  <a href="tel:{{ block.settings.phone | remove: ' ' }}">{{ block.settings.phone }}</a>
+                </li>
+              {%- endif -%}
+            </ul>
+
+          {%- when 'newsletter' -%}
+            {%- if block.settings.text != blank -%}
+              <p class="cs-footer__text">{{ block.settings.text }}</p>
+            {%- endif -%}
+            {%- assign newsletter_id = 'cs-newsletter-' | append: block.id -%}
+            {%- form 'customer', id: newsletter_id, class: 'cs-footer__newsletter' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              {%- if form.posted_successfully? -%}
+                <p class="cs-footer__notice" role="status" tabindex="-1" autofocus>
+                  {% render 'custom-icon', icon: 'check' %}
+                  {{ 'newsletter.success' | t }}
+                </p>
+              {%- else -%}
+                <div class="cs-footer__field">
+                  <label class="cs-visually-hidden" for="{{ newsletter_id }}-email">{{ 'newsletter.label' | t }}</label>
+                  <input
+                    id="{{ newsletter_id }}-email"
+                    class="cs-footer__input"
+                    type="email"
+                    name="contact[email]"
+                    value="{{ form.email }}"
+                    placeholder="{{ block.settings.placeholder | escape }}"
+                    autocomplete="email"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    required
+                    {% if form.errors %}aria-invalid="true" aria-describedby="{{ newsletter_id }}-error"{% endif %}
+                  >
+                  <button type="submit" class="cs-footer__submit" aria-label="{{ block.settings.button_label | escape }}">
+                    {% render 'custom-icon', icon: 'arrow-right' %}
+                  </button>
+                </div>
+                {%- if form.errors -%}
+                  <small class="cs-footer__error" id="{{ newsletter_id }}-error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</small>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endform -%}
+
+          {%- when 'text' -%}
+            <div class="cs-footer__text">{{ block.settings.text }}</div>
+        {%- endcase -%}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if section.settings.show_wordmark -%}
+    <div class="cs-footer__giant" aria-hidden="true">
+      <span>{{ section.settings.wordmark_text | default: brand_name }}</span>
+    </div>
+  {%- endif -%}
+
+  <div class="cs-container cs-footer__bottom">
+    <p class="cs-footer__copy">
+      &copy; {{ current_year }}
+      {{ brand_name | escape -}}
+      {%- if section.settings.copyright != blank %}. {{ section.settings.copyright }}{% endif %}
+    </p>
+
+    {%- if section.settings.show_policies and shop.policies.size > 0 -%}
+      <ul class="cs-footer__policies" role="list">
+        {%- for policy in shop.policies -%}
+          {%- if policy != blank -%}
+            <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    <button type="button" class="cs-icon-btn cs-footer__top" data-cs-scroll-top aria-label="Back to top">
+      <svg class="cs-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"></path></svg>
+    </button>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Custom Footer",
+  "tag": "div",
+  "class": "cs-footer-section",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "cta_heading",
+      "label": "Heading",
+      "info": "Leave empty to hide the banner. Italic words are highlighted.",
+      "default": "Ready to launch your brand in <em>India</em>?"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Text",
+      "default": "One partner from first shipment to nationwide scale."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Partner with us"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Brand"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo",
+      "info": "The brand name is shown as a wordmark when empty."
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "min": 60,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Wordmark text",
+      "default": "PYIE"
+    },
+    {
+      "type": "richtext",
+      "id": "about",
+      "label": "About text",
+      "default": "<p>PYIE is a next-generation technology company dedicated to launching and scaling world-class global tech brands in India.</p>"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Global Brands. Local Expertise. Trusted Experience."
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram link"
+    },
+    {
+      "type": "url",
+      "id": "linkedin_url",
+      "label": "LinkedIn link"
+    },
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube link"
+    },
+     {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "WhatsApp number"
+    },
+    {
+      "type": "header",
+      "content": "Bottom bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wordmark",
+      "label": "Show oversized wordmark",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "wordmark_text",
+      "label": "Oversized wordmark text",
+      "default": "PYIE"
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Copyright text",
+      "info": "Shown after © year and store name.",
+      "default": "All rights reserved."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_policies",
+      "label": "Show policy links",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" }
+      ],
+      "default": "dark"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Explore"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "footer"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact details",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Office"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Address",
+          "default": "PYIE, 4th Floor, AIHP Milestone, 448–451,\nUdyog Vihar Phase V Rd, Gurugram, Haryana 122016"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Stay in the loop"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Launches, new brands and what's next in global tech — in your inbox."
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Field placeholder",
+          "default": "Your email"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label (screen readers)",
+          "default": "Subscribe"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Share something about your brand.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Footer",
+      "blocks": [
+        { "type": "menu" },
+        { "type": "contact" },
+        { "type": "newsletter" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,175 @@
+{{ 'custom-featured-product-slider.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign collection = section.settings.collection
+  assign limit = section.settings.products_to_show
+-%}
+
+<section
+  id="cs-product-slider-{{ section.id }}"
+  class="cs-section cs-products cs-tone--{{ section.settings.tone }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+  data-cs-slider-wrap
+>
+  <div class="cs-container">
+    <div class="cs-products__layout">
+      <div class="cs-products__intro">
+        {%- render 'custom-section-head',
+          eyebrow: section.settings.eyebrow,
+          heading: section.settings.heading,
+          text: section.settings.text
+        -%}
+
+        <div class="cs-slider-nav cs-products__nav">
+          <button type="button" class="cs-icon-btn" data-cs-prev aria-label="Previous products">
+            {% render 'custom-icon', icon: 'arrow-left' %}
+          </button>
+          <button type="button" class="cs-icon-btn" data-cs-next aria-label="Next products">
+            {% render 'custom-icon', icon: 'arrow-right' %}
+          </button>
+        </div>
+
+        {%- if section.settings.button_label != blank -%}
+          <a
+            class="cs-btn cs-btn--primary cs-products__cta"
+            href="{% if section.settings.button_link != blank %}{{ section.settings.button_link }}{% elsif collection != blank %}{{ collection.url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}"
+          >
+            {{- section.settings.button_label | escape -}}
+            {% render 'custom-icon', icon: 'arrow-right' %}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="cs-products__track">
+        <div
+          class="cs-products__slider cs-slider"
+          data-cs-slider='{"cellAlign": "left", "contain": true, "groupCells": true}'
+          tabindex="0"
+          aria-label="{{ section.settings.heading | strip_html | escape }}"
+        >
+          {%- if collection != blank and collection.products_count > 0 -%}
+            {%- for product in collection.products limit: limit -%}
+              <div class="cs-products__cell cs-cell">
+                {% render 'custom-product-card', card_product: product, show_vendor: section.settings.show_vendor %}
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            {%- for i in (1..4) -%}
+              <div class="cs-products__cell cs-cell">
+                {% render 'custom-product-card', index: i, show_vendor: section.settings.show_vendor %}
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+
+        <div class="cs-progress cs-products__progress" aria-hidden="true">
+          <span class="cs-progress__bar" data-cs-progress></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Product Slider",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Products"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Products built to solve <em>real-world challenges</em>"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro text",
+      "default": "<p>Designed for scalability, reliability, and real impact.</p>"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 16,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show brand",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Check products"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "info": "Defaults to the selected collection."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" }
+      ],
+      "default": "light"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Product Slider"
+    }
+  ]
+}
+{% endschema %}

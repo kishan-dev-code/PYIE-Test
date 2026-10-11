@@ -1,0 +1,258 @@
+.cs-contact__card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-radius: var(--cs-radius-lg);
+  background: var(--cs-ink);
+  overflow: hidden;
+  box-shadow: var(--cs-shadow);
+}
+
+.cs-contact__info {
+  --cs-fg: #eef3f4;
+  --cs-fg-muted: #a5b8c0;
+  --cs-line: rgba(238, 243, 244, 0.16);
+  --cs-accent: var(--cs-saffron);
+  --cs-accent-text: var(--cs-saffron);
+  --cs-on-accent: var(--cs-ink);
+  position: relative;
+  padding: 3.2rem 2.4rem;
+  color: var(--cs-fg);
+  overflow: hidden;
+}
+
+.cs-contact__info::after {
+  content: '';
+  position: absolute;
+  left: -10rem;
+  bottom: -12rem;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 159, 28, 0.35), transparent 70%);
+  pointer-events: none;
+}
+
+.cs-contact__title {
+  margin-bottom: 1.6rem;
+}
+
+.cs-contact__text {
+  margin-bottom: 3.2rem;
+}
+
+.cs-contact__details {
+  display: grid;
+  gap: 1.6rem;
+  margin: 0 0 3.2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-contact__details li {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  gap: 1.2rem;
+  align-items: center;
+  font-size: 1.5rem;
+  line-height: 1.55;
+  color: var(--cs-fg);
+}
+
+.cs-contact__details address {
+  font-style: normal;
+}
+
+.cs-contact__details a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--cs-line);
+}
+
+.cs-contact__detail-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--cs-saffron);
+}
+
+.cs-contact__detail-icon .cs-icon {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.cs-contact__social {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 1rem;
+}
+
+/* form */
+.cs-contact__form-wrap {
+  padding: 3.2rem 2.4rem;
+  background: var(--cs-white);
+  color: var(--cs-ink);
+}
+
+.cs-contact__form-title {
+  margin: 0 0 2.4rem;
+  font-family: var(--cs-font-display);
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.cs-contact__grid {
+  display: grid;
+  gap: 1.6rem;
+}
+
+.cs-field {
+  position: relative;
+}
+
+.cs-field__input {
+  width: 100%;
+  min-height: 5.8rem;
+  padding: 2.2rem 1.6rem 0.8rem;
+  border: 1.5px solid rgba(11, 31, 42, 0.16);
+  border-radius: 1.2rem;
+  background: var(--cs-paper);
+  color: var(--cs-ink);
+  font: inherit;
+  font-size: 1.6rem;
+  appearance: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cs-field__input--area {
+  min-height: 14rem;
+  padding-top: 2.8rem;
+  resize: vertical;
+}
+
+.cs-field__input:focus {
+  outline: none;
+  border-color: var(--cs-saffron);
+  background: var(--cs-white);
+  box-shadow: 0 0 0 0.4rem rgba(255, 159, 28, 0.22);
+}
+
+.cs-field__input[aria-invalid='true'] {
+  border-color: #c0392b;
+}
+
+.cs-field__label {
+  position: absolute;
+  left: 1.7rem;
+  top: 1.85rem;
+  font-size: 1.5rem;
+  color: var(--cs-slate);
+  pointer-events: none;
+  transform-origin: left top;
+  transition: transform 0.2s var(--cs-ease), color 0.2s ease;
+}
+
+.cs-field__input:focus + .cs-field__label,
+.cs-field__input:not(:placeholder-shown) + .cs-field__label,
+.cs-field__label--static {
+  transform: translateY(-1rem) scale(0.78);
+  color: var(--cs-saffron-text);
+  font-weight: 600;
+}
+
+.cs-field--select .cs-field__input {
+  padding-right: 4.8rem;
+  cursor: pointer;
+}
+
+.cs-field__chevron {
+  position: absolute;
+  right: 1.6rem;
+  top: 50%;
+  width: 1.8rem;
+  height: 1.8rem;
+  transform: translateY(-50%) rotate(90deg);
+  color: var(--cs-ink);
+  pointer-events: none;
+}
+
+.cs-field__error {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 1.3rem;
+  color: #c0392b;
+}
+
+.cs-contact__submit {
+  width: 100%;
+  margin-top: 2.4rem;
+  --cs-accent: var(--cs-saffron);
+  --cs-on-accent: var(--cs-ink);
+  --cs-fg: var(--cs-ink);
+  --cs-bg: var(--cs-white);
+}
+
+.cs-contact__notice {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  margin-bottom: 2.4rem;
+  padding: 1.6rem 2rem;
+  border-radius: 1.2rem;
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+.cs-contact__notice--success {
+  background: var(--cs-teal-soft);
+  color: #0d5c56;
+}
+
+.cs-contact__notice--error {
+  display: block;
+  background: #fdecea;
+  color: #8e2b20;
+}
+
+.cs-contact__notice p {
+  margin: 0 0 0.6rem;
+  font-weight: 600;
+}
+
+.cs-contact__notice ul {
+  margin: 0;
+  padding-left: 2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .cs-contact__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cs-field--full {
+    grid-column: 1 / -1;
+  }
+
+  .cs-contact__info,
+  .cs-contact__form-wrap {
+    padding: 4.8rem;
+  }
+
+  .cs-contact__submit {
+    width: auto;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .cs-contact__card {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+
+  .cs-contact__info,
+  .cs-contact__form-wrap {
+    padding: 6.4rem;
+  }
+}

@@ -1,0 +1,211 @@
+.cs-products__layout {
+  display: grid;
+  gap: 3.2rem;
+}
+
+.cs-products__intro .cs-head {
+  margin-bottom: 2.4rem;
+}
+
+.cs-products__intro .cs-title {
+  font-size: clamp(3rem, 2.4rem + 1.4vw, 4.2rem);
+}
+
+.cs-products__nav {
+  display: none;
+}
+
+.cs-products__cta {
+  margin-top: 0.8rem;
+}
+
+.cs-products__slider:not(.flickity-enabled) {
+  display: flex;
+  overflow: hidden;
+}
+
+.cs-products__cell {
+  flex-shrink: 0;
+  width: 72%;
+  margin-right: 1.6rem;
+}
+
+.cs-products__progress {
+  margin-top: 3.2rem;
+}
+
+/* card */
+.cs-pcard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-radius);
+  background: var(--cs-card);
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.4s var(--cs-ease);
+}
+
+.cs-pcard:hover {
+  border-color: var(--cs-accent);
+  box-shadow: var(--cs-shadow);
+}
+
+.cs-pcard__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  background: var(--cs-white);
+  overflow: hidden;
+}
+
+.cs-pcard__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 2rem;
+  transition: opacity 0.4s ease, transform 0.6s var(--cs-ease);
+}
+
+.cs-pcard__img--hover {
+  opacity: 0;
+}
+
+.cs-pcard--swap:hover .cs-pcard__img:not(.cs-pcard__img--hover) {
+  opacity: 0;
+}
+
+.cs-pcard--swap:hover .cs-pcard__img--hover {
+  opacity: 1;
+}
+
+.cs-pcard:hover .cs-pcard__img {
+  transform: scale(1.04);
+}
+
+.cs-pcard__badge {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  padding: 0.4rem 1rem;
+  border-radius: 10rem;
+  background: var(--cs-saffron);
+  color: var(--cs-ink);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cs-pcard__badge--muted {
+  background: var(--cs-ink);
+  color: #fff;
+}
+
+.cs-pcard__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.6rem;
+  padding: 2rem;
+}
+
+.cs-pcard__vendor {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cs-accent-text);
+}
+
+.cs-pcard__title {
+  margin: 0;
+  font-family: var(--cs-font-display);
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--cs-fg);
+}
+
+.cs-pcard__title a {
+  color: inherit;
+  text-decoration: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cs-pcard__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-top: auto;
+  padding-top: 1.2rem;
+}
+
+.cs-pcard__price {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--cs-fg);
+}
+
+.cs-pcard__compare {
+  margin-left: 0.6rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--cs-fg-muted);
+}
+
+.cs-pcard__go {
+  display: inline-grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: var(--cs-ink);
+  color: #fff;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.3s var(--cs-ease);
+}
+
+.cs-pcard__go .cs-icon {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.cs-pcard:hover .cs-pcard__go {
+  background: var(--cs-saffron);
+  color: var(--cs-ink);
+  transform: rotate(45deg);
+}
+
+@media screen and (min-width: 750px) {
+  .cs-products__cell {
+    width: calc((100% - 3.2rem) / 2.2);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .cs-products__layout {
+    grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr);
+    gap: 4.8rem;
+    align-items: start;
+  }
+
+  .cs-products__intro {
+    position: sticky;
+    top: 4rem;
+  }
+
+  .cs-products__nav {
+    display: flex;
+    margin-bottom: 2.4rem;
+  }
+
+  .cs-products__cell {
+    width: calc((100% - 3.2rem) / 3);
+  }
+}

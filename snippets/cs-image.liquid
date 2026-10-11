@@ -1,0 +1,24 @@
+{%- liquid
+  assign cs_sizes = sizes | default: '100vw'
+  assign cs_class = class | default: 'cs-img'
+  assign cs_placeholder = placeholder | default: 'image'
+  assign cs_loading = 'lazy'
+  if eager
+    assign cs_loading = 'eager'
+  endif
+-%}
+{%- if image != blank -%}
+  {{
+    image
+    | image_url: width: 2400
+    | image_tag:
+      widths: '375, 550, 750, 990, 1200, 1500, 1800, 2400',
+      sizes: cs_sizes,
+      loading: cs_loading,
+      class: cs_class,
+      alt: image.alt
+  }}
+{%- else -%}
+  {%- assign cs_placeholder_class = 'cs-placeholder ' | append: cs_class -%}
+  {{ cs_placeholder | placeholder_svg_tag: cs_placeholder_class }}
+{%- endif -%}

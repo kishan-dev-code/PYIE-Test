@@ -1,0 +1,74 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer_AJPmLh": {
+      "type": "footer",
+      "blocks": {
+        "menu_EMpBHL": {
+          "type": "menu",
+          "settings": {
+            "heading": "Explore",
+            "menu": "main-menu"
+          }
+        },
+        "contact_acdaLM": {
+          "type": "contact",
+          "settings": {
+            "heading": "Office",
+            "address": "PYIE, 4th Floor, AIHP Milestone, 448–451,\nUdyog Vihar Phase V Rd, Gurugram, Haryana 122016",
+            "email": "",
+            "phone": ""
+          }
+        },
+        "newsletter_Q6y87K": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Stay in the loop",
+            "text": "Launches, new brands and what's next in global tech — in your inbox.",
+            "placeholder": "Your email",
+            "button_label": "Subscribe"
+          }
+        }
+      },
+      "block_order": [
+        "menu_EMpBHL",
+        "contact_acdaLM",
+        "newsletter_Q6y87K"
+      ],
+      "name": "Custom Footer",
+      "settings": {
+        "cta_heading": "Ready to launch your brand in <em>India</em>?",
+        "cta_text": "One partner from first shipment to nationwide scale.",
+        "cta_label": "Partner with us",
+        "cta_link": "",
+        "logo_width": 120,
+        "logo_text": "PYIE",
+        "about": "<p>PYIE is a next-generation technology company dedicated to launching and scaling world-class global tech brands in India.</p>",
+        "tagline": "Global Brands. Local Expertise. Trusted Experience.",
+        "instagram_url": "https://www.instagram.com/pyie.official",
+        "linkedin_url": "https://www.linkedin.com/company/pyie",
+        "youtube_url": "",
+        "whatsapp_number": "9555687659",
+        "show_wordmark": true,
+        "wordmark_text": "PYIE",
+        "copyright": "All rights reserved.",
+        "show_policies": true,
+        "tone": "dark",
+        "padding_top": 80
+      }
+    }
+  },
+  "order": [
+    "footer_AJPmLh"
+  ]
+}

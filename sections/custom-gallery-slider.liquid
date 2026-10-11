@@ -1,0 +1,192 @@
+{{ 'custom-gallery-slider.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign autoplay_ms = section.settings.autoplay_speed | times: 1000
+-%}
+
+<section
+  id="cs-gallery-{{ section.id }}"
+  class="cs-section cs-gallery cs-tone--{{ section.settings.tone }} cs-gallery--{{ section.settings.cell_size }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+  data-cs-slider-wrap
+>
+  <div class="cs-container">
+    <div class="cs-gallery__top">
+      {%- render 'custom-section-head',
+        eyebrow: section.settings.eyebrow,
+        heading: section.settings.heading,
+        text: section.settings.text
+      -%}
+
+      {%- if section.blocks.size > 1 -%}
+        <div class="cs-slider-nav">
+          <span class="cs-counter"><span data-cs-current>01</span> / <span data-cs-total>{% if section.blocks.size < 10 %}0{% endif %}{{ section.blocks.size }}</span></span>
+          <button type="button" class="cs-icon-btn" data-cs-prev aria-label="Previous image">
+            {% render 'custom-icon', icon: 'arrow-left' %}
+          </button>
+          <button type="button" class="cs-icon-btn" data-cs-next aria-label="Next image">
+            {% render 'custom-icon', icon: 'arrow-right' %}
+          </button>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+    <div
+      class="cs-gallery__slider cs-slider"
+      data-cs-slider='{"wrapAround": true, "cellAlign": "center", "contain": false, "autoPlay": {% if section.settings.autoplay %}{{ autoplay_ms }}{% else %}false{% endif %}}'
+      {% if section.settings.parallax %}data-cs-parallax{% endif %}
+      tabindex="0"
+      aria-label="{{ section.settings.heading | strip_html | escape }}"
+    >
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign placeholder_index = forloop.index0 | modulo: 2 | plus: 1
+          assign placeholder_name = 'lifestyle-' | append: placeholder_index
+        -%}
+        <figure class="cs-gallery__cell" data-cs-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <div class="cs-media cs-gallery__media">
+            <div class="cs-gallery__layer" data-cs-parallax-layer>
+              {% render 'cs-image', image: block.settings.image, sizes: '(min-width: 990px) 45vw, 85vw', placeholder: placeholder_name %}
+            </div>
+          </div>
+          {%- if block.settings.caption != blank -%}
+            <figcaption class="cs-gallery__caption">
+              <span class="cs-gallery__num">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+              {{ block.settings.caption | escape }}
+            </figcaption>
+          {%- endif -%}
+        </figure>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Custom Gallery slider",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "On the ground"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Stores are <em>turning</em> nationwide"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro text"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-play",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Auto-play speed",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "unit": "s",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "parallax",
+      "label": "Parallax images while dragging",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "cell_size",
+      "label": "Image size",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" }
+      ],
+      "default": "light"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Gallery slider",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}
