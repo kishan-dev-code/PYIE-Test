@@ -1,0 +1,15 @@
+{
+  "name": "PYIE",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "shopify theme dev --store pyie.myshopify.com",
+    "dev-sync": "shopify theme dev --theme-editor-sync -s pyie.myshopify.com",
+    "pull": "shopify theme pull -s pyie.myshopify.com",
+    "pull-json": "shopify theme pull -d -o *.json -s pyie.myshopify.com",
+    "share": "shopify theme share -s pyie.myshopify.com"
+  },
+  "author": "Kishan",
+  "license": "ISC"
+}
