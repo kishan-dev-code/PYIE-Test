@@ -1,0 +1,249 @@
+{{ 'custom-hero-highlights.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="cs-hl-{{ section.id }}"
+  class="cs-section cs-section-hero-highlighted cs-hl cs-tone--{{ section.settings.tone }} cs-hl--list-{{ section.settings.list_style }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+>
+  {%- if section.settings.show_grid -%}
+    <span class="cs-hl__grid" aria-hidden="true"></span>
+  {%- endif -%}
+
+  <div class="cs-container">
+    <div class="cs-hl__inner">
+      <div class="cs-hl__copy">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="cs-eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <{{ section.settings.heading_tag }} class="cs-hl__title">{{ section.settings.heading }}</{{ section.settings.heading_tag }}>
+        {%- endif -%}
+
+        {%- if section.settings.text != blank -%}
+          <div class="cs-text cs-hl__text">{{ section.settings.text }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank or section.settings.button_label_2 != blank -%}
+          <div class="cs-btn-row cs-hl__actions">
+            {%- if section.settings.button_label != blank -%}
+              <a
+                class="cs-btn cs-btn--primary"
+                {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+              >
+                {{- section.settings.button_label | escape -}}
+                <svg class="cs-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.button_label_2 != blank -%}
+              <a
+                class="cs-btn cs-btn--ghost"
+                {% if section.settings.button_link_2 != blank %}href="{{ section.settings.button_link_2 }}"{% else %}role="link" aria-disabled="true"{% endif %}
+              >
+                {{- section.settings.button_label_2 | escape -}}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="cs-hl__panel">
+          <ol class="cs-hl__list" role="list">
+            {%- for block in section.blocks -%}
+              <li class="cs-hl__item" style="--i: {{ forloop.index0 }};" {{ block.shopify_attributes }}>
+                <span class="cs-hl__num" aria-hidden="true">
+                  {%- if block.settings.number != blank -%}
+                    {{- block.settings.number | escape -}}
+                  {%- else -%}
+                    {%- if forloop.index < 10 -%}0{%- endif -%}{{- forloop.index -}}
+                  {%- endif -%}
+                </span>
+                <p class="cs-hl__item-text">{{ block.settings.text }}</p>
+              </li>
+            {%- endfor -%}
+          </ol>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Hero Highlights",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Powered by Intex"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Italic words are highlighted in the accent colour.",
+      "default": "Infinite Innovation for a <em>Smarter World</em>"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "info": "Use H1 only if this is the first section on the page.",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p><em>Building meaningful solutions through technology and design.</em></p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Primary button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Secondary button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" },
+        { "value": "noir", "label": "Noir glow" }
+      ],
+      "default": "noir"
+    },
+    {
+      "type": "select",
+      "id": "list_style",
+      "label": "List style",
+      "options": [
+        { "value": "plain", "label": "Plain (follows colour tone)" },
+        { "value": "card", "label": "White card" }
+      ],
+      "default": "plain"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_grid",
+      "label": "Show grid pattern",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "List item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number override",
+          "info": "Leave blank to number automatically (01, 02, 03…)."
+        },
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "Text",
+          "info": "Bold words are shown in full colour, the rest is muted.",
+          "default": "<strong>Highlight</strong> supporting text for this point."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Hero Highlights",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "text": "<strong>Founded in 1996</strong>, Intex Technologies is an established Indian consumer-electronics company with 30+ years of industry experience."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "Diversified technology portfolio spanning <strong>consumer durables, IT accessories, display solutions, mobile accessories and lifestyle electronics</strong>."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "Broad product ecosystem extending across <strong>security & surveillance, biometrics and other electronics categories</strong>."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "Strong consumer-facing brand built around <strong>accessible, reliable and technology-led products across multiple price points</strong>."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "End-to-end market presence spanning <strong>product development, distribution, retail and after-sales support</strong> across its diverse portfolio."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

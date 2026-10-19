@@ -3999,6 +3999,10 @@ details-disclosure > details {
   stroke-linejoin: round;
 }
 
+.cs-marquee-wrapper .cs-icon {
+stroke: var(--cs-accent);
+}
+
 .cs-icon-chip {
   display: inline-grid;
   place-items: center;
@@ -4188,4 +4192,8 @@ details-disclosure > details {
 .header-wrapper span.h2 .cs-header__tagline strong {
     color: #ff9f1c;
     font-weight: 800;
+}
+
+.cs-section.cs-section-hero-highlighted.cs-tone--noir {
+  background-image: none;
 }

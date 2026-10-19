@@ -54,3 +54,26 @@
     animation: none;
   }
 }
+
+/* ---------- New tone: Noir glow ----------
+   Same palette as the Custom Hero Highlights section.
+   Glows run left (red) to right (violet) so they read on a thin strip. */
+.cs-section.cs-tone--noir {
+  --cs-bg: #050507;
+  --cs-fg: #ffffff;
+  --cs-fg-muted: rgba(255, 255, 255, 0.62);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #ff3b3b;
+  --cs-accent-text: #ff3b3b;
+
+  color: var(--cs-fg);
+  background-color: var(--cs-bg);
+  background-image:
+    radial-gradient(ellipse 45% 160% at 0% 50%, rgba(140, 8, 8, 0.55) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 160% at 100% 50%, rgba(70, 0, 130, 0.6) 0%, transparent 70%);
+  background-repeat: no-repeat;
+}
+
+.cs-tone--noir .cs-marquee__sep {
+  fill: var(--cs-accent);
+}

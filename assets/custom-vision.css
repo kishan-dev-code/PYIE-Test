@@ -249,3 +249,92 @@
     animation: none;
   }
 }
+/* ==========================================================
+   Right side image (replaces the diagram when set)
+   ========================================================== */
+.cs-vision__media {
+  position: relative;
+  width: 100%;
+}
+
+.cs-vision__media-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cs-vision__media--card {
+  padding: 2.4rem;
+  border-radius: var(--cs-radius-lg, 1.6rem);
+  background: #ffffff;
+  box-shadow: var(--cs-shadow, 0 2.4rem 5rem rgba(0, 0, 0, 0.25));
+  overflow: hidden;
+}
+
+.cs-vision__media--plain .cs-vision__media-img {
+  border-radius: var(--cs-radius-lg, 1.6rem);
+}
+
+@media screen and (min-width: 750px) {
+  .cs-vision__media--card {
+    padding: 4rem;
+  }
+}
+
+/* ==========================================================
+   New tone: Graphite
+   Flat #0f1419 background with a #ff3b3b red accent.
+   Doubled class for specificity so it wins over any global
+   .cs-section background rule.
+   ========================================================== */
+.cs-section.cs-tone--graphite {
+  --cs-bg: #0f1419;
+  --cs-fg: #ffffff;
+  --cs-fg-muted: rgba(226, 230, 235, 0.68);
+  --cs-line: rgba(255, 255, 255, 0.1);
+  --cs-card: #181d24;
+  --cs-accent: #ff3b3b;
+  --cs-accent-text: #ff3b3b;
+  --cs-on-accent: #ffffff;
+
+  color: var(--cs-fg);
+  background: var(--cs-bg);
+}
+
+.cs-tone--graphite .cs-vision__tablist {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cs-tone--graphite .cs-tab:not([aria-selected='true']):hover {
+  color: var(--cs-fg);
+}
+
+/* Diagram, when no image is set */
+.cs-tone--graphite .cs-vision__hub {
+  background: var(--cs-accent);
+  color: #ffffff;
+  box-shadow: 0 0 0 1.2rem rgba(255, 59, 59, 0.14), 0 0 0 2.4rem rgba(255, 59, 59, 0.06);
+}
+
+.cs-tone--graphite .cs-vision__hub-ring::before {
+  background: var(--cs-accent);
+}
+
+.cs-tone--graphite .cs-vision__pillar {
+  border-color: rgba(255, 255, 255, 0.06);
+  background: var(--cs-card);
+}
+
+.cs-tone--graphite .cs-vision__pillar:hover {
+  border-color: rgba(255, 59, 59, 0.45);
+}
+
+.cs-tone--graphite .cs-vision__pillar-icon {
+  background: rgba(255, 59, 59, 0.14);
+  color: var(--cs-accent);
+}
+
+/* Image panel on the dark tone */
+.cs-tone--graphite .cs-vision__media--card {
+  box-shadow: 0 2.4rem 6rem rgba(0, 0, 0, 0.5);
+}

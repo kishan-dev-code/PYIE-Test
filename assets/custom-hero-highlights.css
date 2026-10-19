@@ -1,0 +1,221 @@
+/* ==========================================================
+   Custom Hero Highlights
+   ========================================================== */
+
+/* ---------- New tone: Noir glow ----------
+   Near-black base with a deep red glow bottom-left and a
+   violet glow bottom-right. Doubled class for specificity so
+   it wins over any global .cs-section background rule. */
+.cs-section.cs-tone--noir {
+  --cs-bg: #050507;
+  --cs-fg: #ffffff;
+  --cs-fg-muted: rgba(255, 255, 255, 0.62);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #ff3b3b;
+  --cs-accent-text: #ff3b3b;
+
+  color: var(--cs-fg);
+  background-color: var(--cs-bg);
+  background-image:
+    radial-gradient(ellipse 55% 60% at 10% 110%, rgba(140, 8, 8, 0.55) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 65% at 95% 110%, rgba(70, 0, 130, 0.6) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 55% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
+  background-repeat: no-repeat;
+}
+
+/* ---------- Wrapper ---------- */
+.cs-hl {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.cs-hl__grid {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(var(--cs-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cs-line) 1px, transparent 1px);
+  background-size: 6.4rem 6.4rem;
+  mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.cs-hl__inner {
+  display: grid;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* ---------- Copy ---------- */
+.cs-hl__title {
+  margin: 0 0 2.4rem;
+  font-family: var(--cs-font-display);
+  font-weight: 700;
+  font-size: clamp(3.6rem, 2.2rem + 3.8vw, 6.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--cs-fg);
+}
+
+.cs-hl__title em,
+.cs-hl__title i {
+  font-style: normal;
+  color: var(--cs-accent-text);
+}
+
+.cs-hl__text {
+  max-width: 52rem;
+  font-size: 1.7rem;
+  color: var(--cs-fg-muted);
+}
+
+.cs-hl__actions {
+  margin-top: 3.2rem;
+}
+
+/* ---------- Numbered list ---------- */
+.cs-hl__panel {
+  position: relative;
+}
+
+.cs-hl__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--cs-line);
+}
+
+.cs-hl__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+  padding: 2.4rem 0;
+  border-bottom: 1px solid var(--cs-line);
+  animation: cs-hl-in 0.7s var(--cs-ease, cubic-bezier(.22, 1, .36, 1)) both;
+  animation-delay: calc(var(--i, 0) * 0.08s + 0.15s);
+}
+
+.cs-hl__num {
+  display: grid;
+  place-items: center;
+  width: 4.8rem;
+  height: 4.8rem;
+  border: 2px solid var(--cs-line);
+  border-radius: 50%;
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--cs-fg);
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.cs-hl__item:hover .cs-hl__num {
+  border-color: var(--cs-accent);
+  color: var(--cs-accent-text);
+}
+
+.cs-hl__item-text {
+  margin: 0;
+  padding-top: 0.6rem;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: var(--cs-fg-muted);
+}
+
+.cs-hl__item-text strong,
+.cs-hl__item-text b {
+  font-weight: 700;
+  color: var(--cs-fg);
+}
+
+.cs-hl__item-text a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+/* ---------- List style: white card ----------
+   Matches the reference table — white panel, ink text,
+   muted slate body copy — on any colour tone. */
+.cs-hl--list-card .cs-hl__panel {
+  --cs-fg: #0b0b0f;
+  --cs-fg-muted: #5f6b73;
+  --cs-line: rgba(11, 11, 15, 0.1);
+  --cs-accent-text: #e02424;
+
+  padding: 0.8rem 2.4rem;
+  border-radius: var(--cs-radius-lg, 1.6rem);
+  background: var(--cs-white, #ffffff);
+  box-shadow: var(--cs-shadow, 0 2rem 6rem rgba(0, 0, 0, 0.25));
+}
+
+.cs-hl--list-card .cs-hl__list {
+  border-top: 0;
+}
+
+.cs-hl--list-card .cs-hl__item:last-child {
+  border-bottom: 0;
+}
+
+/* Glass treatment for the plain list on the noir tone */
+.cs-tone--noir.cs-hl--list-plain .cs-hl__num {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+@keyframes cs-hl-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media screen and (min-width: 750px) {
+  .cs-hl__item {
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+
+  .cs-hl__num {
+    width: 5.6rem;
+    height: 5.6rem;
+    font-size: 1.5rem;
+  }
+
+  .cs-hl__item-text {
+    font-size: 1.8rem;
+    padding-top: 0.8rem;
+  }
+
+  .cs-hl--list-card .cs-hl__panel {
+    padding: 0.8rem 4rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .cs-hl__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 6.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-hl__item {
+    animation: none;
+  }
+
+  .cs-hl__num {
+    transition: none;
+  }
+}

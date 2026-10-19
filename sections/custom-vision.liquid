@@ -50,6 +50,12 @@
       </div>
     </div>
 
+    {%- if section.settings.side_image != blank -%}
+      {%- comment -%} Side image replaces the pillar diagram when one is set. {%- endcomment -%}
+      <div class="cs-vision__media cs-vision__media--{{ section.settings.image_style }}" data-cs-reveal style="--cs-delay: 120ms;">
+        {{ section.settings.side_image | image_url: width: 1600 | image_tag: class: 'cs-vision__media-img', loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 55vw, 100vw', alt: section.settings.side_image.alt }}
+      </div>
+    {%- else -%}
     <div class="cs-vision__diagram cs-vision__diagram--{{ section.blocks.size }}" data-cs-reveal style="--cs-delay: 120ms;">
       <svg class="cs-vision__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
         <path d="M50 12 L24 84 L76 84 Z" />
@@ -74,6 +80,7 @@
         </div>
       {%- endfor -%}
     </div>
+    {%- endif -%}
   </div>
 </section>
 
@@ -119,6 +126,27 @@
     },
     {
       "type": "header",
+      "content": "Right side image"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_image",
+      "label": "Image",
+      "info": "When an image is added, it replaces the pillar diagram."
+    },
+    {
+      "type": "select",
+      "id": "image_style",
+      "label": "Image style",
+      "info": "Use White panel for images with a white background.",
+      "options": [
+        { "value": "card", "label": "White panel" },
+        { "value": "plain", "label": "Plain" }
+      ],
+      "default": "card"
+    },
+    {
+      "type": "header",
       "content": "Pillar diagram"
     },
     {
@@ -145,10 +173,11 @@
         { "value": "light", "label": "White" },
         { "value": "paper", "label": "Paper" },
         { "value": "dark", "label": "Midnight" },
-        { "value": "accent", "label": "Saffron" }
+        { "value": "accent", "label": "Saffron" },
+        { "value": "graphite", "label": "Graphite" }
       ],
-      "default": "dark"
-    },
+      "default": "graphite"
+    }, 
     {
       "type": "range",
       "id": "padding_top",

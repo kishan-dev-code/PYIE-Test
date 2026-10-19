@@ -9,6 +9,69 @@
  */
 {
   "sections": {
+    "custom_hero_section_with_table_ryhdYf": {
+      "type": "custom-hero-section-with-table",
+      "blocks": {
+        "item_nNNpfJ": {
+          "type": "item",
+          "settings": {
+            "number": "",
+            "text": "<strong>Founded in 1996</strong>, Intex Technologies is an established Indian consumer-electronics company with 30+ years of industry experience."
+          }
+        },
+        "item_n6N9Py": {
+          "type": "item",
+          "settings": {
+            "number": "",
+            "text": "Diversified technology portfolio spanning <strong>consumer durables, IT accessories, display solutions, mobile accessories and lifestyle electronics</strong>."
+          }
+        },
+        "item_9TG8H8": {
+          "type": "item",
+          "settings": {
+            "number": "",
+            "text": "Broad product ecosystem extending across <strong>security & surveillance, biometrics and other electronics categories</strong>."
+          }
+        },
+        "item_CgaTfN": {
+          "type": "item",
+          "settings": {
+            "number": "",
+            "text": "Strong consumer-facing brand built around <strong>accessible, reliable and technology-led products across multiple price points</strong>."
+          }
+        },
+        "item_yUqqY3": {
+          "type": "item",
+          "settings": {
+            "number": "",
+            "text": "End-to-end market presence spanning <strong>product development, distribution, retail and after-sales support</strong> across its diverse portfolio."
+          }
+        }
+      },
+      "block_order": [
+        "item_nNNpfJ",
+        "item_n6N9Py",
+        "item_9TG8H8",
+        "item_CgaTfN",
+        "item_yUqqY3"
+      ],
+      "name": "Custom Hero Highlights",
+      "settings": {
+        "eyebrow": "37+ Strategic warehouses & dark stores",
+        "heading": "Infinite Innovation for a <em>Smarter World</em>",
+        "heading_tag": "h1",
+        "text": "<p>Powered by Intex — 30 years of technology infrastructure. The single partner that takes global electronics and technology brands into India, from first shipment to nationwide scale.</p>",
+        "button_label": "Partner with us",
+        "button_link": "/pages/contact",
+        "button_label_2": "Explore products",
+        "button_link_2": "",
+        "tone": "noir",
+        "list_style": "plain",
+        "show_grid": true,
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
     "custom_hero_banner_7ppRFV": {
       "type": "custom-hero-banner",
       "blocks": {
@@ -69,6 +132,7 @@
         "slide_B38JjN",
         "slide_reWdrw"
       ],
+      "disabled": true,
       "name": "Custom Hero Banner",
       "settings": {
         "autoplay": true,
@@ -117,7 +181,7 @@
       "settings": {
         "speed": 36,
         "reverse": true,
-        "tone": "accent",
+        "tone": "noir",
         "padding_top": 24,
         "padding_bottom": 24
       }
@@ -168,6 +232,7 @@
         "point_nGURjP",
         "point_RPwpmp"
       ],
+      "disabled": true,
       "name": "Custom About-Us Split",
       "settings": {
         "eyebrow": "Who we are",
@@ -195,7 +260,7 @@
             "value": "No. 1",
             "title": "India's No. 1 mobile brand",
             "text": "<p>Intex became India's No. 1 mobile brand — a milestone earned through nationwide retail presence and sustained consumer trust, not a single campaign.</p>",
-            "style": "solid"
+            "style": "soft"
           }
         },
         "card_PkLGke": {
@@ -225,7 +290,7 @@
             "value": "5 sec",
             "title": "1 product sold every 5 seconds",
             "text": "<p>Consumer trust at volume: 1 product sold every 5 seconds, 1 billion+ products sold to date.</p>",
-            "style": "accent"
+            "style": "soft"
           }
         },
         "highlight_t83M6Y": {
@@ -251,7 +316,7 @@
         "heading": "A <em>brand-building</em> track record &nbsp;track record, not just a distribution network",
         "text": "",
         "closing": "",
-        "tone": "paper",
+        "tone": "charcoal",
         "padding_top": 96,
         "padding_bottom": 96
       }
@@ -317,12 +382,13 @@
         "text": "",
         "list_style": "check",
         "button_label": "Talk to our team",
-        "button_link": "#",
+        "button_link": "/pages/contact",
+        "image": "shopify://shop_images/keyboard.jpg",
         "media_position": "right",
         "badge_value": "1996",
         "badge_label": "Founded",
         "ring_text": "Powered by Intex • 30 years of trust •",
-        "tone": "light",
+        "tone": "graphite",
         "padding_top": 96,
         "padding_bottom": 96
       }
@@ -357,7 +423,7 @@
             "value": "",
             "title": "Localized Marketing & Brand Building",
             "text": "<p>India-first storytelling, influencer strategy, and performance marketing that resonates locally.</p>",
-            "style": "solid"
+            "style": "soft"
           }
         },
         "card_4Fmemc": {
@@ -394,7 +460,7 @@
         "heading": "End-to-end market <em>launch & growth</em>",
         "text": "<p>PYIE manages the complete lifecycle of global tech products in India — from launch to long-term growth, customer trust, and brand leadership.</p>",
         "closing": "We don't just sell products — <strong>we build long-term brand presence.</strong>",
-        "tone": "paper",
+        "tone": "charcoal",
         "padding_top": 96,
         "padding_bottom": 96
       }
@@ -439,8 +505,10 @@
         "vision_text": "To be India's most trusted gateway for global electronics and technology brands - the first name any brand considers when India is next.",
         "mission_label": "Our Mission",
         "mission_text": "To give global brands complete, ready-built market access in India from distribution, compliance, retail, and after-sales - so they can launch and scale without building any of it themselves.",
+        "side_image": "shopify://shop_images/Inbox-31-154-kishan1995rai-gmail-com-Gmail-10-19-2026_09_38_PM.png",
+        "image_style": "card",
         "hub_text": "PYIE",
-        "tone": "dark",
+        "tone": "graphite",
         "padding_top": 112,
         "padding_bottom": 112
       }
@@ -588,6 +656,7 @@
         "channel_4McQLM",
         "channel_fdW9dn"
       ],
+      "disabled": true,
       "name": "Custom Distribution flow",
       "settings": {
         "eyebrow": "How it works",
@@ -1171,6 +1240,7 @@
     }
   },
   "order": [
+    "custom_hero_section_with_table_ryhdYf",
     "custom_hero_banner_7ppRFV",
     "custom_marquee_TRjj7Q",
     "custom_about_us_RazkP4",

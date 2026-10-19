@@ -239,3 +239,78 @@
     animation: none;
   }
 }
+/* ==========================================================
+   New tone: Graphite
+   Flat #0f1419 background, lifted point cards, white titles,
+   soft grey copy and a #ff3b3b red accent.
+   Doubled class for specificity so it wins over any global
+   .cs-section background rule.
+   ========================================================== */
+.cs-section.cs-tone--graphite {
+  --cs-bg: #0f1419;
+  --cs-fg: #ffffff;
+  --cs-fg-muted: rgba(226, 230, 235, 0.68);
+  --cs-line: rgba(255, 255, 255, 0.08);
+  --cs-card: #181d24;
+  --cs-accent: #ff3b3b;
+  --cs-accent-text: #ff3b3b;
+  --cs-on-accent: #ffffff;
+
+  color: var(--cs-fg);
+  background: var(--cs-bg);
+}
+
+.cs-tone--graphite .cs-text,
+.cs-tone--graphite .cs-split__point .cs-text {
+  color: var(--cs-fg-muted);
+}
+
+.cs-tone--graphite .cs-text strong,
+.cs-tone--graphite .cs-text b {
+  color: var(--cs-fg);
+}
+
+/* Points become rounded cards, as in the reference */
+.cs-tone--graphite .cs-split__points {
+  gap: 1.6rem;
+}
+
+.cs-tone--graphite .cs-split__point,
+.cs-tone--graphite .cs-split__point:last-child {
+  padding: 1.8rem 2rem;
+  border: 1px solid transparent;
+  border-radius: var(--cs-radius-lg, 1.6rem);
+  background: var(--cs-card);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.cs-tone--graphite .cs-split__point:hover {
+  border-color: rgba(255, 59, 59, 0.4);
+  background: #1c222a;
+}
+
+.cs-tone--graphite .cs-split__marker {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Stats strip */
+.cs-tone--graphite .cs-split__stats {
+  border-color: var(--cs-line);
+  background: var(--cs-card);
+}
+
+/* Media */
+.cs-tone--graphite .cs-split__img {
+  box-shadow: 0 2.4rem 5rem rgba(0, 0, 0, 0.45);
+}
+
+.cs-tone--graphite .cs-split__img-2 {
+  border-color: var(--cs-bg);
+}
+
+.cs-tone--graphite .cs-split__badge {
+  background: var(--cs-accent);
+  color: #ffffff;
+  box-shadow: 0 1.6rem 4rem rgba(255, 59, 59, 0.35);
+}
