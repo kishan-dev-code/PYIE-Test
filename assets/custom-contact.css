@@ -256,3 +256,158 @@
     padding: 6.4rem;
   }
 }
+/* ==========================================================
+   New tone: Graphite
+   Same palette as the other Graphite sections:
+   #0f1419 background, #181d24 cards, #ff3b3b red accent.
+   Scoped to .cs-contact so it can't leak into other sections.
+   ========================================================== */
+.cs-section.cs-contact.cs-tone--graphite {
+  --cs-bg: #0f1419;
+  --cs-fg: #ffffff;
+  --cs-fg-muted: rgba(226, 230, 235, 0.68);
+  --cs-line: rgba(255, 255, 255, 0.1);
+  --cs-card: #181d24;
+  --cs-accent: #ff3b3b;
+  --cs-accent-text: #ff3b3b;
+  --cs-on-accent: #ffffff;
+
+  color: var(--cs-fg);
+  background: var(--cs-bg);
+}
+
+.cs-contact.cs-tone--graphite .cs-contact__card {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--cs-card);
+  box-shadow: 0 2.4rem 6rem rgba(0, 0, 0, 0.45);
+}
+
+/* Info side */
+.cs-contact.cs-tone--graphite .cs-contact__info {
+  --cs-fg: #ffffff;
+  --cs-fg-muted: rgba(226, 230, 235, 0.68);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #ff3b3b;
+  --cs-accent-text: #ff3b3b;
+  --cs-on-accent: #ffffff;
+}
+
+.cs-contact.cs-tone--graphite .cs-contact__info::after {
+  background: radial-gradient(circle, rgba(255, 59, 59, 0.28), transparent 70%);
+}
+
+.cs-contact.cs-tone--graphite .cs-contact__detail-icon {
+  background: rgba(255, 59, 59, 0.12);
+  color: var(--cs-accent);
+}
+
+.cs-contact.cs-tone--graphite .cs-contact__details a:hover {
+  color: var(--cs-accent);
+  border-color: var(--cs-accent);
+}
+
+.cs-contact.cs-tone--graphite .cs-icon-btn {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: transparent;
+  color: #ffffff;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.cs-contact.cs-tone--graphite .cs-icon-btn:hover,
+.cs-contact.cs-tone--graphite .cs-icon-btn:focus-visible {
+  background: var(--cs-accent);
+  border-color: var(--cs-accent);
+  color: #ffffff;
+}
+
+/* Form side: dark panel with dark fields */
+.cs-contact.cs-tone--graphite .cs-contact__form-wrap {
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  background: #121820;
+  color: #ffffff;
+  color-scheme: dark;
+}
+
+.cs-contact.cs-tone--graphite .cs-contact__form-title {
+  color: #ffffff;
+}
+
+.cs-contact.cs-tone--graphite .cs-field__input {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: #0f1419;
+  color: #ffffff;
+}
+
+.cs-contact.cs-tone--graphite .cs-field__input:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.cs-contact.cs-tone--graphite .cs-field__input:focus {
+  border-color: var(--cs-accent);
+  background: #0f1419;
+  box-shadow: 0 0 0 0.4rem rgba(255, 59, 59, 0.2);
+}
+
+/* Keep browser autofill dark instead of pale yellow */
+.cs-contact.cs-tone--graphite .cs-field__input:-webkit-autofill,
+.cs-contact.cs-tone--graphite .cs-field__input:-webkit-autofill:hover,
+.cs-contact.cs-tone--graphite .cs-field__input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0 100rem #0f1419 inset;
+  caret-color: #ffffff;
+}
+
+.cs-contact.cs-tone--graphite .cs-field__input option {
+  background: #181d24;
+  color: #ffffff;
+}
+
+.cs-contact.cs-tone--graphite .cs-field__label {
+  color: rgba(226, 230, 235, 0.55);
+}
+
+.cs-contact.cs-tone--graphite .cs-field__input:focus + .cs-field__label,
+.cs-contact.cs-tone--graphite .cs-field__input:not(:placeholder-shown) + .cs-field__label,
+.cs-contact.cs-tone--graphite .cs-field__label--static {
+  color: var(--cs-accent);
+}
+
+.cs-contact.cs-tone--graphite .cs-field__chevron {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cs-contact.cs-tone--graphite .cs-field__input[aria-invalid='true'] {
+  border-color: #ff6b6b;
+}
+
+.cs-contact.cs-tone--graphite .cs-field__error {
+  color: #ff8a8a;
+}
+
+/* Submit: red button */
+.cs-contact.cs-tone--graphite .cs-contact__submit {
+  --cs-accent: #ff3b3b;
+  --cs-on-accent: #ffffff;
+  --cs-fg: #ffffff;
+  --cs-bg: #121820;
+}
+
+/* Notices */
+.cs-contact.cs-tone--graphite .cs-contact__notice--success {
+  border: 1px solid rgba(46, 204, 113, 0.3);
+  background: rgba(46, 204, 113, 0.12);
+  color: #7ee2a8;
+}
+
+.cs-contact.cs-tone--graphite .cs-contact__notice--error {
+  border: 1px solid rgba(255, 59, 59, 0.35);
+  background: rgba(255, 59, 59, 0.12);
+  color: #ff9a9a;
+}
+
+@media screen and (max-width: 989px) {
+  .cs-contact.cs-tone--graphite .cs-contact__form-wrap {
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+} 

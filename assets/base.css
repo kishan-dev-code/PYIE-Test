@@ -4197,3 +4197,19 @@ stroke: var(--cs-accent);
 .cs-section.cs-section-hero-highlighted.cs-tone--noir {
   background-image: none;
 }
+
+.cs-slider.is-draggable .flickity-viewport .flickity-slider {
+    outline: none;
+    box-shadow: none;
+}
+
+.cs-partners__slider.cs-slider.flickity-enabled.is-draggable.is-equal {
+    outline: none;
+    box-shadow: none;
+}
+
+.cs-slider.is-draggable .flickity-viewport {
+    cursor: grab;
+    outline: none;
+    box-shadow: none;
+}
