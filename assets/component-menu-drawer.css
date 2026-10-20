@@ -132,9 +132,9 @@ a.cs-btn.cs-btn--primary.cs-drawer__cta {
     white-space: nowrap;
     cursor: pointer;
     transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-    background: #ff9f1c;
+    background: #ff3b3b;
     width: 100%;
-    color: #0b1f2a;
+    color: #fff;
 }
 
 .cs-drawer__note {
@@ -143,14 +143,14 @@ a.cs-btn.cs-btn--primary.cs-drawer__cta {
 }
 
 .cs-btn.cs-btn--primary.cs-drawer__cta:hover {
-    background: #eef3f4;
-    color: #0b1f2a;
+    background: #ffffff;
+    color: #ff3b3b;
 }
 
 .js .menu-drawer__menu li .list-menu__item.menu-drawer__menu-item--active,
 .js .menu-drawer__menu li .list-menu__item.menu-drawer__menu-item:focus,
 .js .menu-drawer__menu li .list-menu__item.menu-drawer__menu-item:hover {
-    color: #ff9f1c;
+    color: #ff3b3b;
     background-color: transparent;
 }
 
