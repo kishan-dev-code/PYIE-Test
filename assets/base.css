@@ -4121,7 +4121,7 @@ stroke: var(--cs-accent);
   color: var(--cs-fg-muted);
 }
 
-.cs-counter [data-cs-current] {
+.cs-counter [data-cs-current] { 
   color: var(--cs-fg);
 }
 
