@@ -165,3 +165,80 @@
     gap: 6.4rem;
   }
 }
+
+/* ==========================================================
+   New tone: Graphite
+   Same palette as the About-Us Split and Vision sections:
+   #0f1419 background, #181d24 cards, #ff3b3b red accent.
+   Scoped to .cs-sp so it can't leak into other sections.
+   ========================================================== */
+.cs-section.cs-sp.cs-tone--graphite {
+  --cs-bg: #0f1419;
+  --cs-fg: #ffffff;
+  --cs-fg-muted: rgba(226, 230, 235, 0.68);
+  --cs-line: rgba(255, 255, 255, 0.08);
+  --cs-card: #181d24;
+  --cs-accent: #ff3b3b;
+  --cs-accent-text: #ff3b3b;
+  --cs-on-accent: #ffffff;
+
+  color: var(--cs-fg);
+  background: var(--cs-bg);
+}
+
+.cs-sp.cs-tone--graphite .cs-text {
+  color: var(--cs-fg-muted);
+}
+
+.cs-sp.cs-tone--graphite .cs-text strong,
+.cs-sp.cs-tone--graphite .cs-text b {
+  color: var(--cs-fg);
+}
+
+/* Stat cards */
+.cs-sp.cs-tone--graphite .cs-sp__stat {
+  transition: transform 0.4s var(--cs-ease), border-color 0.3s ease;
+}
+
+.cs-sp.cs-tone--graphite .cs-sp__stat:hover {
+  border-color: rgba(255, 59, 59, 0.45);
+}
+
+/* Featured stat: red instead of saffron */
+.cs-sp.cs-tone--graphite .cs-sp__stat--featured {
+  background: linear-gradient(135deg, #ff3b3b 0%, #d92a2a 100%);
+  border-color: #ff3b3b;
+}
+
+.cs-sp.cs-tone--graphite .cs-sp__stat--featured:hover {
+  border-color: #ffffff;
+}
+
+.cs-sp.cs-tone--graphite .cs-sp__stat--featured .cs-sp__stat-value,
+.cs-sp.cs-tone--graphite .cs-sp__stat--featured .cs-sp__stat-icon {
+  color: #ffffff;
+}
+
+.cs-sp.cs-tone--graphite .cs-sp__stat--featured .cs-sp__stat-label {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cs-sp.cs-tone--graphite .cs-sp__stat--featured::after {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Points as filled cards */
+.cs-sp.cs-tone--graphite .cs-sp__point {
+  border-color: transparent;
+  background: var(--cs-card);
+  transition: border-color 0.3s ease;
+}
+
+.cs-sp.cs-tone--graphite .cs-sp__point:hover {
+  border-color: rgba(255, 59, 59, 0.4);
+}
+
+/* Footnote */
+.cs-sp.cs-tone--graphite .cs-footnote {
+  color: rgba(226, 230, 235, 0.5);
+}

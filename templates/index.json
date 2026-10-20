@@ -585,7 +585,7 @@
         "chart_note": "7.8% CAGR through 2033, reaching $183B.",
         "why_heading": "Why now?",
         "closing": "A market this large, growing this fast, with this much headroom — needs a partner who has <strong>already built the infrastructure</strong> to capture it.",
-        "tone": "light",
+        "tone": "onyx",
         "padding_top": 96,
         "padding_bottom": 96
       }
@@ -784,7 +784,7 @@
         "heading": "India's deepest <em>offline distribution</em> network*",
         "text": "<p>Existing channels, warehousing and retail relationships — available to partner brands from Day 1.</p>",
         "footnote": "*Infrastructure, network, and performance figures marked with an asterisk (*) - offline distribution, service network, and marketing/brand milestones - reflect Intex Technologies' national infrastructure and track record, extended to PYIE's brand partners as part of the PYIE (Powered by Intex) partnership model.",
-        "tone": "dark",
+        "tone": "graphite",
         "padding_top": 96,
         "padding_bottom": 96
       }
@@ -795,24 +795,42 @@
         "image_TG8Fha": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/intex-store-1.jpg",
             "caption": ""
           }
         },
         "image_yLzQCP": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/intex-store-2.jpg",
             "caption": ""
           }
         },
         "image_fiVcQP": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/intex-store-3.jpg",
             "caption": ""
           }
         },
         "image_A6cAPa": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/intex-store-4.jpg",
+            "caption": ""
+          }
+        },
+        "image_ktcNCD": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/intex-store-5.jpg",
+            "caption": ""
+          }
+        },
+        "image_yMVjaA": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/intex-store-6.jpg",
             "caption": ""
           }
         }
@@ -821,7 +839,9 @@
         "image_TG8Fha",
         "image_yLzQCP",
         "image_fiVcQP",
-        "image_A6cAPa"
+        "image_A6cAPa",
+        "image_ktcNCD",
+        "image_yMVjaA"
       ],
       "name": "Custom Gallery slider",
       "settings": {
@@ -832,7 +852,7 @@
         "autoplay_speed": 4,
         "parallax": true,
         "cell_size": "medium",
-        "tone": "light",
+        "tone": "onyx",
         "padding_top": 96,
         "padding_bottom": 96
       }
@@ -933,7 +953,7 @@
         "heading": "After-sales support that reaches <em>every corner of India</em>*",
         "text": "",
         "footnote": "",
-        "tone": "paper",
+        "tone": "graphite",
         "padding_top": 96,
         "padding_bottom": 96
       }
@@ -946,7 +966,30 @@
           "settings": {
             "name": "Keychron",
             "description": "Top 10 global mechanical keyboard brand",
-            "tag": "Exclusive partner"
+            "tag": "Exclusive partner",
+            "amazon_store_url": "https://www.amazon.in/stores/Keychron/page/12D95763-A029-4F48-A821-AD806CE4F1B0?lp_asin=B09YY9GVD4&ref_=ast_bln&store_ref=bl_ast_dp_brandlogo_sto",
+            "product_1_image": "shopify://shop_images/Keychron_product1.webp",
+            "product_1_title": "Keychron K3 Version 2, 84 Keys Ultra-Slim Wireless Bluetooth/USB Wired Mechanical Keyboard with White LED Backlit, Low-Profile Gateron Mechanical Red Switch Compatible with Mac Windows",
+            "product_1_url": "https://www.amazon.in/Keychron-Ultra-Slim-Mechanical-Low-Profile-Compatible/dp/B08LSBTTQX?ref_=ast_sto_dp&th=1&psc=1",
+            "product_1_price": "",
+            "product_2_image": "shopify://shop_images/keychronproduct2.jpg",
+            "product_2_title": "Keychron K2 Version 2 Hot Swap Wireless Gaming Mechanical Keyboard with 84 Keys, US Layout, RGB Light, Aluminum Frame, Double Schottky Cap, Gateron G Pro Mechanical Switch, Wired Wireless Compatible,",
+            "product_2_url": "https://www.amazon.in/Keychron-Wireless-Mechanical-Keyboard-Compatible/dp/B09YY9GVD4/ref=asc_df_B09YY9GVD4?mcid=355d099475e736f5b45ddd2240ac622e&tag=googleshopdes-21&linkCode=df0&hvadid=709855510311&hvpos=&hvnetw=g&hvrand=8753729359161958525&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9298816&hvtargid=pla-1876082321489&psc=1&hvocijid=8753729359161958525-B09YY9GVD4-&hvexpln=0&gad_source=1",
+            "product_2_price": "",
+            "product_3_image": "shopify://shop_images/keychronproduct3.webp",
+            "product_3_title": "Keychron K8 HE TKL Wireless Bluetooth 2.4G Wired Triple Mode Hot Swappable Hall Effect Keyboard with QMK VIA Aluminum+Wood Frame Rapid Trigger for Mac Windows Linux-Black",
+            "product_3_url": "https://www.amazon.in/Keychron-K8-HE-Bluetooth-Linux-Black/dp/B0DY1DXBW4?ref_=ast_sto_dp&th=1&psc=1",
+            "product_3_price": "",
+            "product_4_image": "shopify://shop_images/keychronproduct4.webp",
+            "product_4_title": "Keychron K10 HE Hall Effect Keyboard Wireless, Magnetic Switch Hot Swappable, Adjustable Actuation Rapid Trigger Mode with Aluminum + Wood Frame, Full-Size Custom RGB for Mac Windows Linux - White",
+            "product_4_url": "https://www.amazon.in/Keychron-Swappable-Adjustable-Actuation-Full-Size/dp/B0DXZF4D4S?ref_=ast_sto_dp&th=1&psc=1",
+            "product_4_price": "",
+            "product_5_title": "",
+            "product_5_url": "",
+            "product_5_price": "",
+            "product_6_title": "",
+            "product_6_url": "",
+            "product_6_price": ""
           }
         },
         "partner_QzJbqX": {
@@ -954,7 +997,30 @@
           "settings": {
             "name": "Arzopa",
             "description": "Portable monitor brand",
-            "tag": "Exclusive partner"
+            "tag": "Exclusive partner",
+            "amazon_store_url": "https://www.amazon.in/stores/ARZOPAPortableMonitor/page/59D0018C-C8F2-45AA-BA01-D577F85A1C38?lp_asin=B0CRKGKZVX&ref_=ast_bln&store_ref=bl_ast_dp_brandlogo_sto",
+            "product_1_image": "shopify://shop_images/arzopaproduct1.webp",
+            "product_1_title": "ARZOPA 15.6'' FHD 1080P Portable Monitor with Kickstand,60Hz Ultra-Slim Portable Laptop Monitor with Speaker- IPS Eye Care Display for PC, MacBook, Mobile, Xbox, PS5 - USB C & HDMI Connectivity",
+            "product_1_url": "https://www.amazon.in/ARZOPA-Portable-Monitor-15-6-1080P/dp/B0CRKGCSGF?ref_=ast_sto_dp",
+            "product_1_price": "",
+            "product_2_image": "shopify://shop_images/arzopaproduct2.jpg",
+            "product_2_title": "ARZOPA 17.3'' Portable Monitor,103% sRGB FHD 1080P IPS Gaming Monitor Laptop Monitor with Built-in Kickstand Speaker HDMI USB C 60Hz External Screen for PC MacBook Mobile Xbox PS5",
+            "product_2_url": "https://www.amazon.in/ARZOPA-Portable-Kickstand-Computer-External/dp/B0CRKGBPZK?ref_=ast_sto_dp",
+            "product_2_price": "",
+            "product_3_image": "shopify://shop_images/arzopaproduct3.webp",
+            "product_3_title": "ARZOPA 16.1 144HZ Portable Monitor",
+            "product_3_url": "https://www.amazon.in/ARZOPA-16-1-144HZ-Portable-Monitor/dp/B0CH9WTW56?ref_=ast_sto_dp",
+            "product_3_price": "",
+            "product_4_image": "shopify://shop_images/arzopaproduct3.jpg",
+            "product_4_title": "ARZOPA 16.1''144Hz Portable Monitor, 106% sRGB FHD 1080P Kickstand Portable Gaming Monitor with Speaker HDR, Ultra Slim, Eye Care Screen for Laptop, PC, Mobile,PS5, MacBook- USB C & HDMI Connectivity",
+            "product_4_url": "https://www.amazon.in/ARZOPA-Portable-Kickstand-External-Switch-Z1FC/dp/B0CRKGKZVX?ref_=ast_sto_dp",
+            "product_4_price": "",
+            "product_5_title": "",
+            "product_5_url": "",
+            "product_5_price": "",
+            "product_6_title": "",
+            "product_6_url": "",
+            "product_6_price": ""
           }
         },
         "partner_gpxUDQ": {
@@ -962,7 +1028,26 @@
           "settings": {
             "name": "Aukey",
             "description": "Fast-charging accessories brand, part of a USD 2Bn group",
-            "tag": "Exclusive partner"
+            "tag": "Exclusive partner",
+            "amazon_store_url": "https://www.amazon.in/stores/page/EDDE621A-D3DF-48EE-AC77-5B07BA08779D?ingress=0&visitId=d3180798-b2f0-4a45-8254-c22cfcd4ed77",
+            "product_1_title": "",
+            "product_1_url": "",
+            "product_1_price": "",
+            "product_2_title": "",
+            "product_2_url": "",
+            "product_2_price": "",
+            "product_3_title": "",
+            "product_3_url": "",
+            "product_3_price": "",
+            "product_4_title": "",
+            "product_4_url": "",
+            "product_4_price": "",
+            "product_5_title": "",
+            "product_5_url": "",
+            "product_5_price": "",
+            "product_6_title": "",
+            "product_6_url": "",
+            "product_6_price": ""
           }
         },
         "partner_xYLxip": {
@@ -970,7 +1055,28 @@
           "settings": {
             "name": "Hohem",
             "description": "Global leader in AI tracking gimbals",
-            "tag": "Exclusive partner"
+            "tag": "Exclusive partner",
+            "amazon_store_url": "https://www.amazon.in/stores/hohem/page/03B601A3-79D2-4C9C-B7E2-9A2C535A3515?lp_asin=B0D3P8V8N2&ref_=ast_bln&store_ref=bl_ast_dp_brandlogo_sto",
+            "product_1_image": "shopify://shop_images/hohemproduct1.webp",
+            "product_1_title": "hohem iSteady XE Gimbal Stabilizer for Smartphone, 3-Axis Phone Gimbal, Ultra-Light Foldable for Android & iPhone 14 Pro Max, One-Key Inception, for Video Recording (Without Fill Light), Grey",
+            "product_1_url": "https://www.amazon.in/hohem-Stabilizer-Smartphone-Ultra-Light-Inception/dp/B0BZYJY24D?ref_=ast_sto_dp&th=1&psc=1",
+            "product_1_price": "",
+            "product_2_image": "shopify://shop_images/hohemproduct2_bfddf9df-86b2-44c9-87f9-f0f8a784b735.webp",
+            "product_2_title": "Hohem iSteady M6 Kit Smartphone Gimbal Stabilizer 3-Axis with Magnetic Fill Light AI Tracking Sensor with OLED Display for iPhone Android Max Payload 400g | Black",
+            "product_2_url": "https://www.amazon.in/Smartphone-Stabilizer-Magnetic-Tracking-0-91-inch/dp/B0BZ7TC3BX?ref_=ast_sto_dp&th=1&psc=1",
+            "product_2_price": "",
+            "product_3_title": "",
+            "product_3_url": "",
+            "product_3_price": "",
+            "product_4_title": "",
+            "product_4_url": "",
+            "product_4_price": "",
+            "product_5_title": "",
+            "product_5_url": "",
+            "product_5_price": "",
+            "product_6_title": "",
+            "product_6_url": "",
+            "product_6_price": ""
           }
         },
         "partner_rVgFLK": {
@@ -978,7 +1084,26 @@
           "settings": {
             "name": "Inateck",
             "description": "Red Dot Award-winning PC accessories brand",
-            "tag": "Exclusive partner"
+            "tag": "Exclusive partner",
+            "amazon_store_url": "",
+            "product_1_title": "",
+            "product_1_url": "",
+            "product_1_price": "",
+            "product_2_title": "",
+            "product_2_url": "",
+            "product_2_price": "",
+            "product_3_title": "",
+            "product_3_url": "",
+            "product_3_price": "",
+            "product_4_title": "",
+            "product_4_url": "",
+            "product_4_price": "",
+            "product_5_title": "",
+            "product_5_url": "",
+            "product_5_price": "",
+            "product_6_title": "",
+            "product_6_url": "",
+            "product_6_price": ""
           }
         },
         "partner_Lj7pyF": {
@@ -986,7 +1111,30 @@
           "settings": {
             "name": "Intex",
             "description": "Consumer durables, IT/mobile accessories, audio, surveillance, displays",
-            "tag": "Own brand"
+            "tag": "Own brand",
+            "amazon_store_url": "https://www.amazon.in/Electronics-Intex/s?rh=n%3A976419031%2Cp_89%3AIntex",
+            "product_1_image": "shopify://shop_images/intexproduct1.jpg",
+            "product_1_title": "Intex Rise Wired Keyboard (Corona S IT-KB333) | USB Plug & Play | 104 Premium Keys | 5 Million Keystroke Lifespan | Anti-Splash Design | Adjustable Height | 1.2 Meter Cable Length | Black",
+            "product_1_url": "https://www.amazon.in/Intex-Corona-Keystroke-Anti-Splash-Adjustable/dp/B0G1THS5R5/ref=sr_1_6?dib=eyJ2IjoiMSJ9.UEUSgLLukpMilVGgKAuyJo3LR4P1NdYAU53ei_mdrviCirEaE6PMFGENplLxwNJRJBekezwcaBYuXFAUkWs2Ry85_V6Tw9I0kNly-kTkGYkNdFfk6jU_usN-igKBdb9EyZUlnZpfcqmHbMCr1OhIMQ_fhl6J0snu3GyGoGSr40l-OuThhL5ypaqZCTvD3TdYL95QLgG19lAHuutzTK3Xk-mMg1Wuc7xYkIgxmtCTb5Nu_7uRppgdjjSzhtnbz8aFcpGj88x_5mToC2svTz9_bQH_BLR0N-2EFKMOeNqRKe0.hQ__cL1h9Arc2FP0ZVzLO-DB7fINVJ98PsLKnzd-02I&dib_tag=se&qid=1792502694&refinements=p_89%3AIntex&s=electronics&sr=1-6",
+            "product_1_price": "",
+            "product_2_image": "shopify://shop_images/intextproduct2.webp",
+            "product_2_title": "Intex Strong Neo QCPD 20000mAh Power Bank with 22.5W Fast Charging, Type-C PD Input/Output, Dual USB Output, LED Indicators, Smart Protection, High-Capacity Portable Charger (Black)",
+            "product_2_url": "https://www.amazon.in/Intex-Strong-Neo-QCPD-High-Capacity/dp/B0GXBG6ZYP/ref=sr_1_3?dib=eyJ2IjoiMSJ9.UEUSgLLukpMilVGgKAuyJo3LR4P1NdYAU53ei_mdrviCirEaE6PMFGENplLxwNJRJBekezwcaBYuXFAUkWs2Ry85_V6Tw9I0kNly-kTkGYkNdFfk6jU_usN-igKBdb9EyZUlnZpfcqmHbMCr1OhIMQ_fhl6J0snu3GyGoGSr40l-OuThhL5ypaqZCTvD3TdYL95QLgG19lAHuutzTK3Xk-mMg1Wuc7xYkIgxmtCTb5Nu_7uRppgdjjSzhtnbz8aFcpGj88x_5mToC2svTz9_bQH_BLR0N-2EFKMOeNqRKe0.hQ__cL1h9Arc2FP0ZVzLO-DB7fINVJ98PsLKnzd-02I&dib_tag=se&qid=1792502694&refinements=p_89%3AIntex&s=electronics&sr=1-3",
+            "product_2_price": "",
+            "product_3_image": "shopify://shop_images/intexproduct3.jpg",
+            "product_3_title": "Intex AHD Dome Camera 2.4MP Indoor CCTV Security Camera",
+            "product_3_url": "https://www.amazon.in/Intex-AHD-Camera-2-4MP-Security/dp/B0HJ873HMC/ref=sr_1_5?dib=eyJ2IjoiMSJ9.UEUSgLLukpMilVGgKAuyJo3LR4P1NdYAU53ei_mdrviCirEaE6PMFGENplLxwNJRJBekezwcaBYuXFAUkWs2Ry85_V6Tw9I0kNly-kTkGYkNdFfk6jU_usN-igKBdb9EyZUlnZpfcqmHbMCr1OhIMQ_fhl6J0snu3GyGoGSr40l-OuThhL5ypaqZCTvD3TdYL95QLgG19lAHuutzTK3Xk-mMg1Wuc7xYkIgxmtCTb5Nu_7uRppgdjjSzhtnbz8aFcpGj88x_5mToC2svTz9_bQH_BLR0N-2EFKMOeNqRKe0.hQ__cL1h9Arc2FP0ZVzLO-DB7fINVJ98PsLKnzd-02I&dib_tag=se&qid=1792502694&refinements=p_89%3AIntex&s=electronics&sr=1-5",
+            "product_3_price": "",
+            "product_4_image": "shopify://shop_images/intexproduct4.webp",
+            "product_4_title": "Intex 140 cm (55 Inches) Frameless 4K QLED Smart Google TV | Android 14 | Dolby Vision & Dolby Atmos | 120Hz Refresh Rate | 2GB RAM + 32GB Storage | Google Assistant | Chromecast Built-In | LED-GQ5531",
+            "product_4_url": "https://www.amazon.in/Intex-Frameless-Assistant-Chromecast-LED-GQ5531/dp/B0H11X2NCH/ref=sr_1_22?dib=eyJ2IjoiMSJ9.UEUSgLLukpMilVGgKAuyJo3LR4P1NdYAU53ei_mdrviCirEaE6PMFGENplLxwNJRJBekezwcaBYuXFAUkWs2Ry85_V6Tw9I0kNly-kTkGYkNdFfk6jU_usN-igKBdb9EyZUlnZpfcqmHbMCr1OhIMQ_fhl6J0snu3GyGoGSr40l-OuThhL5ypaqZCTvD3TdYL95QLgG19lAHuutzTK3Xk-mMg1Wuc7xYkIgxmtCTb5Nu_7uRppgdjjSzhtnbz8aFcpGj88x_5mToC2svTz9_bQH_BLR0N-2EFKMOeNqRKe0.hQ__cL1h9Arc2FP0ZVzLO-DB7fINVJ98PsLKnzd-02I&dib_tag=se&qid=1792502694&refinements=p_89%3AIntex&s=electronics&sr=1-22",
+            "product_4_price": "",
+            "product_5_title": "",
+            "product_5_url": "",
+            "product_5_price": "",
+            "product_6_title": "",
+            "product_6_url": "",
+            "product_6_price": ""
           }
         }
       },
@@ -1006,7 +1154,13 @@
         "footnote": "10-year exclusive distribution contracts unless noted",
         "autoplay": true,
         "autoplay_speed": 3,
-        "tone": "light",
+        "cta_label": "View products",
+        "shop_eyebrow": "Available on Amazon",
+        "shop_title_suffix": "products",
+        "buy_label": "Buy on Amazon",
+        "store_label": "View all on Amazon",
+        "tone": "graphite",
+        "logo_style": "original",
         "padding_top": 96,
         "padding_bottom": 96
       }
@@ -1049,7 +1203,8 @@
             "label": "Zone 1",
             "title": "The PYIE Cafe",
             "tagline": "Where every great idea starts with the perfect cup.",
-            "text": "<p>Premium consumers dwell longer, connect deeper, and return more often when retail begins with hospitality.</p>"
+            "text": "<p>Premium consumers dwell longer, connect deeper, and return more often when retail begins with hospitality.</p>",
+            "image": "shopify://shop_images/pyie-zone-cafe-hd.jpg"
           }
         },
         "zone_qh8cQd": {
@@ -1059,7 +1214,8 @@
             "label": "Zone 2",
             "title": "The Maker Studio",
             "tagline": "Design it. Print it. Take it home.",
-            "text": "<p>Premium consumers dwell longer, connect deeper, and return more often when retail begins with hospitality.</p>"
+            "text": "<p>Premium consumers dwell longer, connect deeper, and return more often when retail begins with hospitality.</p>",
+            "image": "shopify://shop_images/pyie-zone-maker-studio-hd.jpg"
           }
         },
         "zone_FfyPBw": {
@@ -1069,7 +1225,8 @@
             "label": "Zone 3",
             "title": "The Brand Floor",
             "tagline": "The world's best tech brands.",
-            "text": "<p>Premium consumers dwell longer, connect deeper, and return more often when retail begins with hospitality.</p>"
+            "text": "<p>Premium consumers dwell longer, connect deeper, and return more often when retail begins with hospitality.</p>",
+            "image": "shopify://shop_images/pyie-zone-brand-floor-hd.jpg"
           }
         }
       },
@@ -1089,7 +1246,7 @@
         "text": "<p>India's first experiential tech retail format.</p>",
         "closing_heading": "Three <em>worlds</em>. One destination.",
         "closing_text": "Every PYIE store is built around a threefold experience — not a showroom, a destination.",
-        "tone": "dark",
+        "tone": "onyx",
         "padding_top": 96,
         "padding_bottom": 96
       }
@@ -1164,11 +1321,12 @@
         "list_style": "number",
         "button_label": "",
         "button_link": "",
+        "image": "shopify://shop_images/New_Project.jpg",
         "media_position": "right",
         "badge_value": "1996",
         "badge_label": "Founded",
         "ring_text": "Powered by Intex • 30 years of trust •",
-        "tone": "light",
+        "tone": "graphite",
         "padding_top": 96,
         "padding_bottom": 96
       }
@@ -1179,24 +1337,42 @@
         "image_BPzwQK": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/intex-factory-1.jpg",
             "caption": ""
           }
         },
         "image_EPtXiF": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/intex-factory-2.jpg",
             "caption": ""
           }
         },
         "image_bHDPz4": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/intex-factory-3.jpg",
             "caption": ""
           }
         },
         "image_NH3Mrf": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/intex-factory-4.jpg",
+            "caption": ""
+          }
+        },
+        "image_EtgdYw": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/intex-factory-5.jpg",
+            "caption": ""
+          }
+        },
+        "image_KLm7L8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/intex-factory-6.jpg",
             "caption": ""
           }
         }
@@ -1205,7 +1381,9 @@
         "image_BPzwQK",
         "image_EPtXiF",
         "image_bHDPz4",
-        "image_NH3Mrf"
+        "image_NH3Mrf",
+        "image_EtgdYw",
+        "image_KLm7L8"
       ],
       "name": "Custom Gallery slider",
       "settings": {
@@ -1216,13 +1394,14 @@
         "autoplay_speed": 4,
         "parallax": true,
         "cell_size": "small",
-        "tone": "paper",
+        "tone": "onyx",
         "padding_top": 96,
         "padding_bottom": 96
       }
     },
     "custom_featured_product_slider_EEDLrd": {
       "type": "custom-featured-product-slider",
+      "disabled": true,
       "name": "Featured Product Slider",
       "settings": {
         "eyebrow": "Products",

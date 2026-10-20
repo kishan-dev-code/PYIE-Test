@@ -99,3 +99,408 @@
     justify-content: center;
   }
 }
+
+/* ==========================================================
+   Partner card → Amazon products
+   ========================================================== */
+.cs-partners__card.has-shop {
+  cursor: pointer;
+}
+
+.cs-partners__card.has-shop:focus-visible {
+  outline: 2px solid var(--cs-accent);
+  outline-offset: 3px;
+}
+
+.cs-partners__card.is-active {
+  border-color: var(--cs-accent);
+  box-shadow: var(--cs-shadow);
+}
+
+.cs-partners__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 2rem;
+  padding: 0.8rem 1.6rem;
+  border: 1px solid var(--cs-line);
+  border-radius: 10rem;
+  color: var(--cs-fg);
+  font-size: 1.3rem;
+  font-weight: 600;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.cs-partners__cta-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.3s var(--cs-ease);
+}
+
+.cs-partners__card.has-shop:hover .cs-partners__cta,
+.cs-partners__card.is-active .cs-partners__cta {
+  background: var(--cs-accent);
+  border-color: var(--cs-accent);
+  color: var(--cs-on-accent);
+}
+
+.cs-partners__card.is-active .cs-partners__cta-icon {
+  transform: rotate(180deg);
+}
+
+/* Products panel */
+.cs-partners__shops {
+  width: 100%;
+}
+
+.cs-partners__shop {
+  margin-top: 4rem;
+  padding: 2.4rem 1.6rem;
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-radius-lg);
+  background: var(--cs-card);
+  text-align: left;
+  opacity: 0;
+  transform: translateY(1.6rem);
+  transition: opacity 0.45s var(--cs-ease), transform 0.45s var(--cs-ease);
+}
+
+.cs-partners__shop.is-open {
+  opacity: 1;
+  transform: none;
+}
+
+.cs-partners__shop[hidden] {
+  display: none;
+}
+
+.cs-partners__shop-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.6rem;
+  margin-bottom: 2.4rem;
+}
+
+.cs-partners__shop-eyebrow {
+  margin: 0 0 0.6rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cs-accent-text);
+}
+
+.cs-partners__shop-title {
+  margin: 0;
+  font-family: var(--cs-font-display);
+  font-size: clamp(2.2rem, 1.8rem + 1vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--cs-fg);
+}
+
+.cs-partners__shop-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.cs-partners__store-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--cs-fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--cs-line);
+  padding-bottom: 0.2rem;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.cs-partners__store-link:hover {
+  color: var(--cs-accent-text);
+  border-color: var(--cs-accent);
+}
+
+.cs-partners__store-link svg,
+.cs-partners__buy svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cs-partners__shop-close {
+  display: inline-grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  padding: 0;
+  border: 1px solid var(--cs-line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--cs-fg);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.cs-partners__shop-close:hover {
+  border-color: var(--cs-accent);
+}
+
+.cs-partners__shop-close svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.cs-partners__products {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-partners__product {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-radius);
+  background: var(--cs-bg);
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.4s var(--cs-ease);
+}
+
+.cs-partners__product:hover {
+  border-color: var(--cs-accent);
+  transform: translateY(-0.4rem);
+}
+
+/* Amazon shots sit on white, so the image well stays white on every tone */
+.cs-partners__product-media {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  padding: 1.6rem;
+  background: #ffffff;
+}
+
+.cs-partners__product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s var(--cs-ease);
+}
+
+.cs-partners__product:hover .cs-partners__product-img {
+  transform: scale(1.04);
+}
+
+.cs-partners__product-img--placeholder {
+  fill: rgba(0, 0, 0, 0.25);
+}
+
+.cs-partners__product-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1.6rem;
+}
+
+.cs-partners__product-title {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--cs-fg);
+}
+
+.cs-partners__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--cs-fg-muted);
+}
+
+.cs-partners__rating svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: #ffa41c;
+}
+
+.cs-partners__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.8rem;
+  margin: 0;
+}
+
+.cs-partners__price-now {
+  font-family: var(--cs-font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--cs-fg);
+}
+
+.cs-partners__price-mrp {
+  font-size: 1.3rem;
+  color: var(--cs-fg-muted);
+}
+
+.cs-partners__buy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 4.4rem;
+  margin-top: auto;
+  padding: 0 1.6rem;
+  border-radius: 10rem;
+  background: var(--cs-accent);
+  color: var(--cs-on-accent);
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.cs-partners__buy:hover {
+  filter: brightness(1.08);
+}
+
+.cs-partners__buy:active {
+  transform: scale(0.98);
+}
+
+@media screen and (min-width: 750px) {
+  .cs-partners__shop {
+    padding: 3.2rem;
+  }
+
+  .cs-partners__products {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.6rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .cs-partners__shop {
+    padding: 4rem;
+  }
+
+  .cs-partners__products {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Logo colour option */
+.cs-partners--logo-white .cs-partners__logo-img {
+  filter: brightness(0) invert(1);
+}
+
+/* ==========================================================
+   New tone: Graphite
+   Same palette as the other Graphite sections:
+   #0f1419 background, #181d24 cards, #ff3b3b red accent.
+   Scoped to .cs-partners so it can't leak into other sections.
+   ========================================================== */
+.cs-section.cs-partners.cs-tone--graphite {
+  --cs-bg: #0f1419;
+  --cs-fg: #ffffff;
+  --cs-fg-muted: rgba(226, 230, 235, 0.68);
+  --cs-line: rgba(255, 255, 255, 0.1);
+  --cs-card: #181d24;
+  --cs-accent: #ff3b3b;
+  --cs-accent-text: #ff3b3b;
+  --cs-on-accent: #ffffff;
+
+  color: var(--cs-fg);
+  background: var(--cs-bg);
+}
+
+.cs-partners.cs-tone--graphite .cs-text {
+  color: var(--cs-fg-muted);
+}
+
+.cs-partners.cs-tone--graphite .cs-partners__card {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.cs-partners.cs-tone--graphite .cs-partners__card.is-selected,
+.cs-partners.cs-tone--graphite .cs-partners__card.is-active {
+  border-color: rgba(255, 59, 59, 0.6);
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.45);
+}
+
+.cs-partners.cs-tone--graphite .cs-partners__tag {
+  background: rgba(255, 59, 59, 0.14);
+  color: var(--cs-accent);
+}
+
+.cs-partners.cs-tone--graphite .cs-icon-btn {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: transparent;
+  color: var(--cs-fg);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.cs-partners.cs-tone--graphite .cs-icon-btn:hover,
+.cs-partners.cs-tone--graphite .cs-icon-btn:focus-visible {
+  background: var(--cs-accent);
+  border-color: var(--cs-accent);
+  color: #ffffff;
+}
+
+.cs-partners.cs-tone--graphite .cs-progress {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cs-partners.cs-tone--graphite .cs-footnote {
+  color: rgba(226, 230, 235, 0.5);
+}
+
+.cs-partners.cs-tone--graphite .cs-partners__shop {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.cs-partners.cs-tone--graphite .cs-partners__product {
+  border-color: rgba(255, 255, 255, 0.06);
+  background: #121820;
+}
+
+.cs-partners.cs-tone--graphite .cs-partners__product:hover {
+  border-color: rgba(255, 59, 59, 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-partners__shop,
+  .cs-partners__product,
+  .cs-partners__product-img,
+  .cs-partners__cta-icon {
+    transition: none;
+  }
+}

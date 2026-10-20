@@ -358,3 +358,92 @@
     animation: none;
   }
 }
+/* ==========================================================
+   New tone: Onyx
+   #16181c background with a #ff3b3b red accent.
+   Scoped to .cs-market so it can't leak into other sections.
+   ========================================================== */
+.cs-section.cs-market.cs-tone--onyx {
+  --cs-bg: #16181c;
+  --cs-fg: #ffffff;
+  --cs-fg-muted: rgba(226, 230, 235, 0.68);
+  --cs-line: rgba(255, 255, 255, 0.08);
+  --cs-card: #1f2228;
+  --cs-accent: #ff3b3b;
+  --cs-accent-text: #ff3b3b;
+  --cs-on-accent: #ffffff;
+
+  color: var(--cs-fg);
+  background: var(--cs-bg);
+}
+
+.cs-tone--onyx .cs-text {
+  color: var(--cs-fg-muted);
+}
+
+.cs-tone--onyx .cs-text strong,
+.cs-tone--onyx .cs-text b {
+  color: var(--cs-fg);
+}
+
+/* Chart */
+.cs-tone--onyx .cs-market__chart {
+  border: 1px solid var(--cs-line);
+  background: var(--cs-card);
+  color: var(--cs-fg);
+}
+
+.cs-tone--onyx .cs-market__chart-tag {
+  background: rgba(255, 59, 59, 0.14);
+  color: var(--cs-accent);
+}
+
+.cs-tone--onyx .cs-market__bar-fill {
+  background: linear-gradient(180deg, rgba(255, 59, 59, 0.9), rgba(255, 59, 59, 0.18));
+}
+
+.cs-tone--onyx .cs-market__bar.is-actual .cs-market__bar-fill {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.cs-tone--onyx .cs-market__bar:hover .cs-market__bar-fill {
+  background: var(--cs-accent);
+}
+
+.cs-tone--onyx .cs-market__bar-value {
+  background: #ffffff;
+  color: #16181c;
+}
+
+.cs-tone--onyx .cs-market__bar-year,
+.cs-tone--onyx .cs-market__chart-note {
+  color: rgba(226, 230, 235, 0.55);
+}
+
+/* Metrics + Why now */
+.cs-tone--onyx .cs-market__metric,
+.cs-tone--onyx .cs-market__why {
+  border-color: var(--cs-line);
+  background: var(--cs-card);
+}
+
+.cs-tone--onyx .cs-market__reason-toggle {
+  border-color: rgba(255, 255, 255, 0.14);
+  color: var(--cs-fg);
+}
+
+/* Closing statement: red edge with a warm fade */
+.cs-tone--onyx .cs-market__closing {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(90deg, rgba(255, 59, 59, 0.16) 0%, rgba(255, 255, 255, 0.03) 60%, rgba(255, 255, 255, 0.02) 100%);
+  color: var(--cs-fg-muted);
+}
+
+.cs-tone--onyx .cs-market__closing::before {
+  background: var(--cs-accent);
+}
+
+.cs-tone--onyx .cs-market__closing strong,
+.cs-tone--onyx .cs-market__closing b {
+  color: var(--cs-fg);
+}

@@ -81,3 +81,72 @@
   .cs-gallery--medium { --cs-cell: 38vw; }
   .cs-gallery--large { --cs-cell: 56vw; }
 }
+
+/* ==========================================================
+   New tone: Onyx
+   Same palette as the Market Opportunity section:
+   #16181c background, #ff3b3b red accent.
+   Scoped to .cs-gallery so it can't leak into other sections.
+   ========================================================== */
+.cs-section.cs-gallery.cs-tone--onyx {
+  --cs-bg: #16181c;
+  --cs-fg: #ffffff;
+  --cs-fg-muted: rgba(226, 230, 235, 0.68);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-card: #1f2228;
+  --cs-accent: #ff3b3b;
+  --cs-accent-text: #ff3b3b;
+  --cs-on-accent: #ffffff;
+
+  color: var(--cs-fg);
+  background: var(--cs-bg);
+}
+
+.cs-gallery.cs-tone--onyx .cs-text {
+  color: var(--cs-fg-muted);
+}
+
+/* Slider arrows + counter */
+.cs-gallery.cs-tone--onyx .cs-icon-btn {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: transparent;
+  color: var(--cs-fg);
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.cs-gallery.cs-tone--onyx .cs-icon-btn:hover,
+.cs-gallery.cs-tone--onyx .cs-icon-btn:focus-visible {
+  background: var(--cs-accent);
+  border-color: var(--cs-accent);
+  color: #ffffff;
+}
+
+.cs-gallery.cs-tone--onyx .cs-counter {
+  color: var(--cs-fg-muted);
+}
+
+.cs-gallery.cs-tone--onyx .cs-counter [data-cs-current] {
+  color: var(--cs-fg);
+}
+
+/* Images: dark placeholder fill, dimmer side slides */
+.cs-gallery.cs-tone--onyx .cs-gallery__media {
+  background: var(--cs-card);
+}
+
+.cs-gallery.cs-tone--onyx .flickity-enabled .cs-gallery__cell:not(.is-selected) .cs-gallery__media {
+  opacity: 0.4;
+}
+
+.cs-gallery.cs-tone--onyx .cs-gallery__cell.is-selected .cs-gallery__media {
+  box-shadow: 0 2.4rem 5rem rgba(0, 0, 0, 0.45);
+}
+
+/* Slider dots, if enabled in the global slider */
+.cs-gallery.cs-tone--onyx .flickity-page-dots .dot {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.cs-gallery.cs-tone--onyx .flickity-page-dots .dot.is-selected {
+  background: var(--cs-accent);
+}

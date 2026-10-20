@@ -2,11 +2,14 @@
 
 {%- liquid
   assign autoplay_ms = section.settings.autoplay_speed | times: 1000
+  assign partners = section.blocks | where: 'type', 'partner'
+  assign max_products = 6
+  assign section_key = 'cs-partners-' | append: section.id
 -%}
 
 <section
-  id="cs-partners-{{ section.id }}"
-  class="cs-section cs-partners cs-tone--{{ section.settings.tone }}"
+  id="{{ section_key }}"
+  class="cs-section cs-partners cs-tone--{{ section.settings.tone }} cs-partners--logo-{{ section.settings.logo_style }}"
   style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
   data-cs-slider-wrap
 >
@@ -19,15 +22,37 @@
     -%}
   </div>
 
-  {%- if section.blocks.size > 0 -%}
+  {%- if partners.size > 0 -%}
     <div
       class="cs-partners__slider cs-slider"
       data-cs-slider='{"wrapAround": true, "cellAlign": "center", "contain": false, "autoPlay": {% if section.settings.autoplay %}{{ autoplay_ms }}{% else %}false{% endif %}}'
       tabindex="0"
       aria-label="{{ section.settings.heading | strip_html | escape }}"
     >
-      {%- for block in section.blocks -%}
-        <article class="cs-partners__card cs-cell" data-cs-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+      {%- for block in partners -%}
+        {%- liquid
+          assign panel_id = section_key | append: '-shop-' | append: block.id
+          assign item_count = 0
+          for n in (1..max_products)
+            assign key_title = 'product_' | append: n | append: '_title'
+            assign key_image = 'product_' | append: n | append: '_image'
+            if block.settings[key_title] != blank or block.settings[key_image] != blank
+              assign item_count = item_count | plus: 1
+            endif
+          endfor
+        -%}
+        <article
+          class="cs-partners__card cs-cell{% if item_count > 0 %} has-shop{% endif %}"
+          data-cs-index="{{ forloop.index0 }}"
+          {% if item_count > 0 %}
+            data-cs-shop-target="{{ panel_id }}"
+            role="button"
+            tabindex="0"
+            aria-expanded="false"
+            aria-controls="{{ panel_id }}"
+          {% endif %}
+          {{ block.shopify_attributes }}
+        >
           <div class="cs-partners__logo">
             {%- if block.settings.logo != blank -%}
               {{
@@ -47,6 +72,13 @@
           {%- if block.settings.tag != blank -%}
             <span class="cs-partners__tag">{{ block.settings.tag | escape }}</span>
           {%- endif -%}
+
+          {%- if item_count > 0 -%}
+            <span class="cs-partners__cta">
+              {{- section.settings.cta_label | escape -}}
+              <svg class="cs-partners__cta-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"></path></svg>
+            </span>
+          {%- endif -%}
         </article>
       {%- endfor -%}
     </div>
@@ -62,6 +94,101 @@
         </button>
       </div>
 
+      <div class="cs-partners__shops">
+        {%- for block in partners -%}
+          {%- liquid
+            assign panel_id = section_key | append: '-shop-' | append: block.id
+            assign item_count = 0
+            for n in (1..max_products)
+              assign key_title = 'product_' | append: n | append: '_title'
+              assign key_image = 'product_' | append: n | append: '_image'
+              if block.settings[key_title] != blank or block.settings[key_image] != blank
+                assign item_count = item_count | plus: 1
+              endif
+            endfor
+          -%}
+          {%- if item_count > 0 -%}
+            <div class="cs-partners__shop" id="{{ panel_id }}" data-cs-shop-panel role="region" aria-label="{{ block.settings.name | escape }} products" hidden>
+              <div class="cs-partners__shop-head">
+                <div>
+                  {%- if section.settings.shop_eyebrow != blank -%}
+                    <p class="cs-partners__shop-eyebrow">{{ section.settings.shop_eyebrow | escape }}</p>
+                  {%- endif -%}
+                  <h3 class="cs-partners__shop-title">{{ block.settings.name | escape }} {{ section.settings.shop_title_suffix | escape }}</h3>
+                </div>
+
+                <div class="cs-partners__shop-actions">
+                  {%- if block.settings.amazon_store_url != blank -%}
+                    <a class="cs-partners__store-link" href="{{ block.settings.amazon_store_url }}" target="_blank" rel="noopener nofollow">
+                      {{- section.settings.store_label | escape -}}
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+                    </a>
+                  {%- endif -%}
+                  <button type="button" class="cs-partners__shop-close" data-cs-shop-close aria-label="Close {{ block.settings.name | escape }} products">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+                  </button>
+                </div>
+              </div>
+
+              <ul class="cs-partners__products" role="list">
+                {%- for n in (1..max_products) -%}
+                  {%- liquid
+                    assign key_title = 'product_' | append: n | append: '_title'
+                    assign key_image = 'product_' | append: n | append: '_image'
+                    assign key_url = 'product_' | append: n | append: '_url'
+                    assign key_price = 'product_' | append: n | append: '_price'
+                    assign p_title = block.settings[key_title]
+                    assign p_image = block.settings[key_image]
+                    assign p_url = block.settings[key_url]
+                    assign p_price = block.settings[key_price]
+                  -%}
+                  {%- if p_title != blank or p_image != blank -%}
+                    <li class="cs-partners__product">
+                      <a
+                        class="cs-partners__product-media"
+                        {% if p_url != blank %}href="{{ p_url }}" target="_blank" rel="noopener nofollow"{% endif %}
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        {%- if p_image != blank -%}
+                          {{
+                            p_image
+                            | image_url: width: 600
+                            | image_tag: loading: 'lazy', class: 'cs-partners__product-img', alt: p_title, sizes: '(min-width: 990px) 20vw, 45vw', widths: '300, 450, 600'
+                          }}
+                        {%- else -%}
+                          {{ 'product-1' | placeholder_svg_tag: 'cs-partners__product-img cs-partners__product-img--placeholder' }}
+                        {%- endif -%}
+                      </a>
+
+                      <div class="cs-partners__product-body">
+                        {%- if p_title != blank -%}
+                          <h4 class="cs-partners__product-title">{{ p_title | escape }}</h4>
+                        {%- endif -%}
+
+                        {%- if p_price != blank -%}
+                          <p class="cs-partners__price">
+                            <span class="cs-partners__price-now">{{ p_price | escape }}</span>
+                          </p>
+                        {%- endif -%}
+
+                        {%- if p_url != blank -%}
+                          <a class="cs-partners__buy" href="{{ p_url }}" target="_blank" rel="noopener nofollow">
+                            {{- section.settings.buy_label | escape -}}
+                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+                            <span class="visually-hidden"> {{ p_title | escape }} (opens Amazon in a new tab)</span>
+                          </a>
+                        {%- endif -%}
+                      </div>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
       {%- if section.settings.footnote != blank -%}
         <p class="cs-footnote">{{ section.settings.footnote }}</p>
       {%- endif -%}
@@ -69,13 +196,120 @@
   {%- endif -%}
 </section>
 
+<script>
+  (function () {
+    var root = document.getElementById('{{ section_key }}');
+    if (!root || root.getAttribute('data-cs-shop-ready')) return;
+    root.setAttribute('data-cs-shop-ready', '1');
+
+    var slider = root.querySelector('.cs-partners__slider');
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function getFlickity() {
+      return window.Flickity && slider ? window.Flickity.data(slider) : null;
+    }
+
+    function cardFor(panelId) {
+      var cards = root.querySelectorAll('[data-cs-shop-target]');
+      for (var i = 0; i < cards.length; i++) {
+        if (cards[i].getAttribute('data-cs-shop-target') === panelId) return cards[i];
+      }
+      return null;
+    }
+
+    function open(panelId, scroll) {
+      var target = panelId ? document.getElementById(panelId) : null;
+
+      root.querySelectorAll('[data-cs-shop-panel]').forEach(function (panel) {
+        if (panel === target) return;
+        panel.classList.remove('is-open');
+        panel.hidden = true;
+      });
+
+      root.querySelectorAll('[data-cs-shop-target]').forEach(function (card) {
+        var active = !!target && card.getAttribute('data-cs-shop-target') === panelId;
+        card.classList.toggle('is-active', active);
+        card.setAttribute('aria-expanded', active ? 'true' : 'false');
+      });
+
+      root.classList.toggle('has-shop-open', !!target);
+      if (!target) return;
+
+      target.hidden = false;
+      requestAnimationFrame(function () {
+        target.classList.add('is-open');
+      });
+
+      // Stop the logo slider on the chosen partner so the panel and the card stay in sync.
+      var flkty = getFlickity();
+      var card = cardFor(panelId);
+      if (flkty) {
+        if (typeof flkty.stopPlayer === 'function') flkty.stopPlayer();
+        var index = card ? Number(card.getAttribute('data-cs-index')) : -1;
+        if (index >= 0 && flkty.selectedIndex !== index) flkty.select(index);
+      }
+
+      if (scroll) {
+        var rect = target.getBoundingClientRect();
+        if (rect.top > window.innerHeight * 0.75 || rect.top < 0) {
+          target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
+        }
+      }
+    }
+
+    function toggle(card) {
+      var panelId = card.getAttribute('data-cs-shop-target');
+      open(card.classList.contains('is-active') ? null : panelId, true);
+    }
+
+    root.addEventListener('click', function (event) {
+      var closeBtn = event.target.closest('[data-cs-shop-close]');
+      if (closeBtn) {
+        var panel = closeBtn.closest('[data-cs-shop-panel]');
+        var card = panel ? cardFor(panel.id) : null;
+        open(null);
+        if (card) card.focus({ preventScroll: true });
+        return;
+      }
+
+      var target = event.target.closest('[data-cs-shop-target]');
+      if (target && root.contains(target)) toggle(target);
+    });
+
+    root.addEventListener('keydown', function (event) {
+      var card = event.target.closest('[data-cs-shop-target]');
+      if (card && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        toggle(card);
+        return;
+      }
+
+      if (event.key === 'Escape' && event.target.closest('[data-cs-shop-panel]')) {
+        var panel = event.target.closest('[data-cs-shop-panel]');
+        var owner = cardFor(panel.id);
+        open(null);
+        if (owner) owner.focus({ preventScroll: true });
+      }
+    });
+
+    // Theme editor: selecting a partner block opens its products panel.
+    root.addEventListener('shopify:block:select', function (event) {
+      var card = event.target.closest && event.target.closest('[data-cs-shop-target]');
+      if (card) open(card.getAttribute('data-cs-shop-target'), true);
+    });
+  })();
+</script>
+
 {% schema %}
 {
   "name": "Custom Partner logos",
   "tag": "div",
   "class": "cs-shopify-section",
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   },
   "settings": [
     {
@@ -120,6 +354,41 @@
     },
     {
       "type": "header",
+      "content": "Amazon products",
+      "info": "Add up to 6 products inside each Partner block. Clicking a partner shows its products below the slider."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Partner card link text",
+      "default": "View products"
+    },
+    {
+      "type": "text",
+      "id": "shop_eyebrow",
+      "label": "Products eyebrow",
+      "default": "Available on Amazon"
+    },
+    {
+      "type": "text",
+      "id": "shop_title_suffix",
+      "label": "Products heading after brand name",
+      "default": "products"
+    },
+    {
+      "type": "text",
+      "id": "buy_label",
+      "label": "Buy button label",
+      "default": "Buy on Amazon"
+    },
+    {
+      "type": "text",
+      "id": "store_label",
+      "label": "Brand store link label",
+      "default": "View all on Amazon"
+    },
+    {
+      "type": "header",
       "content": "Layout"
     },
     {
@@ -127,12 +396,45 @@
       "id": "tone",
       "label": "Colour tone",
       "options": [
-        { "value": "light", "label": "White" },
-        { "value": "paper", "label": "Paper" },
-        { "value": "dark", "label": "Midnight" },
-        { "value": "accent", "label": "Saffron" }
+        {
+          "value": "light",
+          "label": "White"
+        },
+        {
+          "value": "paper",
+          "label": "Paper"
+        },
+        {
+          "value": "dark",
+          "label": "Midnight"
+        },
+        {
+          "value": "accent",
+          "label": "Saffron"
+        },
+        {
+          "value": "graphite",
+          "label": "Graphite"
+        }
       ],
       "default": "paper"
+    },
+    {
+      "type": "select",
+      "id": "logo_style",
+      "label": "Logo colour",
+      "info": "White turns every logo white, useful on Midnight or Graphite.",
+      "options": [
+        {
+          "value": "original",
+          "label": "Original"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "original"
     },
     {
       "type": "range",
@@ -183,6 +485,167 @@
           "id": "tag",
           "label": "Tag",
           "info": "e.g. Exclusive partner"
+        },
+        {
+          "type": "header",
+          "content": "Amazon products",
+          "info": "Products show below the slider when this partner is clicked. Empty slots are skipped."
+        },
+        {
+          "type": "url",
+          "id": "amazon_store_url",
+          "label": "Amazon brand store link",
+          "info": "Optional. Adds a \"View all on Amazon\" link above the products."
+        },
+        {
+          "type": "header",
+          "content": "Product 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_1_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "product_1_title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "product_1_url",
+          "label": "Amazon link"
+        },
+        {
+          "type": "text",
+          "id": "product_1_price",
+          "label": "Price",
+          "info": "Optional, e.g. ₹24,999"
+        },
+        {
+          "type": "header",
+          "content": "Product 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_2_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "product_2_title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "product_2_url",
+          "label": "Amazon link"
+        },
+        {
+          "type": "text",
+          "id": "product_2_price",
+          "label": "Price",
+          "info": "Optional, e.g. ₹24,999"
+        },
+        {
+          "type": "header",
+          "content": "Product 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_3_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "product_3_title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "product_3_url",
+          "label": "Amazon link"
+        },
+        {
+          "type": "text",
+          "id": "product_3_price",
+          "label": "Price",
+          "info": "Optional, e.g. ₹24,999"
+        },
+        {
+          "type": "header",
+          "content": "Product 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_4_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "product_4_title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "product_4_url",
+          "label": "Amazon link"
+        },
+        {
+          "type": "text",
+          "id": "product_4_price",
+          "label": "Price",
+          "info": "Optional, e.g. ₹24,999"
+        },
+        {
+          "type": "header",
+          "content": "Product 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_5_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "product_5_title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "product_5_url",
+          "label": "Amazon link"
+        },
+        {
+          "type": "text",
+          "id": "product_5_price",
+          "label": "Price",
+          "info": "Optional, e.g. ₹24,999"
+        },
+        {
+          "type": "header",
+          "content": "Product 6"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_6_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "product_6_title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "product_6_url",
+          "label": "Amazon link"
+        },
+        {
+          "type": "text",
+          "id": "product_6_price",
+          "label": "Price",
+          "info": "Optional, e.g. ₹24,999"
         }
       ]
     }
@@ -191,10 +654,18 @@
     {
       "name": "Custom Partner logos",
       "blocks": [
-        { "type": "partner" },
-        { "type": "partner" },
-        { "type": "partner" },
-        { "type": "partner" }
+        {
+          "type": "partner"
+        },
+        {
+          "type": "partner"
+        },
+        {
+          "type": "partner"
+        },
+        {
+          "type": "partner"
+        }
       ]
     }
   ]

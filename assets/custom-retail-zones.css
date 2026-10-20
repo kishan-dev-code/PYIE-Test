@@ -330,3 +330,69 @@
     min-height: 56rem;
   }
 }
+/* ==========================================================
+   New tone: Onyx
+   Same palette as the Market Opportunity and Gallery sections:
+   #16181c background, #1f2228 cards, #ff3b3b red accent.
+   Scoped to .cs-zones so it can't leak into other sections.
+   ========================================================== */
+.cs-section.cs-zones.cs-tone--onyx {
+  --cs-bg: #16181c;
+  --cs-fg: #ffffff;
+  --cs-fg-muted: rgba(226, 230, 235, 0.68);
+  --cs-line: rgba(255, 255, 255, 0.1);
+  --cs-card: #1f2228;
+  --cs-accent: #ff3b3b;
+  --cs-accent-text: #ff3b3b;
+  --cs-on-accent: #ffffff;
+
+  color: var(--cs-fg);
+  background: var(--cs-bg);
+}
+
+.cs-zones.cs-tone--onyx .cs-text {
+  color: var(--cs-fg-muted);
+}
+
+/* Tabs */
+.cs-zones.cs-tone--onyx .cs-zones__tab {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.cs-zones.cs-tone--onyx .cs-zones__tab:hover {
+  border-color: rgba(255, 59, 59, 0.4);
+}
+
+.cs-zones.cs-tone--onyx .cs-zones__tab.is-active {
+  border-color: var(--cs-accent);
+  background: linear-gradient(90deg, rgba(255, 59, 59, 0.12) 0%, var(--cs-card) 70%);
+}
+
+.cs-zones.cs-tone--onyx .cs-zones__tab-icon {
+  background: rgba(255, 59, 59, 0.12);
+  color: var(--cs-accent);
+}
+
+.cs-zones.cs-tone--onyx .cs-zones__tab.is-active .cs-zones__tab-icon {
+  background: var(--cs-accent);
+  color: #ffffff;
+}
+
+/* Image overlay: neutral dark fade instead of the blue tint */
+.cs-zones.cs-tone--onyx .cs-zones__media {
+  background: var(--cs-card);
+}
+
+.cs-zones.cs-tone--onyx .cs-zones__media::after {
+  background: linear-gradient(180deg, transparent 35%, rgba(22, 24, 28, 0.92) 100%);
+}
+
+/* Panel: red instead of saffron */
+.cs-zones.cs-tone--onyx .cs-zones__panel-label {
+  background: var(--cs-accent);
+  color: #ffffff;
+}
+ 
+.cs-zones.cs-tone--onyx .cs-zones__panel-tagline {
+  color: var(--cs-accent);
+}
