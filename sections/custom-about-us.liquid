@@ -10,7 +10,8 @@
   class="cs-section cs-split cs-tone--{{ section.settings.tone }} cs-split--media-{{ section.settings.media_position }}"
   style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
 >
-  <div class="cs-container cs-split__inner">
+  <div class="cs-container cs-split__inner {% if section.settings.image != blank %}no-image{% endif %}">
+  {%- if section.settings.image != blank -%}
     <div class="cs-split__media" data-cs-reveal>
       <div class="cs-media cs-split__img">
         {% render 'cs-image', image: section.settings.image, sizes: '(min-width: 990px) 45vw, 100vw', placeholder: 'lifestyle-2' %}
@@ -39,6 +40,7 @@
         </div>
       {%- endif -%}
     </div>
+    {%- endif -%}
 
     <div class="cs-split__content">
       {%- render 'custom-section-head',

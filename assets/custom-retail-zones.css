@@ -136,6 +136,7 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, transparent 35%, rgba(7, 22, 32, 0.88) 100%);
+  display: none;
 }
 
 .cs-zones__panel {
@@ -145,6 +146,7 @@
   bottom: 0;
   padding: 2.4rem;
   color: #fff;
+  display:none;
 }
 
 .cs-zones__panel-label {
@@ -327,7 +329,7 @@
   .cs-zones__media {
     aspect-ratio: auto;
     height: 100%;
-    min-height: 56rem;
+    min-height: auto;
   }
 }
 /* ==========================================================

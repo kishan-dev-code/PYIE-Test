@@ -214,6 +214,11 @@
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   }
 
+.cs-split--media-right .cs-split__inner:not(.no-image) {
+    grid-template-columns: none;
+}
+
+
   .cs-split__media {
     position: sticky;
     top: 4rem;

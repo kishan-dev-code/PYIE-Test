@@ -21,6 +21,7 @@
         },
         "item_n6N9Py": {
           "type": "item",
+          "disabled": true,
           "settings": {
             "number": "",
             "text": "Diversified technology portfolio spanning <strong>consumer durables, IT accessories, display solutions, mobile accessories and lifestyle electronics</strong>."
@@ -28,6 +29,7 @@
         },
         "item_9TG8H8": {
           "type": "item",
+          "disabled": true,
           "settings": {
             "number": "",
             "text": "Broad product ecosystem extending across <strong>security & surveillance, biometrics and other electronics categories</strong>."
@@ -57,7 +59,7 @@
       ],
       "name": "Custom Hero Highlights",
       "settings": {
-        "eyebrow": "37+ Strategic warehouses & dark stores",
+        "eyebrow": "",
         "heading": "Infinite Innovation for a <em>Smarter World</em>",
         "heading_tag": "h1",
         "text": "<p>Powered by Intex — 30 years of technology infrastructure. The single partner that takes global electronics and technology brands into India, from first shipment to nationwide scale.</p>",
@@ -295,6 +297,7 @@
         },
         "highlight_t83M6Y": {
           "type": "highlight",
+          "disabled": true,
           "settings": {
             "value": "9",
             "title": "Business verticals",
@@ -383,7 +386,6 @@
         "list_style": "check",
         "button_label": "Talk to our team",
         "button_link": "/pages/contact",
-        "image": "shopify://shop_images/keyboard.jpg",
         "media_position": "right",
         "badge_value": "1996",
         "badge_label": "Founded",
@@ -742,24 +744,28 @@
         },
         "point_t3Hkyt": {
           "type": "point",
+          "disabled": true,
           "settings": {
             "text": "<p>Existing offline channel layout spans <strong>key accounts, established retail chains, specialty stores, and regional distribution</strong> — not built from scratch for every new brand.</p>"
           }
         },
         "point_GFUjiq": {
           "type": "point",
+          "disabled": true,
           "settings": {
             "text": "<p><strong>Deliver-at-scale supply chain:</strong> established warehousing and fulfilment infrastructure enables nationwide availability from Day 1, not after a multi-year ramp.</p>"
           }
         },
         "point_VAKL8b": {
           "type": "point",
+          "disabled": true,
           "settings": {
             "text": "<p>Strong, long-standing retail relationships across India, giving new brands <strong>immediate shelf access</strong> rather than a cold start.</p>"
           }
         },
         "point_HHW4fh": {
           "type": "point",
+          "disabled": true,
           "settings": {
             "text": "<p><strong>7 manufacturing facilities</strong> and an end-to-end market presence spanning product development, distribution, retail, and after-sales support.</p>"
           }
@@ -783,7 +789,7 @@
         "eyebrow": "Distribution",
         "heading": "India's deepest <em>offline distribution</em> network*",
         "text": "<p>Existing channels, warehousing and retail relationships — available to partner brands from Day 1.</p>",
-        "footnote": "*Infrastructure, network, and performance figures marked with an asterisk (*) - offline distribution, service network, and marketing/brand milestones - reflect Intex Technologies' national infrastructure and track record, extended to PYIE's brand partners as part of the PYIE (Powered by Intex) partnership model.",
+        "footnote": "",
         "tone": "graphite",
         "padding_top": 96,
         "padding_bottom": 96
@@ -925,12 +931,14 @@
         },
         "point_ReJKJy": {
           "type": "point",
+          "disabled": true,
           "settings": {
             "text": "<p>Nationwide after-sales network built over 30 years, not stood up per-brand — <strong>new partner brands plug into an existing, proven service backbone</strong>.</p>"
           }
         },
         "point_7dqheY": {
           "type": "point",
+          "disabled": true,
           "settings": {
             "text": "<p>Service infrastructure spans <strong>metro, tier-2/3, and rural geographies</strong> alike, closing a gap most global brands cannot solve on entry.</p>"
           }
@@ -1204,7 +1212,7 @@
             "title": "The PYIE Cafe",
             "tagline": "Where every great idea starts with the perfect cup.",
             "text": "<p>Premium consumers dwell longer, connect deeper, and return more often when retail begins with hospitality.</p>",
-            "image": "shopify://shop_images/pyie-zone-cafe-hd.jpg"
+            "image": "shopify://shop_images/PHOTO-2026-10-21-10-41-52.jpg"
           }
         },
         "zone_qh8cQd": {
@@ -1215,7 +1223,7 @@
             "title": "The Maker Studio",
             "tagline": "Design it. Print it. Take it home.",
             "text": "<p>Premium consumers dwell longer, connect deeper, and return more often when retail begins with hospitality.</p>",
-            "image": "shopify://shop_images/pyie-zone-maker-studio-hd.jpg"
+            "image": "shopify://shop_images/PHOTO-2026-10-21-10-41-22.jpg"
           }
         },
         "zone_FfyPBw": {
@@ -1226,7 +1234,7 @@
             "title": "The Brand Floor",
             "tagline": "The world's best tech brands.",
             "text": "<p>Premium consumers dwell longer, connect deeper, and return more often when retail begins with hospitality.</p>",
-            "image": "shopify://shop_images/pyie-zone-brand-floor-hd.jpg"
+            "image": "shopify://shop_images/PHOTO-2026-10-21-10-41-03.jpg"
           }
         }
       },
@@ -1323,9 +1331,9 @@
         "button_link": "",
         "image": "shopify://shop_images/New_Project.jpg",
         "media_position": "right",
-        "badge_value": "1996",
-        "badge_label": "Founded",
-        "ring_text": "Powered by Intex • 30 years of trust •",
+        "badge_value": "",
+        "badge_label": "",
+        "ring_text": "",
         "tone": "graphite",
         "padding_top": 96,
         "padding_bottom": 96
