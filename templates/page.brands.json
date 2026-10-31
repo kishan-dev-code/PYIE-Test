@@ -1,0 +1,258 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_brands_grid_NB6eUY": {
+      "type": "custom-brands-grid",
+      "blocks": {
+        "brand_AnNP9b": {
+          "type": "brand",
+          "settings": {
+            "name": "Intex",
+            "category": "Multi-category",
+            "description": "Consumer durables, IT/mobile accessories, audio, surveillance, displays — own brand",
+            "tag": "Own brand",
+            "link": "",
+            "link_label": "",
+            "new_tab": false,
+            "featured": true
+          }
+        },
+        "brand_MxgL79": {
+          "type": "brand",
+          "settings": {
+            "name": "Keychron",
+            "category": "PC accessories",
+            "description": "Top 10 global mechanical keyboard brand",
+            "tag": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false,
+            "featured": false
+          }
+        },
+        "brand_hajzEc": {
+          "type": "brand",
+          "settings": {
+            "name": "Aukey",
+            "category": "Charging",
+            "description": "Fast-charging accessories brand, part of a USD 2Bn group",
+            "tag": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false,
+            "featured": false
+          }
+        },
+        "brand_Rj3xqD": {
+          "type": "brand",
+          "settings": {
+            "name": "Arzopa",
+            "category": "Displays",
+            "description": "Portable monitor brand",
+            "tag": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false,
+            "featured": false
+          }
+        },
+        "brand_zmnz7k": {
+          "type": "brand",
+          "settings": {
+            "name": "Hohem",
+            "category": "Imaging",
+            "description": "Global leader in AI tracking gimbals",
+            "tag": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false,
+            "featured": false
+          }
+        },
+        "brand_wdA4Qn": {
+          "type": "brand",
+          "settings": {
+            "name": "Inateck",
+            "category": "PC accessories",
+            "description": "Red Dot Award-winning PC accessories brand",
+            "tag": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false,
+            "featured": false
+          }
+        }
+      },
+      "block_order": [
+        "brand_AnNP9b",
+        "brand_MxgL79",
+        "brand_hajzEc",
+        "brand_Rj3xqD",
+        "brand_zmnz7k",
+        "brand_wdA4Qn"
+      ],
+      "name": "Custom Brands – Grid",
+      "settings": {
+        "eyebrow": "Our brands",
+        "heading": "<em>Trusted</em> by global category leaders",
+        "text": "<p>A growing roster of global electronics leaders choosing one India GTM partner for exclusive, long-term market entry.</p>",
+        "show_filters": true,
+        "all_label": "All brands",
+        "filter_aria": "Filter brands by category",
+        "columns": 3,
+        "logo_style": "original",
+        "more_label": "Explore",
+        "footnote": "10-year exclusive distribution contracts unless noted",
+        "cta_text": "Want your brand on this list?",
+        "cta_label": "Are you a Brand?",
+        "cta_link": "",
+        "tone": "custom",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "c_bg": "#0F1419",
+        "c_heading": "#FFFFFF",
+        "c_text": "#FFFFFF",
+        "c_accent": "#00ABE4",
+        "c_border": "#FFFFFF",
+        "c_filter_bg": "#1E293B",
+        "c_filter_text": "#FFFFFF",
+        "c_filter_active_bg": "#00ABE4",
+        "c_filter_active_text": "#FFFFFF",
+        "c_card_bg": "#1E293B",
+        "c_card_hover": "#00ABE4",
+        "c_logo_bg": "#FFFEFE",
+        "c_cat": "#00ABE4",
+        "c_name": "#00ABE4",
+        "c_desc": "#FFFFFF",
+        "c_tag_bg": "#00ABE4",
+        "c_tag_text": "#FFFFFF",
+        "c_more": "#00ABE4",
+        "c_btn_bg": "#00ABE4",
+        "c_btn_text": "#FFFFFF"
+      }
+    },
+    "custom_brands_spotlights_Megxc8": {
+      "type": "custom-brands-spotlights",
+      "blocks": {
+        "brand_br8iPP": {
+          "type": "brand",
+          "settings": {
+            "name": "Keychron",
+            "eyebrow": "Top 10 global mechanical keyboard brand",
+            "text": "<p>Introduce the brand, its hero products and why it matters for Indian consumers.</p>",
+            "chips": "Mechanical keyboards, Mice, Accessories",
+            "anchor": "",
+            "stat_1_value": "",
+            "stat_1_label": "",
+            "stat_2_value": "",
+            "stat_2_label": "",
+            "stat_3_value": "",
+            "stat_3_label": "",
+            "btn_label": "Explore products",
+            "btn_link": "",
+            "link2_label": "Buy on Amazon",
+            "link2_url": ""
+          }
+        },
+        "brand_bCc9VD": {
+          "type": "brand",
+          "settings": {
+            "name": "Aukey",
+            "eyebrow": "Fast-charging accessories, part of a USD 2Bn group",
+            "text": "<p>Introduce the brand, its hero products and why it matters for Indian consumers.</p>",
+            "chips": "Chargers, Power banks, Cables",
+            "anchor": "",
+            "stat_1_value": "",
+            "stat_1_label": "",
+            "stat_2_value": "",
+            "stat_2_label": "",
+            "stat_3_value": "",
+            "stat_3_label": "",
+            "btn_label": "Explore products",
+            "btn_link": "",
+            "link2_label": "Buy on Amazon",
+            "link2_url": ""
+          }
+        },
+        "brand_CAPjDw": {
+          "type": "brand",
+          "settings": {
+            "name": "Hohem",
+            "eyebrow": "Global leader in AI tracking gimbals",
+            "text": "<p>Introduce the brand, its hero products and why it matters for Indian consumers.</p>",
+            "chips": "Gimbals, AI trackers",
+            "anchor": "",
+            "stat_1_value": "",
+            "stat_1_label": "",
+            "stat_2_value": "",
+            "stat_2_label": "",
+            "stat_3_value": "",
+            "stat_3_label": "",
+            "btn_label": "Explore products",
+            "btn_link": "",
+            "link2_label": "Buy on Amazon",
+            "link2_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "brand_br8iPP",
+        "brand_bCc9VD",
+        "brand_CAPjDw"
+      ],
+      "name": "Custom Brands – Spotlight",
+      "settings": {
+        "eyebrow": "Brand spotlight",
+        "heading": "The brands we <em>bring</em> to India",
+        "text": "",
+        "image_side": "left",
+        "alternate": true,
+        "media_ratio": "landscape",
+        "media_fit": "cover",
+        "tone": "custom",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "c_bg": "#16181C",
+        "c_heading": "#FFFFFF",
+        "c_text": "#FFFFFF",
+        "c_accent": "#00ABE4",
+        "c_border": "#E2E8F0",
+        "c_media_bg": "#F1F5F9",
+        "c_index": "#00ABE4",
+        "c_eyebrow": "#FFFFFF",
+        "c_name": "#00ABE4",
+        "c_body": "#FFFFFF",
+        "c_chip_bg": "#1E293B",
+        "c_chip_text": "#FFFFFF",
+        "c_stat_value": "#00ABE4",
+        "c_stat_label": "#64748B",
+        "c_btn_bg": "#0F172A",
+        "c_btn_text": "#FFFFFF",
+        "c_btn_hover_bg": "#F59E0B",
+        "c_btn_hover_text": "#0F172A",
+        "c_link": "#B45309"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_brands_grid_NB6eUY",
+    "custom_brands_spotlights_Megxc8"
+  ]
+}
