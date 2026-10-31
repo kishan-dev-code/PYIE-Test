@@ -1,0 +1,481 @@
+{{ 'custom-brands-grid.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign key = 'cs-brg-' | append: section.id
+  assign brands = section.blocks | where: 'type', 'brand'
+
+  # Build a unique list of categories for the filter tabs
+  assign cat_list = ''
+  assign cat_count = 0
+  for block in brands
+    assign cat = block.settings.category | strip
+    if cat != blank
+      assign token = '|' | append: cat | append: '|'
+      unless cat_list contains token
+        assign cat_list = cat_list | append: token
+        assign cat_count = cat_count | plus: 1
+      endunless
+    endif
+  endfor
+  assign categories = cat_list | split: '|'
+
+  assign show_filters = false
+  if section.settings.show_filters and cat_count > 1
+    assign show_filters = true
+  endif
+
+  assign cta_url = section.settings.cta_link | default: '/pages/contact#brand'
+-%}
+
+{%- if section.settings.tone == 'custom' -%}
+  {%- style -%}
+    #{{ key }} {
+      --cs-bg: {{ section.settings.c_bg }};
+      --cs-fg: {{ section.settings.c_text }};
+      --cs-fg-muted: {{ section.settings.c_text | color_modify: 'alpha', 0.75 }};
+      --cs-line: {{ section.settings.c_border }};
+      --cs-accent: {{ section.settings.c_accent }};
+      --cs-accent-text: {{ section.settings.c_accent }};
+      --c-heading: {{ section.settings.c_heading }};
+      --brg-card-bg: {{ section.settings.c_card_bg }};
+      --brg-card-hover: {{ section.settings.c_card_hover }};
+      --brg-logo-bg: {{ section.settings.c_logo_bg }};
+      --brg-name: {{ section.settings.c_name }};
+      --brg-desc: {{ section.settings.c_desc }};
+      --brg-cat: {{ section.settings.c_cat }};
+      --brg-tag-bg: {{ section.settings.c_tag_bg }};
+      --brg-tag-text: {{ section.settings.c_tag_text }};
+      --brg-more: {{ section.settings.c_more }};
+      --brg-filter-bg: {{ section.settings.c_filter_bg }};
+      --brg-filter-text: {{ section.settings.c_filter_text }};
+      --brg-filter-active-bg: {{ section.settings.c_filter_active_bg }};
+      --brg-filter-active-text: {{ section.settings.c_filter_active_text }};
+      --brg-btn-bg: {{ section.settings.c_btn_bg }};
+      --brg-btn-text: {{ section.settings.c_btn_text }};
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+<section
+  id="{{ key }}"
+  class="cs-section cs-brg cs-tone--{{ section.settings.tone }} cs-brg--logo-{{ section.settings.logo_style }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px; --cs-cols: {{ section.settings.columns }};"
+>
+  <div class="cs-container">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.text != blank -%}
+      <div class="cs-brg__head">
+        {%- render 'custom-section-head',
+          eyebrow: section.settings.eyebrow,
+          heading: section.settings.heading,
+          text: section.settings.text,
+          align: 'center'
+        -%}
+      </div>
+    {%- endif -%}
+
+    {%- if show_filters -%}
+      <div class="cs-brg__filters" role="group" aria-label="{{ section.settings.filter_aria | escape }}">
+        <button type="button" class="cs-brg__filter" data-cs-filter="all" aria-pressed="true">
+          {{- section.settings.all_label | default: 'All' | escape -}}
+        </button>
+        {%- for cat in categories -%}
+          {%- if cat != blank -%}
+            <button type="button" class="cs-brg__filter" data-cs-filter="{{ cat | handleize }}" aria-pressed="false">
+              {{- cat | escape -}}
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if brands.size > 0 -%}
+      <ul class="cs-brg__grid" role="list">
+        {%- for block in brands -%}
+          {%- assign cat_handle = block.settings.category | strip | handleize -%}
+          <li
+            class="cs-brg__card{% if block.settings.featured %} is-featured{% endif %}{% if block.settings.link != blank %} has-link{% endif %}"
+            data-cs-cat="{{ cat_handle }}"
+            data-cs-reveal
+            style="--cs-delay: {{ forloop.index0 | modulo: 8 | times: 60 }}ms;"
+            {{ block.shopify_attributes }}
+          >
+            <div class="cs-brg__logo">
+              {%- if block.settings.logo != blank -%}
+                {{
+                  block.settings.logo
+                  | image_url: width: 480
+                  | image_tag: loading: 'lazy', class: 'cs-brg__logo-img', alt: block.settings.name, widths: '240, 480', sizes: '240px'
+                }}
+              {%- else -%}
+                <span class="cs-brg__wordmark">{{ block.settings.name | escape }}</span>
+              {%- endif -%}
+            </div>
+
+            <div class="cs-brg__body">
+              {%- if block.settings.category != blank -%}
+                <span class="cs-brg__cat">{{ block.settings.category | escape }}</span>
+              {%- endif -%}
+              <h3 class="cs-brg__name">
+                {%- if block.settings.link != blank -%}
+                  <a class="cs-brg__link" href="{{ block.settings.link }}"{% if block.settings.new_tab %} target="_blank" rel="noopener"{% endif %}>
+                    {{- block.settings.name | escape -}}
+                  </a>
+                {%- else -%}
+                  {{- block.settings.name | escape -}}
+                {%- endif -%}
+              </h3>
+              {%- if block.settings.description != blank -%}
+                <p class="cs-brg__desc">{{ block.settings.description | escape }}</p>
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.tag != blank or block.settings.link != blank -%}
+              <div class="cs-brg__foot">
+                {%- if block.settings.tag != blank -%}
+                  <span class="cs-brg__tag">{{ block.settings.tag | escape }}</span>
+                {%- endif -%}
+                {%- if block.settings.link != blank -%}
+                  <span class="cs-brg__more" aria-hidden="true">
+                    {{- block.settings.link_label | default: section.settings.more_label | escape -}}
+                    <svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+                  </span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+      <p class="cs-brg__status cs-brg__sr" role="status" aria-live="polite"></p>
+    {%- endif -%}
+
+    {%- if section.settings.footnote != blank or section.settings.cta_label != blank -%}
+      <div class="cs-brg__bottom">
+        {%- if section.settings.footnote != blank -%}
+          <p class="cs-brg__footnote">{{ section.settings.footnote }}</p>
+        {%- endif -%}
+        {%- if section.settings.cta_label != blank -%}
+          <div class="cs-brg__cta">
+            {%- if section.settings.cta_text != blank -%}
+              <p class="cs-brg__cta-text">{{ section.settings.cta_text }}</p>
+            {%- endif -%}
+            <a class="cs-brg__cta-btn" href="{{ cta_url }}">
+              {{- section.settings.cta_label | escape -}}
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{%- if show_filters -%}
+  <script>
+    (function () {
+      var root = document.getElementById('{{ key }}');
+      if (!root || root.hasAttribute('data-cs-brg-ready')) return;
+      root.setAttribute('data-cs-brg-ready', '');
+
+      var buttons = Array.prototype.slice.call(root.querySelectorAll('[data-cs-filter]'));
+      var cards = Array.prototype.slice.call(root.querySelectorAll('[data-cs-cat]'));
+      var status = root.querySelector('.cs-brg__status');
+
+      function apply(filter) {
+        var shown = 0;
+        buttons.forEach(function (btn) {
+          btn.setAttribute('aria-pressed', btn.getAttribute('data-cs-filter') === filter ? 'true' : 'false');
+        });
+        cards.forEach(function (card) {
+          var match = filter === 'all' || card.getAttribute('data-cs-cat') === filter;
+          card.hidden = !match;
+          if (match) {
+            shown++;
+            card.classList.remove('is-entering');
+            void card.offsetWidth;
+            card.classList.add('is-entering');
+          }
+        });
+        if (status) status.textContent = shown + (shown === 1 ? ' brand' : ' brands');
+      }
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          apply(btn.getAttribute('data-cs-filter'));
+        });
+      });
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Custom Brands – Grid",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our brands"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Italic words are highlighted in the accent colour.",
+      "default": "<em>Trusted</em> by global category leaders"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro text",
+      "default": "<p>A growing roster of global electronics leaders choosing one India GTM partner for exclusive, long-term market entry.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Filters"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Show category filter",
+      "info": "Built from each brand's Category. Shows when there are at least 2 categories.",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "all_label",
+      "label": "\"All\" label",
+      "default": "All brands"
+    },
+    {
+      "type": "text",
+      "id": "filter_aria",
+      "label": "Filter label (screen readers)",
+      "default": "Filter brands by category"
+    },
+    {
+      "type": "header",
+      "content": "Cards"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns on desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "logo_style",
+      "label": "Logo colour",
+      "options": [
+        { "value": "original", "label": "Original" },
+        { "value": "mono", "label": "Greyscale, colour on hover" },
+        { "value": "white", "label": "White" }
+      ],
+      "default": "original",
+      "info": "White suits dark tones."
+    },
+    {
+      "type": "text",
+      "id": "more_label",
+      "label": "Card link text",
+      "info": "Shown on cards that have a link. Each brand can override it.",
+      "default": "Explore"
+    },
+    {
+      "type": "header",
+      "content": "Bottom"
+    },
+    {
+      "type": "text",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "10-year exclusive distribution contracts unless noted"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Call to action text",
+      "default": "Want your brand on this list?"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "info": "Leave empty to hide the button.",
+      "default": "Are you a Brand?"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link",
+      "info": "Leave empty to open the Brand form on /pages/contact."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" },
+        { "value": "graphite", "label": "Graphite" },
+        { "value": "noir", "label": "Noir glow" },
+        { "value": "custom", "label": "Custom colours" }
+      ],
+      "default": "paper",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "header",
+      "content": "Custom colours – Section",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    { "type": "color", "id": "c_bg", "label": "Section background", "default": "#F8F5EF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_heading", "label": "Heading", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_text", "label": "Body text & footnote", "default": "#475569", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accent", "label": "Accent (eyebrow, italic words)", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_border", "label": "Borders", "default": "#E2E8F0", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Filter",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_filter_bg", "label": "Filter background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_filter_text", "label": "Filter text", "default": "#475569", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_filter_active_bg", "label": "Active filter background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_filter_active_text", "label": "Active filter text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Brand cards",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_card_bg", "label": "Card background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_card_hover", "label": "Card hover border", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_logo_bg", "label": "Logo area background", "default": "#F8FAFC", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_cat", "label": "Category", "default": "#B45309", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_name", "label": "Brand name", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_desc", "label": "Description", "default": "#64748B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_tag_bg", "label": "Tag background", "default": "#FEF3C7", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_tag_text", "label": "Tag text", "default": "#B45309", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_more", "label": "Card link", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Button",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_btn_bg", "label": "Button background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_text", "label": "Button text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo",
+          "info": "Transparent PNG or SVG works best. The name is shown when empty."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Brand name",
+          "default": "Brand"
+        },
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Category",
+          "info": "Used for the filter tabs, e.g. PC accessories.",
+          "default": "Consumer electronics"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Global category leader"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag",
+          "info": "Optional, e.g. Exclusive partner."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional. Makes the whole card clickable — e.g. the brand's collection, Amazon store, or #brand-name to jump to its Brand spotlight row."
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link text",
+          "info": "Leave empty to use the section's card link text."
+        },
+        {
+          "type": "checkbox",
+          "id": "new_tab",
+          "label": "Open link in a new tab",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Feature this brand",
+          "info": "Takes two columns on desktop.",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Brands – Grid",
+      "blocks": [
+        { "type": "brand", "settings": { "name": "Intex", "category": "Multi-category", "description": "Consumer durables, IT/mobile accessories, audio, surveillance, displays — own brand", "tag": "Own brand", "featured": true } },
+        { "type": "brand", "settings": { "name": "Keychron", "category": "PC accessories", "description": "Top 10 global mechanical keyboard brand" } },
+        { "type": "brand", "settings": { "name": "Aukey", "category": "Charging", "description": "Fast-charging accessories brand, part of a USD 2Bn group" } },
+        { "type": "brand", "settings": { "name": "Arzopa", "category": "Displays", "description": "Portable monitor brand" } },
+        { "type": "brand", "settings": { "name": "Hohem", "category": "Imaging", "description": "Global leader in AI tracking gimbals" } },
+        { "type": "brand", "settings": { "name": "Inateck", "category": "PC accessories", "description": "Red Dot Award-winning PC accessories brand" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

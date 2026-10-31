@@ -1,0 +1,176 @@
+{{ 'custom-about-vision.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign key = 'cs-vs-' | append: section.id
+  assign points = section.settings.points | newline_to_br | split: '<br />'
+-%}
+
+{%- if section.settings.tone == 'custom' -%}
+  {%- style -%}
+    #{{ key }} {
+      --cs-bg: {{ section.settings.c_bg }};
+      --cs-fg: {{ section.settings.c_text }};
+      --cs-fg-muted: {{ section.settings.c_text | color_modify: 'alpha', 0.75 }};
+      --cs-line: {{ section.settings.c_border }};
+      --cs-accent: {{ section.settings.c_accent }};
+      --vs-eyebrow: {{ section.settings.c_eyebrow }};
+      --vs-heading: {{ section.settings.c_heading }};
+      --vs-heading-accent: {{ section.settings.c_heading_accent }};
+      --vs-text: {{ section.settings.c_text }};
+      --vs-bold: {{ section.settings.c_bold }};
+      --vs-point: {{ section.settings.c_point }};
+      --vs-dot: {{ section.settings.c_dot }};
+      --vs-btn-bg: {{ section.settings.c_btn_bg }};
+      --vs-btn-text: {{ section.settings.c_btn_text }};
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+<section
+  id="{{ key }}"
+  class="cs-section cs-vs cs-tone--{{ section.settings.tone }}{% if section.settings.image_side == 'right' %} is-flip{% endif %}{% if section.settings.image == blank %} no-image{% endif %}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px; --vs-radius: {{ section.settings.image_radius }}px;"
+>
+  <div class="cs-container">
+    <div class="cs-vs__grid">
+      {%- if section.settings.image != blank -%}
+        <div class="cs-vs__media" data-cs-reveal>
+          {{
+            section.settings.image
+            | image_url: width: 1400
+            | image_tag: loading: 'lazy', class: 'cs-vs__img', alt: section.settings.image.alt, widths: '600, 900, 1200, 1400', sizes: '(min-width: 990px) 50vw, 100vw'
+          }}
+        </div>
+      {%- endif -%}
+
+      <div class="cs-vs__content" data-cs-reveal style="--cs-delay: 120ms;">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="cs-vs__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank or section.settings.heading_accent != blank -%}
+          <h2 class="cs-vs__heading">
+            {%- if section.settings.heading != blank -%}
+              <span class="cs-vs__heading-line">{{ section.settings.heading }}</span>
+            {%- endif -%}
+            {%- if section.settings.heading_accent != blank -%}
+              <span class="cs-vs__heading-line cs-vs__heading-accent">{{ section.settings.heading_accent }}</span>
+            {%- endif -%}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.text != blank -%}
+          <div class="cs-vs__text">{{ section.settings.text }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.points != blank -%}
+          <ul class="cs-vs__points" role="list">
+            {%- for point in points -%}
+              {%- assign point_text = point | strip -%}
+              {%- if point_text != blank -%}
+                <li>{{ point_text | escape }}</li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank -%}
+          <a
+            class="cs-vs__btn"
+            {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+          >
+            {{- section.settings.button_label | escape -}}
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom About – Vision",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select",
+      "id": "image_side",
+      "label": "Image position on desktop",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    { "type": "range", "id": "image_radius", "label": "Image corner radius", "min": 0, "max": 48, "step": 2, "unit": "px", "default": 28 },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our Vision" },
+    { "type": "text", "id": "heading", "label": "Heading – line 1", "default": "Powering India’s" },
+    { "type": "text", "id": "heading_accent", "label": "Heading – line 2 (accent colour)", "default": "Tech-Driven Future" },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "info": "Bold words stand out in a brighter colour.",
+      "default": "<p>We envision <strong>PYIE</strong> as a trusted gateway for global technology brands entering India — enabling creators, professionals, businesses, and enthusiasts to experience innovation without borders.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "points",
+      "label": "Points",
+      "info": "One point per line. Leave empty to hide.",
+      "default": "Global brands, local trust\nSeamless access to innovation\nEmpowering India’s digital ecosystem"
+    },
+    { "type": "text", "id": "button_label", "label": "Button label", "info": "Optional." },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" },
+        { "value": "graphite", "label": "Graphite" },
+        { "value": "noir", "label": "Noir glow" },
+        { "value": "black", "label": "Black" },
+        { "value": "custom", "label": "Custom colours" }
+      ],
+      "default": "graphite",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
+    },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 64 },
+    {
+      "type": "header",
+      "content": "Custom colours",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    { "type": "color", "id": "c_bg", "label": "Section background", "default": "#111418", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_eyebrow", "label": "Eyebrow", "default": "#9CA3AF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_heading", "label": "Heading – line 1", "default": "#E5E7EB", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_heading_accent", "label": "Heading – line 2", "default": "#FF4D5A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_text", "label": "Text", "default": "#D1D5DB", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_bold", "label": "Bold words", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_point", "label": "Points text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_dot", "label": "Point dots", "default": "#FF4D5A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accent", "label": "Accent", "default": "#FF4D5A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_bg", "label": "Button background", "default": "#FF4D5A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_text", "label": "Button text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_border", "label": "Borders", "default": "#262A30", "visible_if": "{{ section.settings.tone == 'custom' }}" }
+  ],
+  "presets": [{ "name": "Custom About – Vision" }]
+}
+{% endschema %}

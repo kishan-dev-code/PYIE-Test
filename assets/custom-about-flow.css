@@ -1,0 +1,434 @@
+/* =========================================================
+   Custom About – Flow  (sections/custom-about-flow.liquid)
+   Brand → Hub ⇄ Partner, then the hub feeds every channel.
+   ========================================================= */
+
+.cs-flow {
+  --_fg: var(--cs-fg, currentColor);
+  --_muted: var(--cs-fg-muted, color-mix(in srgb, currentColor 70%, transparent));
+  --_line: var(--cs-line, color-mix(in srgb, currentColor 14%, transparent));
+  --_accent: var(--cs-accent, #F59E0B);
+
+  --flow-node-bg: color-mix(in srgb, currentColor 4%, transparent);
+  --flow-node-title: var(--_accent);
+  --flow-node-text: var(--_muted);
+  --flow-hub-bg: var(--_fg);
+  --flow-hub-title: var(--cs-bg, #FFFFFF);
+  --flow-hub-text: color-mix(in srgb, var(--cs-bg, #FFFFFF) 75%, transparent);
+  --flow-line: color-mix(in srgb, currentColor 40%, transparent);
+  --flow-label: var(--_fg);
+  --flow-ch-bg: color-mix(in srgb, currentColor 4%, transparent);
+  --flow-ch-title: var(--_accent);
+  --flow-ch-text: var(--_muted);
+  --flow-ch-hl-bg: var(--_fg);
+  --flow-ch-hl-text: var(--cs-bg, #FFFFFF);
+
+  --flow-gap: 28px;   /* half the space between the top row and the channels */
+  --flow-dash: 8px;
+
+  position: relative;
+  padding-top: var(--cs-pt, 96px);
+  padding-bottom: var(--cs-pb, 96px);
+}
+
+/* ---------- Extra tones (scoped to this section) ---------- */
+.cs-flow.cs-tone--graphite {
+  --cs-bg: #1F2328;
+  --cs-fg: #F5F5F4;
+  --cs-fg-muted: rgba(245, 245, 244, 0.66);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #F59E0B;
+  background-color: var(--cs-bg);
+  color: var(--cs-fg);
+}
+.cs-flow.cs-tone--noir {
+  --cs-bg: #050507;
+  --cs-fg: #FFFFFF;
+  --cs-fg-muted: rgba(255, 255, 255, 0.62);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #FF3B3B;
+  color: var(--cs-fg);
+  background-color: var(--cs-bg);
+  background-image:
+    radial-gradient(ellipse 45% 60% at 0% 0%, rgba(140, 8, 8, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 60% at 100% 100%, rgba(70, 0, 130, 0.5) 0%, transparent 70%);
+  background-repeat: no-repeat;
+}
+.cs-flow.cs-tone--custom {
+  background-color: var(--cs-bg);
+  background-image: none;
+  color: var(--cs-fg);
+}
+
+/* ---------- Head ---------- */
+.cs-flow__head {
+  margin-bottom: clamp(36px, 5vw, 64px);
+}
+.cs-flow.cs-tone--custom .cs-flow__head :is(h1, h2, h3, .cs-title, [class*="heading"]) {
+  color: var(--c-heading, var(--cs-fg));
+}
+.cs-flow.cs-tone--custom .cs-flow__head :is(.cs-eyebrow, [class*="eyebrow"]),
+.cs-flow.cs-tone--custom .cs-flow__head em {
+  color: var(--cs-accent);
+}
+.cs-flow.cs-tone--custom .cs-flow__head :is(.cs-text, .cs-text p) {
+  color: var(--cs-fg-muted);
+}
+
+/* ---------- Top row ---------- */
+.cs-flow__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: stretch;
+}
+.cs-flow__node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 132px;
+  padding: 22px 20px;
+  border: 1px solid var(--_line);
+  border-radius: 18px;
+  background: var(--flow-node-bg);
+  text-align: center;
+  box-shadow: 0 16px 36px -28px rgba(0, 0, 0, 0.4);
+}
+.cs-flow__node--source .cs-flow__node-title {
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1.1;
+}
+.cs-flow__node-title {
+  font-family: var(--cs-font-display, inherit);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--flow-node-title);
+}
+.cs-flow__node-text {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--flow-node-text);
+}
+.cs-flow__wordmark {
+  font-family: var(--cs-font-display, inherit);
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--_fg);
+}
+.cs-flow__logo img {
+  display: block;
+  width: auto;
+  max-width: 140px;
+  max-height: 44px;
+  object-fit: contain;
+}
+
+/* Hub */
+.cs-flow__node--hub {
+  background: var(--flow-hub-bg);
+  border-color: transparent;
+}
+.cs-flow__node--hub .cs-flow__node-title { color: var(--flow-hub-title); }
+.cs-flow__node--hub .cs-flow__node-text { color: var(--flow-hub-text); }
+.cs-flow__node--hub .cs-flow__wordmark { color: var(--flow-hub-title); }
+
+/* ---------- Connectors ---------- */
+.cs-flow__link {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 0;
+}
+.cs-flow__label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--flow-label);
+}
+
+/* Lines are vertical (mobile) by default, horizontal on desktop */
+.cs-flow__line {
+  position: relative;
+  display: block;
+  width: 2px;
+  height: 36px;
+  background-image: linear-gradient(180deg, var(--flow-line) 0 var(--flow-dash), transparent var(--flow-dash) calc(var(--flow-dash) * 1.75));
+  background-size: 2px calc(var(--flow-dash) * 1.75);
+  background-repeat: repeat-y;
+  animation: cs-flow-dash-y 0.9s linear infinite;
+}
+.cs-flow__line::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid var(--flow-line);
+  transform: translateX(-50%);
+}
+.cs-flow__line--back {
+  animation-direction: reverse;
+}
+.cs-flow__line--back::after {
+  top: -2px;
+  bottom: auto;
+  border-top: 0;
+  border-bottom: 8px solid var(--flow-line);
+}
+.cs-flow__link--two {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+.cs-flow__link--two .cs-flow__label {
+  flex: 1 1 0;
+}
+.cs-flow__link--two .cs-flow__label:first-child { text-align: right; }
+.cs-flow__link--two .cs-flow__label:last-child { text-align: left; }
+
+@keyframes cs-flow-dash-y {
+  to { background-position: 0 calc(var(--flow-dash) * 1.75); }
+}
+@keyframes cs-flow-dash-x {
+  to { background-position: calc(var(--flow-dash) * 1.75) 0; }
+}
+
+/* ---------- Channels ---------- */
+.cs-flow__channels-label {
+  position: relative;
+  margin: 40px 0 0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--_muted);
+}
+.cs-flow__channels {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.cs-flow__channel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 14px;
+  border: 1px solid var(--_line);
+  border-radius: 16px;
+  background: var(--flow-ch-bg);
+  text-align: center;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.cs-flow__channel:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--_accent) 50%, transparent);
+}
+.cs-flow__channel-title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--flow-ch-title);
+}
+.cs-flow__channel-media {
+  display: block;
+  width: 100%;
+}
+.cs-flow__channel-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 110px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.cs-flow__channel-text {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--flow-ch-text);
+}
+.cs-flow__channel.is-highlight {
+  background: var(--flow-ch-hl-bg);
+  border-color: transparent;
+}
+.cs-flow__channel.is-highlight :is(.cs-flow__channel-title, .cs-flow__channel-text) {
+  color: var(--flow-ch-hl-text);
+}
+
+.cs-flow__footnote {
+  margin: 28px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--_muted);
+}
+
+/* ---------- Mobile connector into the channels ---------- */
+@media screen and (max-width: 989px) {
+  .cs-flow__diagram.has-channels .cs-flow__top {
+    position: relative;
+    padding-bottom: 40px;
+  }
+  .cs-flow__diagram.has-channels .cs-flow__top::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 2px;
+    height: 32px;
+    background-image: linear-gradient(180deg, var(--flow-line) 0 var(--flow-dash), transparent var(--flow-dash) calc(var(--flow-dash) * 1.75));
+    background-size: 2px calc(var(--flow-dash) * 1.75);
+    transform: translateX(-50%);
+  }
+  .cs-flow__diagram.has-channels .cs-flow__channels-label {
+    margin-top: 12px;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 989px) {
+  .cs-flow__channels {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Desktop ---------- */
+@media screen and (min-width: 990px) {
+  .cs-flow__top {
+    grid-template-columns: minmax(0, 1fr) minmax(56px, 0.45fr) minmax(0, 1.15fr) minmax(150px, 0.9fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+  .cs-flow__link {
+    padding: 0 12px;
+  }
+  .cs-flow__line {
+    width: 100%;
+    height: 2px;
+    background-image: linear-gradient(90deg, var(--flow-line) 0 var(--flow-dash), transparent var(--flow-dash) calc(var(--flow-dash) * 1.75));
+    background-size: calc(var(--flow-dash) * 1.75) 2px;
+    background-repeat: repeat-x;
+    animation-name: cs-flow-dash-x;
+  }
+  .cs-flow__line::after {
+    left: auto;
+    right: -2px;
+    top: 50%;
+    bottom: auto;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 8px solid var(--flow-line);
+    border-right: 0;
+    transform: translateY(-50%);
+  }
+  .cs-flow__line--back::after {
+    left: -2px;
+    right: auto;
+    border-left: 0;
+    border-right: 8px solid var(--flow-line);
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+  }
+  .cs-flow__link--two {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+  .cs-flow__link--two .cs-flow__label,
+  .cs-flow__link--two .cs-flow__label:first-child,
+  .cs-flow__link--two .cs-flow__label:last-child {
+    flex: 0 0 auto;
+    text-align: center;
+  }
+
+  /* Hub drops a line down to the channel "bus" */
+  .cs-flow__diagram.has-channels .cs-flow__node--hub::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    width: 2px;
+    height: var(--flow-gap);
+    background-image: linear-gradient(180deg, var(--flow-line) 0 var(--flow-dash), transparent var(--flow-dash) calc(var(--flow-dash) * 1.75));
+    background-size: 2px calc(var(--flow-dash) * 1.75);
+    transform: translateX(-50%);
+  }
+  .cs-flow__channels-label {
+    position: absolute;
+    left: -9999px;
+  }
+  .cs-flow__channels {
+    grid-template-columns: repeat(var(--cs-cols, 6), minmax(0, 1fr));
+    gap: 16px;
+    margin-top: calc(var(--flow-gap) * 2);
+  }
+  /* horizontal bus across channel centres */
+  .cs-flow__channels::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--flow-gap) * -1);
+    left: calc(100% / (var(--cs-cols, 6) * 2));
+    right: calc(100% / (var(--cs-cols, 6) * 2));
+    height: 2px;
+    background-image: linear-gradient(90deg, var(--flow-line) 0 var(--flow-dash), transparent var(--flow-dash) calc(var(--flow-dash) * 1.75));
+    background-size: calc(var(--flow-dash) * 1.75) 2px;
+  }
+  /* tick from the bus down into each channel */
+  .cs-flow__channel::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: calc(var(--flow-gap) * -1);
+    width: 2px;
+    height: var(--flow-gap);
+    background: var(--flow-line);
+    transform: translateX(-50%);
+  }
+  .cs-flow__channel::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -2px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid var(--flow-line);
+    transform: translate(-50%, -100%);
+  }
+  /* channels that wrap onto a second row don't get connector ticks */
+  .cs-flow__channel:nth-child(n + 7)::before,
+  .cs-flow__channel:nth-child(n + 7)::after {
+    display: none;
+  }
+}
+
+/* ---------- Motion preferences ---------- */
+.cs-flow--static .cs-flow__line {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-flow__line {
+    animation: none;
+  }
+  .cs-flow__channel {
+    transition: none;
+  }
+  .cs-flow__channel:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,335 @@
+/* =========================================================
+   Custom Brands â€“ Spotlight  (sections/custom-brand-spotlight.liquid)
+   Alternating image / story rows, one per brand.
+   ========================================================= */
+
+.cs-bs {
+  --_fg: var(--cs-fg, currentColor);
+  --_muted: var(--cs-fg-muted, color-mix(in srgb, currentColor 70%, transparent));
+  --_line: var(--cs-line, color-mix(in srgb, currentColor 14%, transparent));
+  --_accent: var(--cs-accent, #F59E0B);
+
+  --bs-media-bg: color-mix(in srgb, currentColor 5%, transparent);
+  --bs-index: var(--_accent);
+  --bs-eyebrow: var(--_muted);
+  --bs-name: var(--_fg);
+  --bs-text: var(--_muted);
+  --bs-chip-bg: color-mix(in srgb, currentColor 6%, transparent);
+  --bs-chip-text: var(--_fg);
+  --bs-stat-value: var(--_fg);
+  --bs-stat-label: var(--_muted);
+  --bs-btn-bg: var(--_fg);
+  --bs-btn-text: var(--cs-bg, #FFFFFF);
+  --bs-btn-hover-bg: var(--_accent);
+  --bs-btn-hover-text: #0F172A;
+  --bs-link: var(--_accent);
+
+  --bs-ratio: 4 / 3;
+
+  position: relative;
+  padding-top: var(--cs-pt, 96px);
+  padding-bottom: var(--cs-pb, 96px);
+}
+.cs-bs--ratio-square { --bs-ratio: 1 / 1; }
+.cs-bs--ratio-portrait { --bs-ratio: 4 / 5; }
+.cs-bs--ratio-landscape { --bs-ratio: 4 / 3; }
+
+/* ---------- Extra tones (scoped to this section) ---------- */
+.cs-bs.cs-tone--graphite {
+  --cs-bg: #1F2328;
+  --cs-fg: #F5F5F4;
+  --cs-fg-muted: rgba(245, 245, 244, 0.66);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #F59E0B;
+  background-color: var(--cs-bg);
+  color: var(--cs-fg);
+}
+.cs-bs.cs-tone--noir {
+  --cs-bg: #050507;
+  --cs-fg: #FFFFFF;
+  --cs-fg-muted: rgba(255, 255, 255, 0.62);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #FF3B3B;
+  --bs-btn-hover-text: #FFFFFF;
+  color: var(--cs-fg);
+  background-color: var(--cs-bg);
+  background-image:
+    radial-gradient(ellipse 45% 40% at 0% 0%, rgba(140, 8, 8, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 40% at 100% 100%, rgba(70, 0, 130, 0.5) 0%, transparent 70%);
+  background-repeat: no-repeat;
+}
+.cs-bs.cs-tone--custom {
+  background-color: var(--cs-bg);
+  background-image: none;
+  color: var(--cs-fg);
+}
+
+/* ---------- Head ---------- */
+.cs-bs__head {
+  margin-bottom: clamp(36px, 5vw, 64px);
+}
+.cs-bs.cs-tone--custom .cs-bs__head :is(h1, h2, h3, .cs-title, [class*="heading"]) {
+  color: var(--c-heading, var(--cs-fg));
+}
+.cs-bs.cs-tone--custom .cs-bs__head :is(.cs-eyebrow, [class*="eyebrow"]),
+.cs-bs.cs-tone--custom .cs-bs__head em {
+  color: var(--cs-accent);
+}
+.cs-bs.cs-tone--custom .cs-bs__head :is(.cs-text, .cs-text p) {
+  color: var(--cs-fg-muted);
+}
+
+/* ---------- Rows ---------- */
+.cs-bs__rows {
+  display: grid;
+  gap: clamp(48px, 7vw, 96px);
+}
+.cs-bs__row {
+  display: grid;
+  gap: 28px;
+  align-items: center;
+  scroll-margin-top: 120px;   /* room for a sticky header when jumping to #brand-â€¦ */
+}
+@media screen and (min-width: 990px) {
+  .cs-bs__row {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(48px, 6vw, 88px);
+  }
+  .cs-bs__row.is-flip .cs-bs__media {
+    order: 2;
+  }
+}
+
+/* ---------- Media ---------- */
+.cs-bs__media {
+  position: relative;
+}
+.cs-bs__media-inner {
+  position: relative;
+  aspect-ratio: var(--bs-ratio);
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--bs-media-bg);
+}
+.cs-bs__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.cs-bs--fit-contain .cs-bs__img {
+  inset: 8%;
+  width: 84%;
+  height: 84%;
+  object-fit: contain;
+}
+.cs-bs__img--placeholder {
+  fill: currentColor;
+  opacity: 0.25;
+}
+.cs-bs__row:hover .cs-bs__img {
+  transform: scale(1.04);
+}
+.cs-bs__logo-badge {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  display: grid;
+  place-items: center;
+  min-width: 120px;
+  max-width: 50%;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #FFFFFF;
+  box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.45);
+}
+.cs-bs__row.is-flip .cs-bs__logo-badge {
+  left: auto;
+  right: 20px;
+}
+.cs-bs__logo-badge img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 36px;
+  object-fit: contain;
+}
+
+/* ---------- Content ---------- */
+.cs-bs__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.cs-bs__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.cs-bs__index {
+  display: inline-grid;
+  place-items: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-family: var(--cs-font-display, inherit);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--bs-index);
+}
+.cs-bs__eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bs-eyebrow);
+}
+.cs-bs__name {
+  margin: 0;
+  font-family: var(--cs-font-display, inherit);
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--bs-name);
+}
+.cs-bs__text,
+.cs-bs__text p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--bs-text);
+}
+.cs-bs__text p + p {
+  margin-top: 12px;
+}
+
+.cs-bs__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cs-bs__chip {
+  padding: 7px 14px;
+  border: 1px solid var(--_line);
+  border-radius: 999px;
+  background: var(--bs-chip-bg);
+  color: var(--bs-chip-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cs-bs__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0;
+  width: 100%;
+  margin: 8px 0 0;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--_line);
+}
+.cs-bs__stat {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 4px;
+  padding-right: 16px;
+}
+.cs-bs__stat + .cs-bs__stat {
+  padding-left: 16px;
+  border-left: 1px solid var(--_line);
+}
+.cs-bs__stat-value {
+  margin: 0;
+  font-family: var(--cs-font-display, inherit);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--bs-stat-value);
+}
+.cs-bs__stat-label {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--bs-stat-label);
+}
+
+.cs-bs__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+  margin-top: 8px;
+}
+.cs-bs__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  background: var(--bs-btn-bg);
+  color: var(--bs-btn-text);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+.cs-bs__btn:hover,
+.cs-bs__btn:focus-visible {
+  background: var(--bs-btn-hover-bg);
+  color: var(--bs-btn-hover-text);
+  transform: translateY(-2px);
+}
+.cs-bs__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--bs-link);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.25s ease;
+}
+.cs-bs__link:hover {
+  border-bottom-color: currentColor;
+}
+.cs-bs__btn svg,
+.cs-bs__link svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cs-bs__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-bs__img,
+  .cs-bs__btn {
+    transition: none;
+  }
+  .cs-bs__row:hover .cs-bs__img,
+  .cs-bs__btn:hover {
+    transform: none;
+  }
+}

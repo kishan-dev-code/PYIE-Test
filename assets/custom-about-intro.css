@@ -1,0 +1,142 @@
+/* =========================================================
+   Custom About â€“ Intro  (sections/custom-about-intro.liquid)
+   Big heading + subheading on the left, paragraph on the right.
+   ========================================================= */
+
+.cs-in {
+  --_fg: var(--cs-fg, currentColor);
+  --_muted: var(--cs-fg-muted, color-mix(in srgb, currentColor 75%, transparent));
+  --_line: var(--cs-line, color-mix(in srgb, currentColor 14%, transparent));
+  --_accent: var(--cs-accent, #FF3B1F);
+
+  --in-heading: var(--_fg);
+  --in-sub: var(--_muted);
+  --in-text: var(--_fg);
+
+  position: relative;
+  padding-top: var(--cs-pt, 96px);
+  padding-bottom: var(--cs-pb, 96px);
+}
+
+/* ---------- Extra tones (scoped to this section) ---------- */
+.cs-in.cs-tone--graphite {
+  --cs-bg: #1F2328;
+  --cs-fg: #F5F5F4;
+  --cs-fg-muted: rgba(245, 245, 244, 0.7);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #FF4D5A;
+  background-color: var(--cs-bg);
+  color: var(--cs-fg);
+}
+.cs-in.cs-tone--black {
+  --cs-bg: #000000;
+  --cs-fg: #FFFFFF;
+  --cs-fg-muted: rgba(255, 255, 255, 0.82);
+  --cs-line: rgba(255, 255, 255, 0.16);
+  --cs-accent: #FF3B1F;
+  background-color: var(--cs-bg);
+  background-image: none;
+  color: var(--cs-fg);
+}
+.cs-in.cs-tone--noir {
+  --cs-bg: #050507;
+  --cs-fg: #FFFFFF;
+  --cs-fg-muted: rgba(255, 255, 255, 0.62);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #FF3B3B;
+  color: var(--cs-fg);
+  background-color: var(--cs-bg);
+  background-image:
+    radial-gradient(ellipse 45% 60% at 0% 0%, rgba(140, 8, 8, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 60% at 100% 100%, rgba(70, 0, 130, 0.5) 0%, transparent 70%);
+  background-repeat: no-repeat;
+}
+.cs-in.cs-tone--custom {
+  background-color: var(--cs-bg);
+  background-image: none;
+  color: var(--cs-fg);
+}
+
+.cs-in__grid {
+  display: grid;
+  gap: 28px;
+}
+@media screen and (min-width: 990px) {
+  .cs-in__grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: clamp(48px, 8vw, 140px);
+    align-items: start;
+  }
+  .cs-in--divider .cs-in__right {
+    padding-left: clamp(32px, 4vw, 56px);
+    border-left: 1px solid var(--_line);
+  }
+}
+
+.cs-in__eyebrow {
+  margin: 0 0 14px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--_accent);
+}
+.cs-in__heading {
+  margin: 0;
+  font-family: var(--cs-font-display, inherit);
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--in-heading);
+}
+.cs-in__heading em {
+  font-style: normal;
+  color: var(--_accent);
+}
+.cs-in__sub {
+  margin: 20px 0 0;
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.5;
+  color: var(--in-sub);
+}
+
+.cs-in__text,
+.cs-in__text p {
+  font-size: clamp(16px, 1.3vw, 18px);
+  line-height: 1.75;
+  color: var(--in-text);
+}
+.cs-in__text p {
+  margin: 0 0 16px;
+}
+.cs-in__text p:last-child {
+  margin-bottom: 0;
+}
+.cs-in__text strong,
+.cs-in__text b {
+  color: var(--_accent);
+}
+.cs-in__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--_accent);
+  text-decoration: none;
+}
+.cs-in__link svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.25s ease;
+}
+.cs-in__link:hover svg {
+  transform: translateX(4px);
+}

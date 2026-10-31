@@ -1,0 +1,336 @@
+{{ 'custom-about-timeline.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign key = 'cs-tl-' | append: section.id
+  assign milestones = section.blocks | where: 'type', 'milestone'
+-%}
+
+{%- if section.settings.tone == 'custom' -%}
+  {%- style -%}
+    #{{ key }} {
+      --cs-bg: {{ section.settings.c_bg }};
+      --cs-fg: {{ section.settings.c_text }};
+      --cs-fg-muted: {{ section.settings.c_text | color_modify: 'alpha', 0.75 }};
+      --cs-line: {{ section.settings.c_border }};
+      --cs-accent: {{ section.settings.c_accent }};
+      --cs-accent-text: {{ section.settings.c_accent }};
+      --c-heading: {{ section.settings.c_heading }};
+      --tl-track: {{ section.settings.c_track }};
+      --tl-progress: {{ section.settings.c_progress }};
+      --tl-dot: {{ section.settings.c_dot }};
+      --tl-card-bg: {{ section.settings.c_card_bg }};
+      --tl-card-title: {{ section.settings.c_card_title }};
+      --tl-card-text: {{ section.settings.c_card_text }};
+      --tl-year: {{ section.settings.c_year }};
+      --tl-hl-bg: {{ section.settings.c_hl_bg }};
+      --tl-hl-text: {{ section.settings.c_hl_text }};
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+<section
+  id="{{ key }}"
+  class="cs-section cs-tl cs-tone--{{ section.settings.tone }} cs-tl--{{ section.settings.layout }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="cs-container">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.text != blank -%}
+      <div class="cs-tl__head">
+        {%- render 'custom-section-head',
+          eyebrow: section.settings.eyebrow,
+          heading: section.settings.heading,
+          text: section.settings.text,
+          align: 'center'
+        -%}
+      </div>
+    {%- endif -%}
+
+    {%- if milestones.size > 0 -%}
+      <div class="cs-tl__wrap" data-cs-timeline>
+        <span class="cs-tl__track" aria-hidden="true"><span class="cs-tl__progress"></span></span>
+        <ol class="cs-tl__list" role="list">
+          {%- for block in milestones -%}
+            {%- liquid
+              assign side = 'is-left'
+              assign odd = forloop.index | modulo: 2
+              if odd == 0
+                assign side = 'is-right'
+              endif
+            -%}
+            <li
+              class="cs-tl__item {{ side }}{% if block.settings.highlight %} is-highlight{% endif %}"
+              data-cs-reveal
+              {{ block.shopify_attributes }}
+            >
+              <span class="cs-tl__dot" aria-hidden="true"></span>
+              <div class="cs-tl__card">
+                {%- if block.settings.year != blank -%}
+                  <span class="cs-tl__year">{{ block.settings.year }}</span>
+                {%- endif -%}
+                {%- if block.settings.title != blank -%}
+                  <h3 class="cs-tl__title">{{ block.settings.title }}</h3>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <div class="cs-tl__text">{{ block.settings.text }}</div>
+                {%- endif -%}
+                {%- if block.settings.image != blank -%}
+                  <div class="cs-tl__media">
+                    {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: block.settings.title, widths: '450, 700, 900', sizes: '(min-width: 990px) 40vw, 90vw' }}
+                  </div>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ol>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.footnote != blank -%}
+      <p class="cs-tl__footnote">{{ section.settings.footnote }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+  (function () {
+    var root = document.getElementById('{{ key }}');
+    if (!root) return;
+    var wrap = root.querySelector('[data-cs-timeline]');
+    if (!wrap || wrap.hasAttribute('data-cs-tl-ready')) return;
+    wrap.setAttribute('data-cs-tl-ready', '');
+
+    var items = Array.prototype.slice.call(wrap.querySelectorAll('.cs-tl__item'));
+    var ticking = false;
+
+    function update() {
+      ticking = false;
+      var rect = wrap.getBoundingClientRect();
+      var trigger = window.innerHeight * 0.6;
+      var progress = (trigger - rect.top) / Math.max(rect.height, 1);
+      progress = Math.min(Math.max(progress, 0), 1);
+      wrap.style.setProperty('--cs-tl-progress', progress.toFixed(4));
+
+      items.forEach(function (item) {
+        var dot = item.querySelector('.cs-tl__dot');
+        if (!dot) return;
+        item.classList.toggle('is-passed', dot.getBoundingClientRect().top < trigger);
+      });
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom About – Timeline",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our journey"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Italic words are highlighted in the accent colour.",
+      "default": "Three decades of <em>building</em> India's tech infrastructure"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro text"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout on desktop",
+      "options": [
+        { "value": "zigzag", "label": "Alternating left / right" },
+        { "value": "single", "label": "Single column" }
+      ],
+      "default": "zigzag"
+    },
+    {
+      "type": "text",
+      "id": "footnote",
+      "label": "Footnote"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" },
+        { "value": "graphite", "label": "Graphite" },
+        { "value": "noir", "label": "Noir glow" },
+        { "value": "custom", "label": "Custom colours" }
+      ],
+      "default": "dark",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "header",
+      "content": "Custom colours – Section",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    { "type": "color", "id": "c_bg", "label": "Section background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_heading", "label": "Heading", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_text", "label": "Body text", "default": "#CBD5E1", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accent", "label": "Accent (eyebrow, italic words)", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_border", "label": "Card borders", "default": "#334155", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Timeline",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_track", "label": "Line", "default": "#334155", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_progress", "label": "Line progress (on scroll)", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_dot", "label": "Dots", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_year", "label": "Year", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_card_bg", "label": "Card background", "default": "#1E293B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_card_title", "label": "Card title", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_card_text", "label": "Card text", "default": "#CBD5E1", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_hl_bg", "label": "Highlighted card background", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_hl_text", "label": "Highlighted card text", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" }
+  ],
+  "blocks": [
+    {
+      "type": "milestone",
+      "name": "Milestone",
+      "settings": [
+        {
+          "type": "text",
+          "id": "year",
+          "label": "Year / label",
+          "info": "e.g. 1996, or a short label like Today.",
+          "default": "1996"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Milestone title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Describe what happened.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Optional."
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight",
+          "label": "Highlight this milestone",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom About – Timeline",
+      "blocks": [
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "1996",
+            "title": "Intex Technologies is founded",
+            "text": "<p>An Indian consumer-electronics company built around accessible, reliable, technology-led products.</p>"
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "2001",
+            "title": "Manufacturing in India",
+            "text": "<p>A domestic production commitment — well ahead of the national Make in India push.</p>"
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "No. 1",
+            "title": "India's No. 1 mobile brand",
+            "text": "<p>Earned through nationwide retail presence and sustained consumer trust, not a single campaign.</p>"
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "2016",
+            "title": "IPL franchise ownership",
+            "text": "<p>Intex owned the Gujarat Lions in the Indian Premier League — nationwide brand visibility at the highest level of Indian sport.</p>"
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "1bn+",
+            "title": "Products sold",
+            "text": "<p>One product sold every 5 seconds — consumer trust at volume.</p>"
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "Today",
+            "title": "PYIE — Powered by Intex",
+            "text": "<p>Taking global electronics and technology brands into India, from first shipment to nationwide scale.</p>",
+            "highlight": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

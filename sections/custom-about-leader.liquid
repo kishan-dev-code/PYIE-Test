@@ -1,0 +1,213 @@
+{{ 'custom-about-leader.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign key = 'cs-ld-' | append: section.id
+  assign leaders = section.blocks | where: 'type', 'leader'
+-%}
+
+{%- if section.settings.tone == 'custom' -%}
+  {%- style -%}
+    #{{ key }} {
+      --cs-bg: {{ section.settings.c_bg }};
+      --cs-fg: {{ section.settings.c_text }};
+      --cs-fg-muted: {{ section.settings.c_text | color_modify: 'alpha', 0.75 }};
+      --cs-line: {{ section.settings.c_border }};
+      --cs-accent: {{ section.settings.c_accent }};
+      --ld-name: {{ section.settings.c_name }};
+      --ld-role: {{ section.settings.c_role }};
+      --ld-text: {{ section.settings.c_text }};
+      --ld-highlight: {{ section.settings.c_highlight }};
+      --ld-ring: {{ section.settings.c_ring }};
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+<section
+  id="{{ key }}"
+  class="cs-section cs-ld cs-tone--{{ section.settings.tone }} cs-ld--{{ section.settings.image_shape }}{% if section.settings.show_ring %} cs-ld--ring{% endif %}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px; --ld-size: {{ section.settings.image_size }}px;"
+>
+  <div class="cs-container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="cs-ld__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="cs-ld__list">
+      {%- for block in leaders -%}
+        {%- liquid
+          assign flip = false
+          if section.settings.image_side == 'right'
+            assign flip = true
+          endif
+          if section.settings.alternate
+            assign odd = forloop.index | modulo: 2
+            if odd == 0
+              if flip
+                assign flip = false
+              else
+                assign flip = true
+              endif
+            endif
+          endif
+        -%}
+        <article class="cs-ld__item{% if flip %} is-flip{% endif %}" {{ block.shopify_attributes }}>
+          <div class="cs-ld__media" data-cs-reveal>
+            <div class="cs-ld__photo">
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 900
+                  | image_tag: loading: 'lazy', alt: block.settings.name, widths: '400, 600, 900', sizes: '(min-width: 990px) 420px, 80vw'
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'cs-ld__placeholder' }}
+              {%- endif -%}
+            </div>
+          </div>
+
+          <div class="cs-ld__content" data-cs-reveal style="--cs-delay: 120ms;">
+            {%- if block.settings.name != blank -%}
+              <h3 class="cs-ld__name">{{ block.settings.name }}</h3>
+            {%- endif -%}
+            {%- if block.settings.role != blank -%}
+              <p class="cs-ld__role">{{ block.settings.role }}</p>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <div class="cs-ld__text">{{ block.settings.text }}</div>
+            {%- endif -%}
+            {%- if block.settings.linkedin != blank -%}
+              <a class="cs-ld__social" href="{{ block.settings.linkedin }}" target="_blank" rel="noopener">
+                {% render 'custom-icon', icon: 'linkedin' %}
+                <span>LinkedIn</span>
+              </a>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom About – Leader",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Section heading",
+      "info": "Optional, e.g. Leadership."
+    },
+    {
+      "type": "header",
+      "content": "Photo"
+    },
+    {
+      "type": "select",
+      "id": "image_shape",
+      "label": "Photo shape",
+      "options": [
+        { "value": "circle", "label": "Circle" },
+        { "value": "rounded", "label": "Rounded square" }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "range",
+      "id": "image_size",
+      "label": "Photo size on desktop",
+      "min": 260,
+      "max": 520,
+      "step": 20,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ring",
+      "label": "Show accent ring around photo",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "image_side",
+      "label": "Photo position on desktop",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "alternate",
+      "label": "Alternate sides for each leader",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" },
+        { "value": "graphite", "label": "Graphite" },
+        { "value": "noir", "label": "Noir glow" },
+        { "value": "black", "label": "Black" },
+        { "value": "custom", "label": "Custom colours" }
+      ],
+      "default": "black",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
+    },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 80 },
+    {
+      "type": "header",
+      "content": "Custom colours",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    { "type": "color", "id": "c_bg", "label": "Section background", "default": "#000000", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_name", "label": "Name", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_role", "label": "Role / title", "default": "#FF3B1F", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_text", "label": "Text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_highlight", "label": "Bold / highlighted words", "default": "#FF3B1F", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accent", "label": "Accent (links, icons)", "default": "#FF3B1F", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_ring", "label": "Photo ring", "default": "#FF3B1F", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_border", "label": "Dividers", "default": "#262626", "visible_if": "{{ section.settings.tone == 'custom' }}" }
+  ],
+  "blocks": [
+    {
+      "type": "leader",
+      "name": "Leader",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Ishita Bansal" },
+        { "type": "text", "id": "role", "label": "Role / title", "info": "Optional." },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "info": "Bold words are shown in the highlight colour.",
+          "default": "<p>Ishita Bansal epitomizes innovation, strategic acumen, and entrepreneurial excellence. As the Chief Business Officer and Board Director at <strong>Intex Technologies</strong>, she brings visionary leadership and deep market insight to every initiative.</p><p><strong>PYIE Solutions</strong>, a subsidiary of Intex Technologies, is a design, development, and innovation partner helping global brands build and scale their presence in India through impactful digital solutions.</p>"
+        },
+        { "type": "url", "id": "linkedin", "label": "LinkedIn link", "info": "Optional." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom About – Leader",
+      "blocks": [{ "type": "leader" }]
+    }
+  ]
+}
+{% endschema %}

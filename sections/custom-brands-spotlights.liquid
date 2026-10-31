@@ -1,0 +1,407 @@
+{{ 'custom-brand-spotlight.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign key = 'cs-bs-' | append: section.id
+  assign brands = section.blocks | where: 'type', 'brand'
+-%}
+
+{%- if section.settings.tone == 'custom' -%}
+  {%- style -%}
+    #{{ key }} {
+      --cs-bg: {{ section.settings.c_bg }};
+      --cs-fg: {{ section.settings.c_text }};
+      --cs-fg-muted: {{ section.settings.c_text | color_modify: 'alpha', 0.75 }};
+      --cs-line: {{ section.settings.c_border }};
+      --cs-accent: {{ section.settings.c_accent }};
+      --cs-accent-text: {{ section.settings.c_accent }};
+      --c-heading: {{ section.settings.c_heading }};
+      --bs-media-bg: {{ section.settings.c_media_bg }};
+      --bs-index: {{ section.settings.c_index }};
+      --bs-eyebrow: {{ section.settings.c_eyebrow }};
+      --bs-name: {{ section.settings.c_name }};
+      --bs-text: {{ section.settings.c_body }};
+      --bs-chip-bg: {{ section.settings.c_chip_bg }};
+      --bs-chip-text: {{ section.settings.c_chip_text }};
+      --bs-stat-value: {{ section.settings.c_stat_value }};
+      --bs-stat-label: {{ section.settings.c_stat_label }};
+      --bs-btn-bg: {{ section.settings.c_btn_bg }};
+      --bs-btn-text: {{ section.settings.c_btn_text }};
+      --bs-btn-hover-bg: {{ section.settings.c_btn_hover_bg }};
+      --bs-btn-hover-text: {{ section.settings.c_btn_hover_text }};
+      --bs-link: {{ section.settings.c_link }};
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+<section
+  id="{{ key }}"
+  class="cs-section cs-bs cs-tone--{{ section.settings.tone }} cs-bs--ratio-{{ section.settings.media_ratio }} cs-bs--fit-{{ section.settings.media_fit }}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="cs-container">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.text != blank -%}
+      <div class="cs-bs__head">
+        {%- render 'custom-section-head',
+          eyebrow: section.settings.eyebrow,
+          heading: section.settings.heading,
+          text: section.settings.text
+        -%}
+      </div>
+    {%- endif -%}
+
+    <div class="cs-bs__rows">
+      {%- for block in brands -%}
+        {%- liquid
+          assign flip = false
+          if section.settings.image_side == 'right'
+            assign flip = true
+          endif
+          if section.settings.alternate
+            assign odd = forloop.index | modulo: 2
+            if odd == 0
+              if flip
+                assign flip = false
+              else
+                assign flip = true
+              endif
+            endif
+          endif
+          assign chips = block.settings.chips | split: ','
+          assign anchor = block.settings.anchor | default: block.settings.name | handleize
+        -%}
+        <article
+          class="cs-bs__row{% if flip %} is-flip{% endif %}"
+          id="brand-{{ anchor }}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="cs-bs__media" data-cs-reveal>
+            <div class="cs-bs__media-inner">
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 1400
+                  | image_tag: loading: 'lazy', class: 'cs-bs__img', alt: block.settings.name, widths: '600, 900, 1200, 1400', sizes: '(min-width: 990px) 50vw, 100vw'
+                }}
+              {%- else -%}
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'cs-bs__img cs-bs__img--placeholder' }}
+              {%- endif -%}
+            </div>
+            {%- if block.settings.logo != blank -%}
+              <span class="cs-bs__logo-badge">
+                {{ block.settings.logo | image_url: width: 320 | image_tag: loading: 'lazy', alt: '', widths: '160, 320', sizes: '160px' }}
+              </span>
+            {%- endif -%}
+          </div>
+
+          <div class="cs-bs__content" data-cs-reveal style="--cs-delay: 120ms;">
+            <div class="cs-bs__meta">
+              <span class="cs-bs__index">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+              {%- if block.settings.eyebrow != blank -%}
+                <span class="cs-bs__eyebrow">{{ block.settings.eyebrow }}</span>
+              {%- endif -%}
+            </div>
+
+            <h3 class="cs-bs__name">{{ block.settings.name }}</h3>
+
+            {%- if block.settings.text != blank -%}
+              <div class="cs-bs__text">{{ block.settings.text }}</div>
+            {%- endif -%}
+
+            {%- if block.settings.chips != blank -%}
+              <ul class="cs-bs__chips" role="list">
+                {%- for chip in chips -%}
+                  {%- assign chip_text = chip | strip -%}
+                  {%- if chip_text != blank -%}
+                    <li class="cs-bs__chip">{{ chip_text | escape }}</li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+            {%- if block.settings.stat_1_value != blank or block.settings.stat_2_value != blank or block.settings.stat_3_value != blank -%}
+              <dl class="cs-bs__stats">
+                {%- for n in (1..3) -%}
+                  {%- liquid
+                    assign v_key = 'stat_' | append: n | append: '_value'
+                    assign l_key = 'stat_' | append: n | append: '_label'
+                    assign s_value = block.settings[v_key]
+                    assign s_label = block.settings[l_key]
+                  -%}
+                  {%- if s_value != blank -%}
+                    <div class="cs-bs__stat">
+                      <dt class="cs-bs__stat-label">{{ s_label | escape }}</dt>
+                      <dd class="cs-bs__stat-value" data-cs-count>{{ s_value | escape }}</dd>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </dl>
+            {%- endif -%}
+
+            {%- if block.settings.btn_label != blank or block.settings.link2_url != blank -%}
+              <div class="cs-bs__actions">
+                {%- if block.settings.btn_label != blank -%}
+                  <a
+                    class="cs-bs__btn"
+                    {% if block.settings.btn_link != blank %}href="{{ block.settings.btn_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+                  >
+                    {{- block.settings.btn_label | escape -}}
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                  </a>
+                {%- endif -%}
+                {%- if block.settings.link2_url != blank -%}
+                  <a class="cs-bs__link" href="{{ block.settings.link2_url }}" target="_blank" rel="noopener nofollow">
+                    {{- block.settings.link2_label | default: 'Buy on Amazon' | escape -}}
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+                    <span class="cs-bs__sr"> (opens in a new tab)</span>
+                  </a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Brands – Spotlight",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Brand spotlight"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Italic words are highlighted in the accent colour.",
+      "default": "The brands we <em>bring</em> to India"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro text"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_side",
+      "label": "First image position on desktop",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "alternate",
+      "label": "Alternate image sides",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "media_ratio",
+      "label": "Image shape",
+      "options": [
+        { "value": "square", "label": "Square" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "landscape", "label": "Landscape" }
+      ],
+      "default": "landscape"
+    },
+    {
+      "type": "select",
+      "id": "media_fit",
+      "label": "Image fit",
+      "options": [
+        { "value": "cover", "label": "Fill (crop)" },
+        { "value": "contain", "label": "Fit (product shots)" }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" },
+        { "value": "graphite", "label": "Graphite" },
+        { "value": "noir", "label": "Noir glow" },
+        { "value": "custom", "label": "Custom colours" }
+      ],
+      "default": "light",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "header",
+      "content": "Custom colours – Section",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    { "type": "color", "id": "c_bg", "label": "Section background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_heading", "label": "Heading", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_text", "label": "Intro text", "default": "#475569", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accent", "label": "Accent (eyebrow, italic words)", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_border", "label": "Borders / dividers", "default": "#E2E8F0", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_media_bg", "label": "Image background", "info": "Shows behind \"Fit\" product shots.", "default": "#F1F5F9", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Brand rows",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_index", "label": "Row number", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_eyebrow", "label": "Brand tagline", "default": "#64748B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_name", "label": "Brand name", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_body", "label": "Brand text", "default": "#475569", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_chip_bg", "label": "Category chip background", "default": "#F1F5F9", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_chip_text", "label": "Category chip text", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_stat_value", "label": "Stat number", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_stat_label", "label": "Stat label", "default": "#64748B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Buttons",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_btn_bg", "label": "Button background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_text", "label": "Button text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_hover_bg", "label": "Button hover background", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_hover_text", "label": "Button hover text", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_link", "label": "Secondary link", "default": "#B45309", "visible_if": "{{ section.settings.tone == 'custom' }}" }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo",
+          "info": "Optional. Shown as a badge on the image."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Brand name",
+          "default": "Brand"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Tagline",
+          "default": "Global category leader"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Introduce the brand, its hero products and why it matters for Indian consumers.</p>"
+        },
+        {
+          "type": "textarea",
+          "id": "chips",
+          "label": "Categories",
+          "info": "Comma separated, e.g. Keyboards, Mice, Hubs."
+        },
+        {
+          "type": "text",
+          "id": "anchor",
+          "label": "Anchor name",
+          "info": "Optional. Link to #brand-[anchor] to jump to this row, e.g. #brand-keychron. Defaults to the brand name."
+        },
+        {
+          "type": "header",
+          "content": "Stats"
+        },
+        { "type": "text", "id": "stat_1_value", "label": "Stat 1 value" },
+        { "type": "text", "id": "stat_1_label", "label": "Stat 1 label" },
+        { "type": "text", "id": "stat_2_value", "label": "Stat 2 value" },
+        { "type": "text", "id": "stat_2_label", "label": "Stat 2 label" },
+        { "type": "text", "id": "stat_3_value", "label": "Stat 3 value" },
+        { "type": "text", "id": "stat_3_label", "label": "Stat 3 label" },
+        {
+          "type": "header",
+          "content": "Links"
+        },
+        {
+          "type": "text",
+          "id": "btn_label",
+          "label": "Button label",
+          "default": "Explore products"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Button link"
+        },
+        {
+          "type": "text",
+          "id": "link2_label",
+          "label": "Secondary link label",
+          "default": "Buy on Amazon"
+        },
+        {
+          "type": "url",
+          "id": "link2_url",
+          "label": "Secondary link",
+          "info": "Opens in a new tab. Leave empty to hide."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Brands – Spotlight",
+      "blocks": [
+        { "type": "brand", "settings": { "name": "Keychron", "eyebrow": "Top 10 global mechanical keyboard brand", "chips": "Mechanical keyboards, Mice, Accessories" } },
+        { "type": "brand", "settings": { "name": "Aukey", "eyebrow": "Fast-charging accessories, part of a USD 2Bn group", "chips": "Chargers, Power banks, Cables" } },
+        { "type": "brand", "settings": { "name": "Hohem", "eyebrow": "Global leader in AI tracking gimbals", "chips": "Gimbals, AI trackers" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

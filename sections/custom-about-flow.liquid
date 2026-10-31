@@ -1,0 +1,405 @@
+{{ 'custom-about-flow.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign key = 'cs-flow-' | append: section.id
+  assign channels = section.blocks | where: 'type', 'channel'
+  assign cols = channels.size | at_most: 6 | at_least: 1
+-%}
+
+{%- if section.settings.tone == 'custom' -%}
+  {%- style -%}
+    #{{ key }} {
+      --cs-bg: {{ section.settings.c_bg }};
+      --cs-fg: {{ section.settings.c_text }};
+      --cs-fg-muted: {{ section.settings.c_text | color_modify: 'alpha', 0.75 }};
+      --cs-line: {{ section.settings.c_border }};
+      --cs-accent: {{ section.settings.c_accent }};
+      --cs-accent-text: {{ section.settings.c_accent }};
+      --c-heading: {{ section.settings.c_heading }};
+      --flow-node-bg: {{ section.settings.c_node_bg }};
+      --flow-node-title: {{ section.settings.c_node_title }};
+      --flow-node-text: {{ section.settings.c_node_text }};
+      --flow-hub-bg: {{ section.settings.c_hub_bg }};
+      --flow-hub-title: {{ section.settings.c_hub_title }};
+      --flow-hub-text: {{ section.settings.c_hub_text }};
+      --flow-line: {{ section.settings.c_line }};
+      --flow-label: {{ section.settings.c_label }};
+      --flow-ch-bg: {{ section.settings.c_ch_bg }};
+      --flow-ch-title: {{ section.settings.c_ch_title }};
+      --flow-ch-text: {{ section.settings.c_ch_text }};
+      --flow-ch-hl-bg: {{ section.settings.c_ch_hl_bg }};
+      --flow-ch-hl-text: {{ section.settings.c_ch_hl_text }};
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+<section
+  id="{{ key }}"
+  class="cs-section cs-flow cs-tone--{{ section.settings.tone }}{% unless section.settings.animate %} cs-flow--static{% endunless %}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="cs-container">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.text != blank -%}
+      <div class="cs-flow__head">
+        {%- render 'custom-section-head',
+          eyebrow: section.settings.eyebrow,
+          heading: section.settings.heading,
+          text: section.settings.text,
+          align: 'center'
+        -%}
+      </div>
+    {%- endif -%}
+
+    <div class="cs-flow__diagram{% if channels.size > 0 %} has-channels{% endif %}" data-cs-reveal>
+      <div class="cs-flow__top">
+        {%- comment -%} 1. Source (global brand) {%- endcomment -%}
+        <div class="cs-flow__node cs-flow__node--source">
+          {%- if section.settings.source_logo != blank -%}
+            <span class="cs-flow__logo">
+              {{ section.settings.source_logo | image_url: width: 320 | image_tag: loading: 'lazy', alt: section.settings.source_title, widths: '160, 320' }}
+            </span>
+          {%- endif -%}
+          <span class="cs-flow__node-title">{{ section.settings.source_title }}</span>
+          {%- if section.settings.source_text != blank -%}
+            <span class="cs-flow__node-text">{{ section.settings.source_text }}</span>
+          {%- endif -%}
+        </div>
+
+        <div class="cs-flow__link cs-flow__link--one" aria-hidden="true">
+          <span class="cs-flow__line cs-flow__line--fwd"></span>
+        </div>
+
+        {%- comment -%} 2. Hub (distributor & aggregator) {%- endcomment -%}
+        <div class="cs-flow__node cs-flow__node--hub">
+          {%- if section.settings.hub_logo != blank -%}
+            <span class="cs-flow__logo">
+              {{ section.settings.hub_logo | image_url: width: 320 | image_tag: loading: 'lazy', alt: section.settings.hub_name, widths: '160, 320' }}
+            </span>
+          {%- elsif section.settings.hub_name != blank -%}
+            <span class="cs-flow__wordmark">{{ section.settings.hub_name }}</span>
+          {%- endif -%}
+          <span class="cs-flow__node-title">{{ section.settings.hub_title }}</span>
+          {%- if section.settings.hub_text != blank -%}
+            <span class="cs-flow__node-text">{{ section.settings.hub_text }}</span>
+          {%- endif -%}
+        </div>
+
+        <div class="cs-flow__link cs-flow__link--two">
+          {%- if section.settings.label_to != blank -%}
+            <span class="cs-flow__label">{{ section.settings.label_to }}</span>
+          {%- endif -%}
+          <span class="cs-flow__line cs-flow__line--fwd" aria-hidden="true"></span>
+          <span class="cs-flow__line cs-flow__line--back" aria-hidden="true"></span>
+          {%- if section.settings.label_from != blank -%}
+            <span class="cs-flow__label">{{ section.settings.label_from }}</span>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} 3. Side (manufacturing hub) {%- endcomment -%}
+        <div class="cs-flow__node cs-flow__node--side">
+          {%- if section.settings.side_logo != blank -%}
+            <span class="cs-flow__logo">
+              {{ section.settings.side_logo | image_url: width: 320 | image_tag: loading: 'lazy', alt: section.settings.side_name, widths: '160, 320' }}
+            </span>
+          {%- elsif section.settings.side_name != blank -%}
+            <span class="cs-flow__wordmark">{{ section.settings.side_name }}</span>
+          {%- endif -%}
+          <span class="cs-flow__node-title">{{ section.settings.side_title }}</span>
+          {%- if section.settings.side_text != blank -%}
+            <span class="cs-flow__node-text">{{ section.settings.side_text }}</span>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- if channels.size > 0 -%}
+        {%- if section.settings.channels_label != blank -%}
+          <p class="cs-flow__channels-label">{{ section.settings.channels_label }}</p>
+        {%- endif -%}
+        <ul class="cs-flow__channels" role="list" style="--cs-cols: {{ cols }};">
+          {%- for block in channels -%}
+            <li
+              class="cs-flow__channel{% if block.settings.highlight %} is-highlight{% endif %}"
+              data-cs-reveal
+              style="--cs-delay: {{ forloop.index0 | times: 70 }}ms;"
+              {{ block.shopify_attributes }}
+            >
+              <span class="cs-flow__channel-title">{{ block.settings.title }}</span>
+              {%- if block.settings.image != blank -%}
+                <span class="cs-flow__channel-media">
+                  {{ block.settings.image | image_url: width: 480 | image_tag: loading: 'lazy', alt: block.settings.title, widths: '240, 480', sizes: '(min-width: 990px) 15vw, 45vw' }}
+                </span>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <span class="cs-flow__channel-text">{{ block.settings.text }}</span>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.footnote != blank -%}
+      <p class="cs-flow__footnote">{{ section.settings.footnote }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom About – Flow",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "How it works"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Italic words are highlighted in the accent colour.",
+      "default": "An <em>integrated</em> & effortless flow"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro text",
+      "default": "<p>One partner between your brand and every channel in India.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "animate",
+      "label": "Animate connecting lines",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Box 1 – Source"
+    },
+    {
+      "type": "image_picker",
+      "id": "source_logo",
+      "label": "Logo / image",
+      "info": "Optional."
+    },
+    {
+      "type": "text",
+      "id": "source_title",
+      "label": "Title",
+      "default": "Global Brand"
+    },
+    {
+      "type": "text",
+      "id": "source_text",
+      "label": "Text",
+      "default": "Your products, ready for India"
+    },
+    {
+      "type": "header",
+      "content": "Box 2 – Centre hub"
+    },
+    {
+      "type": "image_picker",
+      "id": "hub_logo",
+      "label": "Logo",
+      "info": "The name below is shown when empty."
+    },
+    {
+      "type": "text",
+      "id": "hub_name",
+      "label": "Name",
+      "default": "PYIE"
+    },
+    {
+      "type": "text",
+      "id": "hub_title",
+      "label": "Title",
+      "default": "Distributor & Aggregator"
+    },
+    {
+      "type": "text",
+      "id": "hub_text",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Box 3 – Partner"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_logo",
+      "label": "Logo",
+      "info": "The name below is shown when empty."
+    },
+    {
+      "type": "text",
+      "id": "side_name",
+      "label": "Name",
+      "default": "PYIE"
+    },
+    {
+      "type": "text",
+      "id": "side_title",
+      "label": "Title",
+      "default": "Manufacturing Hub"
+    },
+    {
+      "type": "text",
+      "id": "side_text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "label_to",
+      "label": "Arrow label (hub → partner)",
+      "default": "Order placed"
+    },
+    {
+      "type": "text",
+      "id": "label_from",
+      "label": "Arrow label (partner → hub)",
+      "default": "Products delivered"
+    },
+    {
+      "type": "header",
+      "content": "Channels",
+      "info": "Add Channel blocks. Up to 6 sit in one row on desktop."
+    },
+    {
+      "type": "text",
+      "id": "channels_label",
+      "label": "Channels label",
+      "default": "Reaching every channel"
+    },
+    {
+      "type": "text",
+      "id": "footnote",
+      "label": "Footnote"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" },
+        { "value": "graphite", "label": "Graphite" },
+        { "value": "noir", "label": "Noir glow" },
+        { "value": "custom", "label": "Custom colours" }
+      ],
+      "default": "paper",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "header",
+      "content": "Custom colours – Section",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    { "type": "color", "id": "c_bg", "label": "Section background", "default": "#F8F5EF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_heading", "label": "Heading", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_text", "label": "Body text", "default": "#475569", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accent", "label": "Accent (eyebrow, italic words)", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_border", "label": "Borders", "default": "#E2E8F0", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Boxes & lines",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_node_bg", "label": "Box background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_node_title", "label": "Box title", "default": "#DC2626", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_node_text", "label": "Box text", "default": "#475569", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_hub_bg", "label": "Centre hub background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_hub_title", "label": "Centre hub title", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_hub_text", "label": "Centre hub text", "default": "#CBD5E1", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_line", "label": "Connecting lines & arrows", "default": "#94A3B8", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_label", "label": "Arrow labels", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Channels",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_ch_bg", "label": "Channel background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_ch_title", "label": "Channel title", "default": "#DC2626", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_ch_text", "label": "Channel text", "default": "#475569", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_ch_hl_bg", "label": "Highlighted channel background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_ch_hl_text", "label": "Highlighted channel text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" }
+  ],
+  "blocks": [
+    {
+      "type": "channel",
+      "name": "Channel",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Marketplace partnership"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Logos / image",
+          "info": "Optional, e.g. a strip of partner logos or a screenshot."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Amazon, Flipkart"
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight",
+          "label": "Highlight (own channel)",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom About – Flow",
+      "blocks": [
+        { "type": "channel", "settings": { "title": "Marketplace partnership", "text": "Amazon, Flipkart" } },
+        { "type": "channel", "settings": { "title": "Retail chains", "text": "Croma, Reliance Digital, Vijay Sales" } },
+        { "type": "channel", "settings": { "title": "Quick commerce", "text": "Blinkit, Zepto, Swiggy Instamart" } },
+        { "type": "channel", "settings": { "title": "D2C websites", "text": "Brand-owned online stores" } },
+        { "type": "channel", "settings": { "title": "PYIE retail chain", "text": "Experiential flagship stores", "highlight": true } },
+        { "type": "channel", "settings": { "title": "PYIE app & website", "text": "Direct to consumer", "highlight": true } }
+      ]
+    }
+  ]
+}
+{% endschema %}

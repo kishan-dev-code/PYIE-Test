@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -7,9 +16,299 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "custom_about_leader_nUbxq7": {
+      "type": "custom-about-leader",
+      "blocks": {
+        "leader_qQfYTx": {
+          "type": "leader",
+          "settings": {
+            "image": "shopify://shop_images/Ishita_2_2.jpg",
+            "name": "Ishita Bansal",
+            "role": "",
+            "text": "<p>Ishita Bansal epitomizes innovation, strategic acumen, and entrepreneurial excellence. As the Chief Business Officer and Board Director at <strong>Intex Technologies</strong>, she brings visionary leadership and deep market insight to every initiative.</p><p><strong>PYIE Solutions</strong>, a subsidiary of Intex Technologies, is a design, development, and innovation partner helping global brands build and scale their presence in India through impactful digital solutions.</p>",
+            "linkedin": ""
+          }
+        }
+      },
+      "block_order": [
+        "leader_qQfYTx"
+      ],
+      "name": "Custom About – Leader",
+      "settings": {
+        "heading": "",
+        "image_shape": "circle",
+        "image_size": 400,
+        "show_ring": false,
+        "image_side": "left",
+        "alternate": true,
+        "tone": "custom",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "c_bg": "#0f1419",
+        "c_name": "#ffffff",
+        "c_role": "#00abe4",
+        "c_text": "#ffffff",
+        "c_highlight": "#00abe4",
+        "c_accent": "#00abe4",
+        "c_ring": "#00abe4",
+        "c_border": "#262626"
+      }
+    },
+    "custom_about_intro_kyDTyh": {
+      "type": "custom-about-intro",
+      "name": "Custom About – Intro",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Who We Are",
+        "heading_tag": "h1",
+        "subheading": "Driving Innovation, Empowering Businesses Worldwide",
+        "text": "<p>PYIE is an emerging technology-driven company focused on introducing internationally acclaimed tech brands to the Indian market. We bridge the gap between global innovation and Indian consumers by offering authentic products, reliable distribution, and localized support.</p>",
+        "button_label": "",
+        "button_link": "",
+        "show_divider": false,
+        "tone": "custom",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "c_bg": "#16181c",
+        "c_heading": "#ffffff",
+        "c_sub": "#d4d4d4",
+        "c_text": "#ffffff",
+        "c_accent": "#ff3b1f",
+        "c_border": "#262626"
+      }
+    },
+    "custom_about_flow_3FECpe": {
+      "type": "custom-about-flow",
+      "blocks": {
+        "channel_Up4bCj": {
+          "type": "channel",
+          "settings": {
+            "title": "Marketplace partnership",
+            "text": "Amazon, Flipkart",
+            "highlight": false
+          }
+        },
+        "channel_rF3PXC": {
+          "type": "channel",
+          "settings": {
+            "title": "Retail chains",
+            "text": "Croma, Reliance Digital, Vijay Sales",
+            "highlight": false
+          }
+        },
+        "channel_krYwqN": {
+          "type": "channel",
+          "settings": {
+            "title": "Quick commerce",
+            "text": "Blinkit, Zepto, Swiggy Instamart",
+            "highlight": false
+          }
+        },
+        "channel_83CiNG": {
+          "type": "channel",
+          "settings": {
+            "title": "D2C websites",
+            "text": "Brand-owned online stores",
+            "highlight": false
+          }
+        },
+        "channel_aPX646": {
+          "type": "channel",
+          "settings": {
+            "title": "PYIE retail chain",
+            "text": "Experiential flagship stores",
+            "highlight": true
+          }
+        },
+        "channel_pP7WnD": {
+          "type": "channel",
+          "settings": {
+            "title": "PYIE app & website",
+            "text": "Direct to consumer",
+            "highlight": true
+          }
+        }
+      },
+      "block_order": [
+        "channel_Up4bCj",
+        "channel_rF3PXC",
+        "channel_krYwqN",
+        "channel_83CiNG",
+        "channel_aPX646",
+        "channel_pP7WnD"
+      ],
+      "name": "Custom About – Flow",
+      "settings": {
+        "eyebrow": "How it works",
+        "heading": "An <em>integrated</em> & effortless flow",
+        "text": "<p>One partner between your brand and every channel in India.</p>",
+        "animate": true,
+        "source_title": "Global Brand",
+        "source_text": "Your products, ready for India",
+        "hub_name": "PYIE",
+        "hub_title": "Distributor & Aggregator",
+        "hub_text": "",
+        "side_name": "PYIE",
+        "side_title": "Manufacturing Hub",
+        "side_text": "",
+        "label_to": "Order placed",
+        "label_from": "Products delivered",
+        "channels_label": "Reaching every channel",
+        "footnote": "",
+        "tone": "custom",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "c_bg": "#0f1419",
+        "c_heading": "#ffffff",
+        "c_text": "#fdfeff",
+        "c_accent": "#00abe4",
+        "c_border": "#ffffff",
+        "c_node_bg": "#1e293b",
+        "c_node_title": "#00abe4",
+        "c_node_text": "#ffffff",
+        "c_hub_bg": "#00abe4",
+        "c_hub_title": "#ffffff",
+        "c_hub_text": "#ffffff",
+        "c_line": "#ffffff",
+        "c_label": "#0f172a",
+        "c_ch_bg": "#ffffff",
+        "c_ch_title": "#00abe4",
+        "c_ch_text": "#475569",
+        "c_ch_hl_bg": "#00abe4",
+        "c_ch_hl_text": "#ffffff"
+      }
+    },
+    "custom_about_timeline_hnPWU7": {
+      "type": "custom-about-timeline",
+      "blocks": {
+        "milestone_TEyU4B": {
+          "type": "milestone",
+          "settings": {
+            "year": "1996",
+            "title": "Intex Technologies is founded",
+            "text": "<p>An Indian consumer-electronics company built around accessible, reliable, technology-led products.</p>",
+            "highlight": false
+          }
+        },
+        "milestone_ahU6AL": {
+          "type": "milestone",
+          "settings": {
+            "year": "2001",
+            "title": "Manufacturing in India",
+            "text": "<p>A domestic production commitment — well ahead of the national Make in India push.</p>",
+            "highlight": false
+          }
+        },
+        "milestone_fX7qz7": {
+          "type": "milestone",
+          "settings": {
+            "year": "No. 1",
+            "title": "India's No. 1 mobile brand",
+            "text": "<p>Earned through nationwide retail presence and sustained consumer trust, not a single campaign.</p>",
+            "highlight": false
+          }
+        },
+        "milestone_6WyN8Y": {
+          "type": "milestone",
+          "settings": {
+            "year": "2016",
+            "title": "IPL franchise ownership",
+            "text": "<p>Intex owned the Gujarat Lions in the Indian Premier League — nationwide brand visibility at the highest level of Indian sport.</p>",
+            "highlight": false
+          }
+        },
+        "milestone_zKwLqX": {
+          "type": "milestone",
+          "settings": {
+            "year": "1bn+",
+            "title": "Products sold",
+            "text": "<p>One product sold every 5 seconds — consumer trust at volume.</p>",
+            "highlight": false
+          }
+        },
+        "milestone_wqe8Wh": {
+          "type": "milestone",
+          "settings": {
+            "year": "Today",
+            "title": "PYIE — Powered by Intex",
+            "text": "<p>Taking global electronics and technology brands into India, from first shipment to nationwide scale.</p>",
+            "highlight": true
+          }
+        }
+      },
+      "block_order": [
+        "milestone_TEyU4B",
+        "milestone_ahU6AL",
+        "milestone_fX7qz7",
+        "milestone_6WyN8Y",
+        "milestone_zKwLqX",
+        "milestone_wqe8Wh"
+      ],
+      "name": "Custom About – Timeline",
+      "settings": {
+        "eyebrow": "Our journey",
+        "heading": "Three decades of <em>building</em> India's tech infrastructure",
+        "text": "",
+        "layout": "zigzag",
+        "footnote": "",
+        "tone": "custom",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "c_bg": "#16181c",
+        "c_heading": "#ffffff",
+        "c_text": "#ffffff",
+        "c_accent": "#00abe4",
+        "c_border": "#1e293b",
+        "c_track": "#1e293b",
+        "c_progress": "#00abe4",
+        "c_dot": "#00abe4",
+        "c_year": "#00abe4",
+        "c_card_bg": "#1e293b",
+        "c_card_title": "#ffffff",
+        "c_card_text": "#ffffff",
+        "c_hl_bg": "#00abe4",
+        "c_hl_text": "#ffffff"
+      }
+    },
+    "custom_about_vision_EUqWcV": {
+      "type": "custom-about-vision",
+      "name": "Custom About – Vision",
+      "settings": {
+        "image": "shopify://shop_images/vision.jpg",
+        "image_side": "left",
+        "image_radius": 28,
+        "eyebrow": "Our Vision",
+        "heading": "Powering India’s",
+        "heading_accent": "Tech-Driven Future",
+        "text": "<p>We envision <strong>PYIE</strong> as a trusted gateway for global technology brands entering India — enabling creators, professionals, businesses, and enthusiasts to experience innovation without borders.</p>",
+        "points": "Global brands, local trust\nSeamless access to innovation\nEmpowering India’s digital ecosystem",
+        "button_label": "",
+        "button_link": "",
+        "tone": "custom",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "c_bg": "#0F1419",
+        "c_eyebrow": "#00ABE4",
+        "c_heading": "#FFFFFF",
+        "c_heading_accent": "#00ABE4",
+        "c_text": "#FFFFFF",
+        "c_bold": "#FFFFFF",
+        "c_point": "#FFFFFF",
+        "c_dot": "#00ABE4",
+        "c_accent": "#FF4D5A",
+        "c_btn_bg": "#FF4D5A",
+        "c_btn_text": "#FFFFFF",
+        "c_border": "#262A30"
+      }
     }
   },
-  "order": [ 
-    "main"
+  "order": [
+    "main",
+    "custom_about_leader_nUbxq7",
+    "custom_about_intro_kyDTyh",
+    "custom_about_flow_3FECpe",
+    "custom_about_timeline_hnPWU7",
+    "custom_about_vision_EUqWcV"
   ]
 }

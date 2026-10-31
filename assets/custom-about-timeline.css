@@ -1,0 +1,254 @@
+/* =========================================================
+   Custom About â€“ Timeline  (sections/custom-about-timeline.liquid)
+   The line fills as you scroll (--cs-tl-progress is set by the
+   small script in the section file).
+   ========================================================= */
+
+.cs-tl {
+  --_fg: var(--cs-fg, currentColor);
+  --_muted: var(--cs-fg-muted, color-mix(in srgb, currentColor 70%, transparent));
+  --_line: var(--cs-line, color-mix(in srgb, currentColor 14%, transparent));
+  --_accent: var(--cs-accent, #F59E0B);
+
+  --tl-track: var(--_line);
+  --tl-progress: var(--_accent);
+  --tl-dot: var(--_accent);
+  --tl-card-bg: color-mix(in srgb, currentColor 5%, transparent);
+  --tl-card-title: var(--_fg);
+  --tl-card-text: var(--_muted);
+  --tl-year: var(--_accent);
+  --tl-hl-bg: var(--_accent);
+  --tl-hl-text: #0F172A;
+
+  --tl-gutter: 56px;   /* space between the line and the cards on desktop */
+  --tl-dot-size: 16px;
+
+  position: relative;
+  padding-top: var(--cs-pt, 96px);
+  padding-bottom: var(--cs-pb, 96px);
+}
+
+/* ---------- Extra tones (scoped to this section) ---------- */
+.cs-tl.cs-tone--graphite {
+  --cs-bg: #1F2328;
+  --cs-fg: #F5F5F4;
+  --cs-fg-muted: rgba(245, 245, 244, 0.66);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #F59E0B;
+  background-color: var(--cs-bg);
+  color: var(--cs-fg);
+}
+.cs-tl.cs-tone--noir {
+  --cs-bg: #050507;
+  --cs-fg: #FFFFFF;
+  --cs-fg-muted: rgba(255, 255, 255, 0.62);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #FF3B3B;
+  --tl-hl-text: #FFFFFF;
+  color: var(--cs-fg);
+  background-color: var(--cs-bg);
+  background-image:
+    radial-gradient(ellipse 45% 40% at 0% 10%, rgba(140, 8, 8, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 40% at 100% 90%, rgba(70, 0, 130, 0.5) 0%, transparent 70%);
+  background-repeat: no-repeat;
+}
+.cs-tl.cs-tone--custom {
+  background-color: var(--cs-bg);
+  background-image: none;
+  color: var(--cs-fg);
+}
+
+/* ---------- Head ---------- */
+.cs-tl__head {
+  margin-bottom: clamp(40px, 6vw, 72px);
+}
+.cs-tl.cs-tone--custom .cs-tl__head :is(h1, h2, h3, .cs-title, [class*="heading"]) {
+  color: var(--c-heading, var(--cs-fg));
+}
+.cs-tl.cs-tone--custom .cs-tl__head :is(.cs-eyebrow, [class*="eyebrow"]),
+.cs-tl.cs-tone--custom .cs-tl__head em {
+  color: var(--cs-accent);
+}
+.cs-tl.cs-tone--custom .cs-tl__head :is(.cs-text, .cs-text p) {
+  color: var(--cs-fg-muted);
+}
+
+/* ---------- Track (mobile: line on the left) ---------- */
+.cs-tl__wrap {
+  position: relative;
+  --cs-tl-progress: 0;
+}
+.cs-tl__track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--tl-dot-size) / 2 - 1px);
+  width: 2px;
+  border-radius: 2px;
+  background: var(--tl-track);
+  overflow: hidden;
+}
+.cs-tl__progress {
+  position: absolute;
+  inset: 0;
+  background: var(--tl-progress);
+  transform: scaleY(var(--cs-tl-progress));
+  transform-origin: top;
+  transition: transform 0.15s linear;
+}
+
+.cs-tl__list {
+  position: relative;
+  display: grid;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cs-tl__item {
+  position: relative;
+  padding-left: calc(var(--tl-dot-size) + 24px);
+}
+.cs-tl__dot {
+  position: absolute;
+  top: 26px;
+  left: 0;
+  z-index: 1;
+  width: var(--tl-dot-size);
+  height: var(--tl-dot-size);
+  border-radius: 50%;
+  border: 2px solid var(--tl-dot);
+  background: var(--cs-bg, #FFFFFF);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.cs-tl__item.is-passed .cs-tl__dot {
+  background: var(--tl-dot);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--tl-dot) 22%, transparent);
+}
+
+/* ---------- Card ---------- */
+.cs-tl__card {
+  position: relative;
+  padding: clamp(20px, 2.6vw, 30px);
+  border: 1px solid var(--_line);
+  border-radius: 18px;
+  background: var(--tl-card-bg);
+  transition: transform 0.35s ease, border-color 0.35s ease;
+}
+.cs-tl__item:hover .cs-tl__card {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--_accent) 45%, transparent);
+}
+.cs-tl__year {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--cs-font-display, inherit);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--tl-year);
+}
+.cs-tl__title {
+  margin: 0 0 8px;
+  font-family: var(--cs-font-display, inherit);
+  font-size: clamp(18px, 1.8vw, 22px);
+  line-height: 1.25;
+  color: var(--tl-card-title);
+}
+.cs-tl__text,
+.cs-tl__text p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--tl-card-text);
+}
+.cs-tl__media {
+  margin-top: 16px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.cs-tl__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Highlighted milestone */
+.cs-tl__item.is-highlight .cs-tl__card {
+  background: var(--tl-hl-bg);
+  border-color: transparent;
+}
+.cs-tl__item.is-highlight :is(.cs-tl__year, .cs-tl__title, .cs-tl__text, .cs-tl__text p) {
+  color: var(--tl-hl-text);
+}
+
+.cs-tl__footnote {
+  margin: 32px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--_muted);
+}
+
+/* ---------- Desktop: alternating left / right ---------- */
+@media screen and (min-width: 990px) {
+  .cs-tl--zigzag .cs-tl__track {
+    left: calc(50% - 1px);
+  }
+  .cs-tl--zigzag .cs-tl__list {
+    gap: 0;
+  }
+  .cs-tl--zigzag .cs-tl__item {
+    width: 50%;
+    padding-left: 0;
+    padding-right: var(--tl-gutter);
+  }
+  .cs-tl--zigzag .cs-tl__item + .cs-tl__item {
+    margin-top: -48px;   /* lets the two columns overlap into a zig-zag */
+  }
+  .cs-tl--zigzag .cs-tl__item.is-right {
+    margin-left: 50%;
+    padding-left: var(--tl-gutter);
+    padding-right: 0;
+  }
+  .cs-tl--zigzag .cs-tl__item.is-left .cs-tl__dot {
+    left: auto;
+    right: calc(var(--tl-dot-size) / -2);
+  }
+  .cs-tl--zigzag .cs-tl__item.is-right .cs-tl__dot {
+    left: calc(var(--tl-dot-size) / -2);
+  }
+  .cs-tl--zigzag .cs-tl__item.is-left .cs-tl__card {
+    text-align: right;
+  }
+  /* small pointer from the card to the line */
+  .cs-tl--zigzag .cs-tl__item .cs-tl__card::after {
+    content: "";
+    position: absolute;
+    top: 33px;
+    width: calc(var(--tl-gutter) - var(--tl-dot-size) / 2 - 8px);
+    height: 1px;
+    background: var(--tl-track);
+  }
+  .cs-tl--zigzag .cs-tl__item.is-left .cs-tl__card::after {
+    left: 100%;
+  }
+  .cs-tl--zigzag .cs-tl__item.is-right .cs-tl__card::after {
+    right: 100%;
+  }
+
+  .cs-tl--single .cs-tl__list {
+    max-width: 820px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-tl__progress,
+  .cs-tl__dot,
+  .cs-tl__card {
+    transition: none;
+  }
+  .cs-tl__item:hover .cs-tl__card {
+    transform: none;
+  }
+}

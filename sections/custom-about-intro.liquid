@@ -1,0 +1,136 @@
+{{ 'custom-about-intro.css' | asset_url | stylesheet_tag }}
+
+{%- assign key = 'cs-in-' | append: section.id -%}
+
+{%- if section.settings.tone == 'custom' -%}
+  {%- style -%}
+    #{{ key }} {
+      --cs-bg: {{ section.settings.c_bg }};
+      --cs-fg: {{ section.settings.c_text }};
+      --cs-fg-muted: {{ section.settings.c_text | color_modify: 'alpha', 0.75 }};
+      --cs-line: {{ section.settings.c_border }};
+      --cs-accent: {{ section.settings.c_accent }};
+      --in-heading: {{ section.settings.c_heading }};
+      --in-sub: {{ section.settings.c_sub }};
+      --in-text: {{ section.settings.c_text }};
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+<section
+  id="{{ key }}"
+  class="cs-section cs-in cs-tone--{{ section.settings.tone }}{% if section.settings.show_divider %} cs-in--divider{% endif %}"
+  style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="cs-container">
+    <div class="cs-in__grid">
+      <div class="cs-in__left" data-cs-reveal>
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="cs-in__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <{{ section.settings.heading_tag }} class="cs-in__heading">{{ section.settings.heading }}</{{ section.settings.heading_tag }}>
+        {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <p class="cs-in__sub">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.text != blank -%}
+        <div class="cs-in__right" data-cs-reveal style="--cs-delay: 120ms;">
+          <div class="cs-in__text">{{ section.settings.text }}</div>
+          {%- if section.settings.button_label != blank -%}
+            <a
+              class="cs-in__link"
+              {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+            >
+              {{- section.settings.button_label | escape -}}
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom About – Intro",
+  "tag": "div",
+  "class": "cs-shopify-section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "info": "Optional." },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Italic words are highlighted in the accent colour.",
+      "default": "Who We Are"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "info": "Use H1 when this is the first section on the page.",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" }
+      ],
+      "default": "h1"
+    },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Driving Innovation, Empowering Businesses Worldwide" },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text (right column)",
+      "info": "Bold words are shown in the accent colour.",
+      "default": "<p>PYIE is an emerging technology-driven company focused on introducing internationally acclaimed tech brands to the Indian market. We bridge the gap between global innovation and Indian consumers by offering authentic products, reliable distribution, and localized support.</p>"
+    },
+    { "type": "text", "id": "button_label", "label": "Link label", "info": "Optional." },
+    { "type": "url", "id": "button_link", "label": "Link" },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show line between columns",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Colour tone",
+      "options": [
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" },
+        { "value": "graphite", "label": "Graphite" },
+        { "value": "noir", "label": "Noir glow" },
+        { "value": "black", "label": "Black" },
+        { "value": "custom", "label": "Custom colours" }
+      ],
+      "default": "black",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
+    },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 },
+    {
+      "type": "header",
+      "content": "Custom colours",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    { "type": "color", "id": "c_bg", "label": "Section background", "default": "#000000", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_heading", "label": "Heading", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_sub", "label": "Subheading", "default": "#D4D4D4", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_text", "label": "Text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accent", "label": "Accent (italic words, bold words, link)", "default": "#FF3B1F", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_border", "label": "Divider line", "default": "#262626", "visible_if": "{{ section.settings.tone == 'custom' }}" }
+  ],
+  "presets": [{ "name": "Custom About – Intro" }]
+}
+{% endschema %}

@@ -1,0 +1,218 @@
+/* =========================================================
+   Custom About â€“ Leader  (sections/custom-about-leader.liquid)
+   Round photo on one side, name + bio on the other.
+   ========================================================= */
+
+.cs-ld {
+  --_fg: var(--cs-fg, currentColor);
+  --_muted: var(--cs-fg-muted, color-mix(in srgb, currentColor 75%, transparent));
+  --_line: var(--cs-line, color-mix(in srgb, currentColor 14%, transparent));
+  --_accent: var(--cs-accent, #FF3B1F);
+
+  --ld-name: var(--_fg);
+  --ld-role: var(--_accent);
+  --ld-text: var(--_fg);
+  --ld-highlight: var(--_accent);
+  --ld-ring: var(--_accent);
+
+  position: relative;
+  padding-top: var(--cs-pt, 80px);
+  padding-bottom: var(--cs-pb, 80px);
+}
+
+/* ---------- Extra tones (scoped to this section) ---------- */
+.cs-ld.cs-tone--graphite {
+  --cs-bg: #1F2328;
+  --cs-fg: #F5F5F4;
+  --cs-fg-muted: rgba(245, 245, 244, 0.7);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #FF4D5A;
+  background-color: var(--cs-bg);
+  color: var(--cs-fg);
+}
+.cs-ld.cs-tone--black {
+  --cs-bg: #000000;
+  --cs-fg: #FFFFFF;
+  --cs-fg-muted: rgba(255, 255, 255, 0.82);
+  --cs-line: rgba(255, 255, 255, 0.16);
+  --cs-accent: #FF3B1F;
+  background-color: var(--cs-bg);
+  background-image: none;
+  color: var(--cs-fg);
+}
+.cs-ld.cs-tone--noir {
+  --cs-bg: #050507;
+  --cs-fg: #FFFFFF;
+  --cs-fg-muted: rgba(255, 255, 255, 0.62);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #FF3B3B;
+  color: var(--cs-fg);
+  background-color: var(--cs-bg);
+  background-image:
+    radial-gradient(ellipse 45% 60% at 0% 0%, rgba(140, 8, 8, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 60% at 100% 100%, rgba(70, 0, 130, 0.5) 0%, transparent 70%);
+  background-repeat: no-repeat;
+}
+.cs-ld.cs-tone--custom {
+  background-color: var(--cs-bg);
+  background-image: none;
+  color: var(--cs-fg);
+}
+
+.cs-ld__heading {
+  margin: 0 0 clamp(32px, 5vw, 56px);
+  font-family: var(--cs-font-display, inherit);
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.1;
+  color: var(--ld-name);
+}
+.cs-ld__heading em {
+  font-style: normal;
+  color: var(--_accent);
+}
+
+.cs-ld__list {
+  display: grid;
+  gap: clamp(56px, 8vw, 96px);
+}
+.cs-ld__item {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+  justify-items: center;
+}
+@media screen and (min-width: 990px) {
+  .cs-ld__item {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(48px, 6vw, 96px);
+    justify-items: stretch;
+  }
+  .cs-ld__item.is-flip .cs-ld__media {
+    order: 2;
+  }
+}
+
+/* ---------- Photo ---------- */
+.cs-ld__media {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.cs-ld__photo {
+  position: relative;
+  width: min(var(--ld-size, 400px), 80vw);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+.cs-ld--rounded .cs-ld__photo {
+  border-radius: 28px;
+}
+.cs-ld__photo img,
+.cs-ld__placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.cs-ld__placeholder {
+  fill: currentColor;
+  opacity: 0.25;
+}
+.cs-ld__item:hover .cs-ld__photo img {
+  transform: scale(1.04);
+}
+.cs-ld--ring .cs-ld__photo {
+  outline: 2px solid var(--ld-ring);
+  outline-offset: 10px;
+}
+
+/* ---------- Content ---------- */
+.cs-ld__content {
+  width: 100%;
+  max-width: 600px;
+}
+.cs-ld__name {
+  margin: 0 0 6px;
+  font-family: var(--cs-font-display, inherit);
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ld-name);
+}
+.cs-ld__role {
+  margin: 0 0 18px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ld-role);
+}
+.cs-ld__name + .cs-ld__text {
+  margin-top: 18px;
+}
+.cs-ld__text,
+.cs-ld__text p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--ld-text);
+}
+.cs-ld__text p {
+  margin: 0 0 16px;
+}
+.cs-ld__text p:last-child {
+  margin-bottom: 0;
+}
+.cs-ld__text strong,
+.cs-ld__text b {
+  font-weight: 700;
+  color: var(--ld-highlight);
+}
+.cs-ld__text a {
+  color: var(--_accent);
+}
+.cs-ld__social {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  padding: 10px 16px;
+  border: 1px solid var(--_line);
+  border-radius: 999px;
+  color: var(--ld-name);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+.cs-ld__social:hover {
+  border-color: var(--_accent);
+  color: var(--_accent);
+}
+.cs-ld__social svg {
+  width: 18px;
+  height: 18px;
+}
+@media screen and (max-width: 989px) {
+  .cs-ld__name,
+  .cs-ld__role {
+    text-align: center;
+  }
+  .cs-ld__social {
+    display: flex;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-ld__photo img {
+    transition: none;
+  }
+  .cs-ld__item:hover .cs-ld__photo img {
+    transform: none;
+  }
+}

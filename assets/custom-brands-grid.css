@@ -1,0 +1,407 @@
+/* =========================================================
+   Custom Brands â€“ Grid  (sections/custom-brands-grid.liquid)
+   Filterable brand directory.
+   ========================================================= */
+
+.cs-brg {
+  --_fg: var(--cs-fg, currentColor);
+  --_muted: var(--cs-fg-muted, color-mix(in srgb, currentColor 70%, transparent));
+  --_line: var(--cs-line, color-mix(in srgb, currentColor 14%, transparent));
+  --_accent: var(--cs-accent, #F59E0B);
+
+  --brg-card-bg: color-mix(in srgb, currentColor 4%, transparent);
+  --brg-card-hover: var(--_accent);
+  --brg-logo-bg: color-mix(in srgb, currentColor 5%, transparent);
+  --brg-name: var(--_fg);
+  --brg-desc: var(--_muted);
+  --brg-cat: var(--_accent);
+  --brg-tag-bg: color-mix(in srgb, var(--_accent) 16%, transparent);
+  --brg-tag-text: var(--_accent);
+  --brg-more: var(--_fg);
+  --brg-filter-bg: transparent;
+  --brg-filter-text: var(--_muted);
+  --brg-filter-active-bg: var(--_fg);
+  --brg-filter-active-text: var(--cs-bg, #FFFFFF);
+  --brg-btn-bg: var(--_fg);
+  --brg-btn-text: var(--cs-bg, #FFFFFF);
+
+  position: relative;
+  padding-top: var(--cs-pt, 96px);
+  padding-bottom: var(--cs-pb, 96px);
+}
+
+/* ---------- Extra tones (scoped to this section) ---------- */
+.cs-brg.cs-tone--graphite {
+  --cs-bg: #1F2328;
+  --cs-fg: #F5F5F4;
+  --cs-fg-muted: rgba(245, 245, 244, 0.66);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #F59E0B;
+  background-color: var(--cs-bg);
+  color: var(--cs-fg);
+}
+.cs-brg.cs-tone--noir {
+  --cs-bg: #050507;
+  --cs-fg: #FFFFFF;
+  --cs-fg-muted: rgba(255, 255, 255, 0.62);
+  --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #FF3B3B;
+  color: var(--cs-fg);
+  background-color: var(--cs-bg);
+  background-image:
+    radial-gradient(ellipse 45% 50% at 0% 0%, rgba(140, 8, 8, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 50% at 100% 100%, rgba(70, 0, 130, 0.5) 0%, transparent 70%);
+  background-repeat: no-repeat;
+}
+.cs-brg.cs-tone--custom {
+  background-color: var(--cs-bg);
+  background-image: none;
+  color: var(--cs-fg);
+}
+
+/* ---------- Head ---------- */
+.cs-brg__head {
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+.cs-brg.cs-tone--custom .cs-brg__head :is(h1, h2, h3, .cs-title, [class*="heading"]) {
+  color: var(--c-heading, var(--cs-fg));
+}
+.cs-brg.cs-tone--custom .cs-brg__head :is(.cs-eyebrow, [class*="eyebrow"]),
+.cs-brg.cs-tone--custom .cs-brg__head em {
+  color: var(--cs-accent);
+}
+.cs-brg.cs-tone--custom .cs-brg__head :is(.cs-text, .cs-text p) {
+  color: var(--cs-fg-muted);
+}
+
+/* ---------- Filter tabs ---------- */
+.cs-brg__filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 clamp(28px, 4vw, 40px);
+}
+.cs-brg__filter {
+  appearance: none;
+  padding: 10px 18px;
+  border: 1px solid var(--_line);
+  border-radius: 999px;
+  background: var(--brg-filter-bg);
+  color: var(--brg-filter-text);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.cs-brg__filter:hover {
+  border-color: var(--_accent);
+  color: var(--_fg);
+}
+.cs-brg__filter:focus-visible {
+  outline: 2px solid var(--_accent);
+  outline-offset: 2px;
+}
+.cs-brg__filter[aria-pressed="true"] {
+  background: var(--brg-filter-active-bg);
+  border-color: var(--brg-filter-active-bg);
+  color: var(--brg-filter-active-text);
+}
+@media screen and (max-width: 749px) {
+  .cs-brg__filters {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin-left: -16px;
+    margin-right: -16px;
+    padding: 0 16px 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .cs-brg__filters::-webkit-scrollbar {
+    display: none;
+  }
+  .cs-brg__filter {
+    flex-shrink: 0;
+  }
+}
+
+/* ---------- Grid ---------- */
+.cs-brg__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media screen and (min-width: 600px) {
+  .cs-brg__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media screen and (min-width: 990px) {
+  .cs-brg__grid {
+    grid-template-columns: repeat(var(--cs-cols, 3), minmax(0, 1fr));
+    gap: 20px;
+  }
+  .cs-brg__card.is-featured {
+    grid-column: span 2;
+  }
+}
+
+/* ---------- Card ---------- */
+.cs-brg__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--_line);
+  border-radius: 20px;
+  background: var(--brg-card-bg);
+  overflow: hidden;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.cs-brg__card[hidden] {
+  display: none;
+}
+.cs-brg__card.is-entering {
+  animation: cs-brg-in 0.4s ease both;
+}
+@keyframes cs-brg-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.cs-brg__card:hover {
+  transform: translateY(-4px);
+  border-color: var(--brg-card-hover);
+  box-shadow: 0 22px 44px -28px rgba(0, 0, 0, 0.4);
+}
+.cs-brg__card:focus-within {
+  border-color: var(--brg-card-hover);
+}
+
+.cs-brg__logo {
+  display: grid;
+  place-items: center;
+  min-height: 150px;
+  padding: 28px;
+  background: var(--brg-logo-bg);
+  border-bottom: 1px solid var(--_line);
+}
+.cs-brg__card.is-featured .cs-brg__logo {
+  min-height: 180px;
+}
+.cs-brg__logo-img {
+  display: block;
+  width: auto;
+  max-width: 70%;
+  max-height: 64px;
+  object-fit: contain;
+  transition: filter 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+}
+.cs-brg__card:hover .cs-brg__logo-img {
+  transform: scale(1.04);
+}
+.cs-brg__wordmark {
+  font-family: var(--cs-font-display, inherit);
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--brg-name);
+}
+
+/* Logo colour options */
+.cs-brg--logo-mono .cs-brg__logo-img {
+  filter: grayscale(1);
+  opacity: 0.75;
+}
+.cs-brg--logo-mono .cs-brg__card:hover .cs-brg__logo-img {
+  filter: none;
+  opacity: 1;
+}
+.cs-brg--logo-white .cs-brg__logo-img {
+  filter: brightness(0) invert(1);
+}
+
+.cs-brg__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 auto;
+  padding: 22px 22px 8px;
+}
+.cs-brg__cat {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brg-cat);
+}
+.cs-brg__name {
+  margin: 0;
+  font-family: var(--cs-font-display, inherit);
+  font-size: 22px;
+  line-height: 1.2;
+  color: var(--brg-name);
+}
+.cs-brg__link {
+  color: inherit;
+  text-decoration: none;
+}
+/* stretch the link over the whole card */
+.cs-brg__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.cs-brg__link:focus-visible {
+  outline: none;
+}
+.cs-brg__desc {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--brg-desc);
+}
+
+.cs-brg__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 22px 22px;
+}
+.cs-brg__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--brg-tag-bg);
+  color: var(--brg-tag-text);
+  font-size: 12px;
+  font-weight: 700;
+}
+.cs-brg__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brg-more);
+}
+.cs-brg__more svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.3s ease;
+}
+.cs-brg__card:hover .cs-brg__more svg {
+  transform: translate(2px, -2px);
+}
+
+/* ---------- Bottom ---------- */
+.cs-brg__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: clamp(28px, 4vw, 44px);
+}
+.cs-brg__footnote {
+  margin: 0;
+  font-size: 13px;
+  color: var(--_muted);
+}
+.cs-brg__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+}
+.cs-brg__cta-text {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--_fg);
+}
+.cs-brg__cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  background: var(--brg-btn-bg);
+  color: var(--brg-btn-text);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.cs-brg__cta-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+.cs-brg__cta-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media screen and (max-width: 749px) {
+  .cs-brg__cta {
+    margin-left: 0;
+    width: 100%;
+  }
+  .cs-brg__cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.cs-brg__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-brg__card,
+  .cs-brg__logo-img,
+  .cs-brg__more svg,
+  .cs-brg__cta-btn {
+    transition: none;
+  }
+  .cs-brg__card.is-entering {
+    animation: none;
+  }
+  .cs-brg__card:hover,
+  .cs-brg__card:hover .cs-brg__logo-img {
+    transform: none;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .cs-brg__logo,
+  .cs-brg__card.is-featured .cs-brg__logo {
+    min-height: 116px;
+    padding: 20px;
+  }
+}
