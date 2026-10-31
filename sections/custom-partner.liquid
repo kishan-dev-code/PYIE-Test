@@ -7,6 +7,118 @@
   assign section_key = 'cs-partners-' | append: section.id
 -%}
 
+{%- if section.settings.tone == 'custom' -%}
+  {%- style -%}
+    /* ---------- Custom colour combination ---------- */
+    #{{ section_key }}.cs-tone--custom {
+      --cs-p-bg: {{ section.settings.c_bg }};
+      --cs-p-heading: {{ section.settings.c_heading }};
+      --cs-p-text: {{ section.settings.c_text }};
+      --cs-p-accent: {{ section.settings.c_accent }};
+      --cs-p-border: {{ section.settings.c_border }};
+      background-color: var(--cs-p-bg);
+      color: var(--cs-p-text);
+    }
+
+    /* Head */
+    #{{ section_key }}.cs-tone--custom > .cs-container:first-child h1,
+    #{{ section_key }}.cs-tone--custom > .cs-container:first-child h2,
+    #{{ section_key }}.cs-tone--custom > .cs-container:first-child [class*="heading"] {
+      color: var(--cs-p-heading);
+    }
+    #{{ section_key }}.cs-tone--custom > .cs-container:first-child em,
+    #{{ section_key }}.cs-tone--custom [class*="eyebrow"] {
+      color: var(--cs-p-accent);
+    }
+    #{{ section_key }}.cs-tone--custom > .cs-container:first-child .cs-text,
+    #{{ section_key }}.cs-tone--custom > .cs-container:first-child p {
+      color: var(--cs-p-text);
+    }
+
+    /* Partner cards */
+    #{{ section_key }}.cs-tone--custom .cs-partners__card {
+      background-color: {{ section.settings.c_card_bg }};
+      border-color: var(--cs-p-border);
+    }
+    #{{ section_key }}.cs-tone--custom .cs-partners__wordmark { color: {{ section.settings.c_wordmark }}; }
+    #{{ section_key }}.cs-tone--custom .cs-partners__desc { color: {{ section.settings.c_card_text }}; }
+    #{{ section_key }}.cs-tone--custom .cs-partners__tag {
+      background-color: {{ section.settings.c_tag_bg }};
+      color: {{ section.settings.c_tag_text }};
+      border-color: {{ section.settings.c_tag_bg }};
+    }
+    #{{ section_key }}.cs-tone--custom .cs-partners__cta,
+    #{{ section_key }}.cs-tone--custom .cs-partners__cta svg {
+      color: {{ section.settings.c_cta }};
+      stroke: currentColor;
+    }
+    #{{ section_key }}.cs-tone--custom .cs-partners__card.has-shop:hover,
+    #{{ section_key }}.cs-tone--custom .cs-partners__card.is-active {
+      background-color: {{ section.settings.c_card_active_bg }};
+      border-color: {{ section.settings.c_card_active_border }};
+    }
+
+    /* Slider nav + progress */
+    #{{ section_key }}.cs-tone--custom .cs-icon-btn {
+      background-color: {{ section.settings.c_btn_bg }};
+      color: {{ section.settings.c_btn_icon }};
+      border-color: {{ section.settings.c_btn_border }};
+    }
+    #{{ section_key }}.cs-tone--custom .cs-icon-btn svg { color: inherit; stroke: currentColor; }
+    #{{ section_key }}.cs-tone--custom .cs-icon-btn:hover,
+    #{{ section_key }}.cs-tone--custom .cs-icon-btn:focus-visible {
+      background-color: {{ section.settings.c_btn_hover_bg }};
+      color: {{ section.settings.c_btn_hover_icon }};
+      border-color: {{ section.settings.c_btn_hover_bg }};
+    }
+    #{{ section_key }}.cs-tone--custom .cs-progress { background-color: {{ section.settings.c_progress_track }}; }
+    #{{ section_key }}.cs-tone--custom .cs-progress__bar { background-color: {{ section.settings.c_progress_bar }}; }
+
+    /* Products panel */
+    #{{ section_key }}.cs-tone--custom .cs-partners__shop {
+      background-color: {{ section.settings.c_shop_bg }};
+      border-color: var(--cs-p-border);
+    }
+    #{{ section_key }}.cs-tone--custom .cs-partners__shop-eyebrow { color: var(--cs-p-accent); }
+    #{{ section_key }}.cs-tone--custom .cs-partners__shop-title { color: {{ section.settings.c_shop_title }}; }
+    #{{ section_key }}.cs-tone--custom .cs-partners__store-link,
+    #{{ section_key }}.cs-tone--custom .cs-partners__store-link svg {
+      color: {{ section.settings.c_store_link }};
+      stroke: currentColor;
+    }
+    #{{ section_key }}.cs-tone--custom .cs-partners__shop-close {
+      background-color: transparent;
+      color: {{ section.settings.c_shop_title }};
+      border-color: var(--cs-p-border);
+    }
+    #{{ section_key }}.cs-tone--custom .cs-partners__shop-close svg { color: inherit; stroke: currentColor; }
+
+    /* Product cards */
+    #{{ section_key }}.cs-tone--custom .cs-partners__product {
+      background-color: {{ section.settings.c_product_bg }};
+      border-color: var(--cs-p-border);
+    }
+    #{{ section_key }}.cs-tone--custom .cs-partners__product-title { color: {{ section.settings.c_product_title }}; }
+    #{{ section_key }}.cs-tone--custom .cs-partners__price,
+    #{{ section_key }}.cs-tone--custom .cs-partners__price-now { color: {{ section.settings.c_price }}; }
+    #{{ section_key }}.cs-tone--custom .cs-partners__buy {
+      background-color: {{ section.settings.c_buy_bg }};
+      color: {{ section.settings.c_buy_text }};
+      border-color: {{ section.settings.c_buy_bg }};
+    }
+    #{{ section_key }}.cs-tone--custom .cs-partners__buy svg { color: inherit; stroke: currentColor; }
+    #{{ section_key }}.cs-tone--custom .cs-partners__buy:hover,
+    #{{ section_key }}.cs-tone--custom .cs-partners__buy:focus-visible {
+      background-color: {{ section.settings.c_buy_hover_bg }};
+      color: {{ section.settings.c_buy_hover_text }};
+      border-color: {{ section.settings.c_buy_hover_bg }};
+    }
+
+    /* Footnote */
+    #{{ section_key }}.cs-tone--custom .cs-footnote { color: {{ section.settings.c_footnote }}; }
+  {%- endstyle -%}
+{%- endif -%}
+
 <section
   id="{{ section_key }}"
   class="cs-section cs-partners cs-tone--{{ section.settings.tone }} cs-partners--logo-{{ section.settings.logo_style }}"
@@ -306,10 +418,7 @@
   "tag": "div",
   "class": "cs-shopify-section",
   "disabled_on": {
-    "groups": [
-      "header",
-      "footer"
-    ]
+    "groups": ["header", "footer"]
   },
   "settings": [
     {
@@ -396,43 +505,24 @@
       "id": "tone",
       "label": "Colour tone",
       "options": [
-        {
-          "value": "light",
-          "label": "White"
-        },
-        {
-          "value": "paper",
-          "label": "Paper"
-        },
-        {
-          "value": "dark",
-          "label": "Midnight"
-        },
-        {
-          "value": "accent",
-          "label": "Saffron"
-        },
-        {
-          "value": "graphite",
-          "label": "Graphite"
-        }
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" },
+        { "value": "graphite", "label": "Graphite" },
+        { "value": "custom", "label": "Custom colours" }
       ],
-      "default": "paper"
+      "default": "paper",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
     },
     {
       "type": "select",
       "id": "logo_style",
       "label": "Logo colour",
-      "info": "White turns every logo white, useful on Midnight or Graphite.",
+      "info": "White turns every logo white, useful on Midnight, Graphite or a dark custom background.",
       "options": [
-        {
-          "value": "original",
-          "label": "Original"
-        },
-        {
-          "value": "white",
-          "label": "White"
-        }
+        { "value": "original", "label": "Original" },
+        { "value": "white", "label": "White" }
       ],
       "default": "original"
     },
@@ -455,7 +545,58 @@
       "step": 8,
       "unit": "px",
       "default": 96
-    }
+    },
+    {
+      "type": "header",
+      "content": "Custom colours – Section",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    { "type": "color", "id": "c_bg", "label": "Section background", "default": "#F8F5EF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_heading", "label": "Heading", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_text", "label": "Intro text", "default": "#475569", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accent", "label": "Accent (eyebrows, italic words)", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_border", "label": "Borders / dividers", "default": "#E2E8F0", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_footnote", "label": "Footnote", "default": "#64748B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Partner cards",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_card_bg", "label": "Card background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_wordmark", "label": "Brand name (when no logo)", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_card_text", "label": "Description", "default": "#64748B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_tag_bg", "label": "Tag background", "default": "#FEF3C7", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_tag_text", "label": "Tag text", "default": "#B45309", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_cta", "label": "\"View products\" link", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_card_active_bg", "label": "Active / hover card background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_card_active_border", "label": "Active / hover card border", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Slider controls",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_btn_bg", "label": "Arrow button background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_icon", "label": "Arrow button icon", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_border", "label": "Arrow button border", "default": "#CBD5E1", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_hover_bg", "label": "Arrow button hover background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_hover_icon", "label": "Arrow button hover icon", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_progress_track", "label": "Progress bar track", "default": "#E2E8F0", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_progress_bar", "label": "Progress bar fill", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Products panel",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_shop_bg", "label": "Panel background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_shop_title", "label": "Panel heading & close icon", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_store_link", "label": "\"View all on Amazon\" link", "default": "#B45309", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_product_bg", "label": "Product card background", "default": "#F8FAFC", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_product_title", "label": "Product title", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_price", "label": "Price", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_buy_bg", "label": "Buy button background", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_buy_text", "label": "Buy button text", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_buy_hover_bg", "label": "Buy button hover background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_buy_hover_text", "label": "Buy button hover text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" }
   ],
   "blocks": [
     {
@@ -497,156 +638,36 @@
           "label": "Amazon brand store link",
           "info": "Optional. Adds a \"View all on Amazon\" link above the products."
         },
-        {
-          "type": "header",
-          "content": "Product 1"
-        },
-        {
-          "type": "image_picker",
-          "id": "product_1_image",
-          "label": "Image"
-        },
-        {
-          "type": "text",
-          "id": "product_1_title",
-          "label": "Title"
-        },
-        {
-          "type": "url",
-          "id": "product_1_url",
-          "label": "Amazon link"
-        },
-        {
-          "type": "text",
-          "id": "product_1_price",
-          "label": "Price",
-          "info": "Optional, e.g. ₹24,999"
-        },
-        {
-          "type": "header",
-          "content": "Product 2"
-        },
-        {
-          "type": "image_picker",
-          "id": "product_2_image",
-          "label": "Image"
-        },
-        {
-          "type": "text",
-          "id": "product_2_title",
-          "label": "Title"
-        },
-        {
-          "type": "url",
-          "id": "product_2_url",
-          "label": "Amazon link"
-        },
-        {
-          "type": "text",
-          "id": "product_2_price",
-          "label": "Price",
-          "info": "Optional, e.g. ₹24,999"
-        },
-        {
-          "type": "header",
-          "content": "Product 3"
-        },
-        {
-          "type": "image_picker",
-          "id": "product_3_image",
-          "label": "Image"
-        },
-        {
-          "type": "text",
-          "id": "product_3_title",
-          "label": "Title"
-        },
-        {
-          "type": "url",
-          "id": "product_3_url",
-          "label": "Amazon link"
-        },
-        {
-          "type": "text",
-          "id": "product_3_price",
-          "label": "Price",
-          "info": "Optional, e.g. ₹24,999"
-        },
-        {
-          "type": "header",
-          "content": "Product 4"
-        },
-        {
-          "type": "image_picker",
-          "id": "product_4_image",
-          "label": "Image"
-        },
-        {
-          "type": "text",
-          "id": "product_4_title",
-          "label": "Title"
-        },
-        {
-          "type": "url",
-          "id": "product_4_url",
-          "label": "Amazon link"
-        },
-        {
-          "type": "text",
-          "id": "product_4_price",
-          "label": "Price",
-          "info": "Optional, e.g. ₹24,999"
-        },
-        {
-          "type": "header",
-          "content": "Product 5"
-        },
-        {
-          "type": "image_picker",
-          "id": "product_5_image",
-          "label": "Image"
-        },
-        {
-          "type": "text",
-          "id": "product_5_title",
-          "label": "Title"
-        },
-        {
-          "type": "url",
-          "id": "product_5_url",
-          "label": "Amazon link"
-        },
-        {
-          "type": "text",
-          "id": "product_5_price",
-          "label": "Price",
-          "info": "Optional, e.g. ₹24,999"
-        },
-        {
-          "type": "header",
-          "content": "Product 6"
-        },
-        {
-          "type": "image_picker",
-          "id": "product_6_image",
-          "label": "Image"
-        },
-        {
-          "type": "text",
-          "id": "product_6_title",
-          "label": "Title"
-        },
-        {
-          "type": "url",
-          "id": "product_6_url",
-          "label": "Amazon link"
-        },
-        {
-          "type": "text",
-          "id": "product_6_price",
-          "label": "Price",
-          "info": "Optional, e.g. ₹24,999"
-        }
+        { "type": "header", "content": "Product 1" },
+        { "type": "image_picker", "id": "product_1_image", "label": "Image" },
+        { "type": "text", "id": "product_1_title", "label": "Title" },
+        { "type": "url", "id": "product_1_url", "label": "Amazon link" },
+        { "type": "text", "id": "product_1_price", "label": "Price", "info": "Optional, e.g. ₹24,999" },
+        { "type": "header", "content": "Product 2" },
+        { "type": "image_picker", "id": "product_2_image", "label": "Image" },
+        { "type": "text", "id": "product_2_title", "label": "Title" },
+        { "type": "url", "id": "product_2_url", "label": "Amazon link" },
+        { "type": "text", "id": "product_2_price", "label": "Price", "info": "Optional, e.g. ₹24,999" },
+        { "type": "header", "content": "Product 3" },
+        { "type": "image_picker", "id": "product_3_image", "label": "Image" },
+        { "type": "text", "id": "product_3_title", "label": "Title" },
+        { "type": "url", "id": "product_3_url", "label": "Amazon link" },
+        { "type": "text", "id": "product_3_price", "label": "Price", "info": "Optional, e.g. ₹24,999" },
+        { "type": "header", "content": "Product 4" },
+        { "type": "image_picker", "id": "product_4_image", "label": "Image" },
+        { "type": "text", "id": "product_4_title", "label": "Title" },
+        { "type": "url", "id": "product_4_url", "label": "Amazon link" },
+        { "type": "text", "id": "product_4_price", "label": "Price", "info": "Optional, e.g. ₹24,999" },
+        { "type": "header", "content": "Product 5" },
+        { "type": "image_picker", "id": "product_5_image", "label": "Image" },
+        { "type": "text", "id": "product_5_title", "label": "Title" },
+        { "type": "url", "id": "product_5_url", "label": "Amazon link" },
+        { "type": "text", "id": "product_5_price", "label": "Price", "info": "Optional, e.g. ₹24,999" },
+        { "type": "header", "content": "Product 6" },
+        { "type": "image_picker", "id": "product_6_image", "label": "Image" },
+        { "type": "text", "id": "product_6_title", "label": "Title" },
+        { "type": "url", "id": "product_6_url", "label": "Amazon link" },
+        { "type": "text", "id": "product_6_price", "label": "Price", "info": "Optional, e.g. ₹24,999" }
       ]
     }
   ],
@@ -654,18 +675,10 @@
     {
       "name": "Custom Partner logos",
       "blocks": [
-        {
-          "type": "partner"
-        },
-        {
-          "type": "partner"
-        },
-        {
-          "type": "partner"
-        },
-        {
-          "type": "partner"
-        }
+        { "type": "partner" },
+        { "type": "partner" },
+        { "type": "partner" },
+        { "type": "partner" }
       ]
     }
   ]

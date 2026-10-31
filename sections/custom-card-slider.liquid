@@ -3,7 +3,162 @@
 {%- liquid
   assign cards = section.blocks | where: 'type', 'card'
   assign highlight = section.blocks | where: 'type', 'highlight' | first
+  assign has_custom_card = false
+  for block in cards
+    if block.settings.style == 'custom'
+      assign has_custom_card = true
+      break
+    endif
+  endfor
 -%}
+
+{%- style -%}
+  {%- if section.settings.tone == 'custom' -%}
+    /* ---------- Section custom colour combination ---------- */
+    #cs-card-slider-{{ section.id }}.cs-tone--custom {
+      --cs-c-bg: {{ section.settings.c_bg }};
+      --cs-c-heading: {{ section.settings.c_heading }};
+      --cs-c-text: {{ section.settings.c_text }};
+      --cs-c-accent: {{ section.settings.c_accent }};
+      --cs-c-border: {{ section.settings.c_border }};
+      background-color: var(--cs-c-bg);
+      color: var(--cs-c-text);
+    }
+
+    /* Head */
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__top h1,
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__top h2,
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__top h3,
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__top [class*="heading"],
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__top [class*="title"] {
+      color: var(--cs-c-heading);
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__top em,
+    #cs-card-slider-{{ section.id }}.cs-tone--custom [class*="eyebrow"] {
+      color: var(--cs-c-accent);
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__top .cs-text,
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__top p {
+      color: var(--cs-c-text);
+    }
+
+    /* Slider nav + progress */
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-counter,
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-counter span {
+      color: {{ section.settings.c_counter }};
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-icon-btn {
+      background-color: {{ section.settings.c_btn_bg }};
+      color: {{ section.settings.c_btn_icon }};
+      border-color: {{ section.settings.c_btn_border }};
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-icon-btn svg {
+      color: inherit;
+      stroke: currentColor;
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-icon-btn:hover,
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-icon-btn:focus-visible {
+      background-color: {{ section.settings.c_btn_hover_bg }};
+      color: {{ section.settings.c_btn_hover_icon }};
+      border-color: {{ section.settings.c_btn_hover_bg }};
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-progress {
+      background-color: {{ section.settings.c_progress_track }};
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-progress__bar {
+      background-color: {{ section.settings.c_progress_bar }};
+    }
+
+    /* Cards – Soft */
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__card--soft {
+      background-color: {{ section.settings.c_soft_bg }};
+      color: {{ section.settings.c_soft_text }};
+      border-color: var(--cs-c-border);
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__card--soft :is(.cs-cards__title, .cs-cards__text, .cs-cards__text p, .cs-cards__index) {
+      color: {{ section.settings.c_soft_text }};
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__card--soft .cs-cards__value {
+      color: {{ section.settings.c_soft_accent }};
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__card--soft .cs-icon-chip {
+      background-color: {{ section.settings.c_soft_accent }};
+      color: {{ section.settings.c_soft_bg }};
+    }
+
+    /* Cards – Midnight (solid) */
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__card--solid {
+      background-color: {{ section.settings.c_solid_bg }};
+      color: {{ section.settings.c_solid_text }};
+      border-color: {{ section.settings.c_solid_bg }};
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__card--solid :is(.cs-cards__title, .cs-cards__text, .cs-cards__text p, .cs-cards__index) {
+      color: {{ section.settings.c_solid_text }};
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__card--solid .cs-cards__value {
+      color: {{ section.settings.c_solid_accent }};
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__card--solid .cs-icon-chip {
+      background-color: {{ section.settings.c_solid_accent }};
+      color: {{ section.settings.c_solid_bg }};
+    }
+
+    /* Cards – Saffron (accent) */
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__card--accent {
+      background-color: {{ section.settings.c_accentcard_bg }};
+      color: {{ section.settings.c_accentcard_text }};
+      border-color: {{ section.settings.c_accentcard_bg }};
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__card--accent :is(.cs-cards__title, .cs-cards__text, .cs-cards__text p, .cs-cards__index, .cs-cards__value) {
+      color: {{ section.settings.c_accentcard_text }};
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__card--accent .cs-icon-chip {
+      background-color: {{ section.settings.c_accentcard_text }};
+      color: {{ section.settings.c_accentcard_bg }};
+    }
+
+    /* Highlight banner */
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__highlight {
+      background-color: {{ section.settings.c_hl_bg }};
+      color: {{ section.settings.c_hl_text }};
+      border-color: {{ section.settings.c_hl_bg }};
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__highlight :is(.cs-cards__highlight-title, .cs-cards__highlight-text, .cs-cards__highlight-text p) {
+      color: {{ section.settings.c_hl_text }};
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__highlight-value,
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__highlight-icon {
+      color: {{ section.settings.c_hl_accent }};
+    }
+
+    /* Closing */
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__closing {
+      color: var(--cs-c-heading);
+    }
+    #cs-card-slider-{{ section.id }}.cs-tone--custom .cs-cards__closing :is(em, strong) {
+      color: var(--cs-c-accent);
+    }
+  {%- endif -%}
+
+  {%- if has_custom_card -%}
+    /* ---------- Per-card "Custom" style (works with any tone) ---------- */
+    #cs-card-slider-{{ section.id }} .cs-cards__card--custom {
+      background-color: var(--cs-cb-bg);
+      color: var(--cs-cb-text);
+      border-color: var(--cs-cb-bg);
+    }
+    #cs-card-slider-{{ section.id }} .cs-cards__card--custom :is(.cs-cards__title, .cs-cards__text, .cs-cards__text p, .cs-cards__index) {
+      color: var(--cs-cb-text);
+    }
+    #cs-card-slider-{{ section.id }} .cs-cards__card--custom .cs-cards__value {
+      color: var(--cs-cb-accent);
+    }
+    #cs-card-slider-{{ section.id }} .cs-cards__card--custom .cs-icon-chip {
+      background-color: var(--cs-cb-accent);
+      color: var(--cs-cb-bg);
+    }
+  {%- endif -%}
+{%- endstyle -%}
 
 <section
   id="cs-card-slider-{{ section.id }}"
@@ -43,6 +198,9 @@
           <article
             class="cs-cards__card cs-cell cs-cards__card--{{ block.settings.style }}"
             data-cs-index="{{ forloop.index0 }}"
+            {%- if block.settings.style == 'custom' %}
+              style="--cs-cb-bg: {{ block.settings.cb_bg }}; --cs-cb-text: {{ block.settings.cb_text }}; --cs-cb-accent: {{ block.settings.cb_accent }};"
+            {%- endif %}
             {{ block.shopify_attributes }}
           >
             <div class="cs-cards__card-top">
@@ -143,9 +301,11 @@
         { "value": "paper", "label": "Paper" },
         { "value": "dark", "label": "Midnight" },
         { "value": "accent", "label": "Saffron" },
-        { "value": "charcoal", "label": "Charcoal" }
+        { "value": "charcoal", "label": "Charcoal" },
+        { "value": "custom", "label": "Custom colours" }
       ],
-      "default": "paper"
+      "default": "paper",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
     },
     {
       "type": "range",
@@ -166,7 +326,52 @@
       "step": 8,
       "unit": "px",
       "default": 96
-    }
+    },
+    {
+      "type": "header",
+      "content": "Custom colours – Section",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    { "type": "color", "id": "c_bg", "label": "Section background", "default": "#F8F5EF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_heading", "label": "Heading & closing line", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_text", "label": "Intro text", "default": "#475569", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accent", "label": "Accent (eyebrow, highlighted words)", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_border", "label": "Card borders", "default": "#E2E8F0", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Slider controls",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_counter", "label": "Slide counter", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_bg", "label": "Arrow button background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_icon", "label": "Arrow button icon", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_border", "label": "Arrow button border", "default": "#CBD5E1", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_hover_bg", "label": "Arrow button hover background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_hover_icon", "label": "Arrow button hover icon", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_progress_track", "label": "Progress bar track", "default": "#E2E8F0", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_progress_bar", "label": "Progress bar fill", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Cards",
+      "info": "Each card style (Soft, Midnight, Saffron) gets its own colours.",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_soft_bg", "label": "Soft card background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_soft_text", "label": "Soft card text", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_soft_accent", "label": "Soft card value & icon", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_solid_bg", "label": "Midnight card background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_solid_text", "label": "Midnight card text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_solid_accent", "label": "Midnight card value & icon", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accentcard_bg", "label": "Saffron card background", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accentcard_text", "label": "Saffron card text & icon", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Highlight banner",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_hl_bg", "label": "Banner background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_hl_text", "label": "Banner text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_hl_accent", "label": "Banner number & icon", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" }
   ],
   "blocks": [
     {
@@ -223,21 +428,17 @@
           "id": "style",
           "label": "Card style",
           "options": [
-            { 
-                "value": "soft", 
-                "label": "Soft" 
-            },
-            { 
-                "value": "solid", 
-                "label": "Midnight" 
-            },
-            { 
-                "value": "accent", 
-                "label": "Saffron" 
-            }
+            { "value": "soft", "label": "Soft" },
+            { "value": "solid", "label": "Midnight" },
+            { "value": "accent", "label": "Saffron" },
+            { "value": "custom", "label": "Custom colours" }
           ],
-          "default": "soft"
-        }
+          "default": "soft",
+          "info": "\"Custom colours\" lets this one card use its own colours."
+        },
+        { "type": "color", "id": "cb_bg", "label": "Card background", "default": "#1E293B", "visible_if": "{{ block.settings.style == 'custom' }}" },
+        { "type": "color", "id": "cb_text", "label": "Card text", "default": "#FFFFFF", "visible_if": "{{ block.settings.style == 'custom' }}" },
+        { "type": "color", "id": "cb_accent", "label": "Card value & icon", "default": "#F59E0B", "visible_if": "{{ block.settings.style == 'custom' }}" }
       ]
     },
     {

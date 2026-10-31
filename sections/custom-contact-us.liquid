@@ -1,17 +1,257 @@
 {{ 'custom-contact.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign form_id = 'cs-contact-form-' | append: section.id
-  assign categories = section.settings.categories | split: ','
+  assign key = 'cs-contact-' | append: section.id
+  assign retailer_id = key | append: '-retailer'
+  assign brand_id = key | append: '-brand'
+
+  assign retailer_types = section.settings.retailer_types | split: ','
+  assign retailer_categories = section.settings.retailer_categories | split: ','
+  assign brand_categories = section.settings.brand_categories | split: ','
+  assign brand_services = section.settings.brand_services | split: ','
+  assign brand_timelines = section.settings.brand_timelines | split: ','
+
+  assign default_tab = section.settings.default_tab
 -%}
 
+{%- style -%}
+  {%- if section.settings.tone == 'custom' -%}
+  /* ---------- Custom colour combination ---------- */
+  #{{ key }}.cs-tone--custom {
+    --cs-bg: {{ section.settings.c_bg }};
+    --cs-fg: {{ section.settings.c_text }};
+    --cs-fg-muted: {{ section.settings.c_text | color_modify: 'alpha', 0.72 }};
+    --cs-line: {{ section.settings.c_border }};
+    --cs-accent: {{ section.settings.c_accent }};
+    --cs-accent-text: {{ section.settings.c_accent }};
+    color: var(--cs-fg);
+    background-color: var(--cs-bg);
+    background-image: none;
+  }
+#{{ key }}.cs-tone--custom em {
+   --cs-accent: {{ section.settings.c_accent }};
+    --cs-accent-text: {{ section.settings.c_accent }};
+}
+
+#{{ key }}.cs-tone--custom .cs-eyebrow {
+  --cs-accent: {{ section.settings.c_accent }};
+}
+
+  /* Card + info column */
+  #{{ key }}.cs-tone--custom .cs-contact__card {
+    background-image: none;
+    background-color: {% if section.settings.c_card_bg != blank %}{{ section.settings.c_card_bg }}{% else %}transparent{% endif %};
+    border-color: var(--cs-line);
+  }
+  #{{ key }}.cs-tone--custom .cs-contact__info {
+    border-color: var(--cs-line);
+  }
+  #{{ key }}.cs-tone--custom .cs-eyebrow,
+  #{{ key }}.cs-tone--custom .cs-contact__title em { color: var(--cs-accent); }
+  #{{ key }}.cs-tone--custom .cs-contact__title,
+  #{{ key }}.cs-tone--custom .cs-contact__form-title { color: {{ section.settings.c_heading }}; }
+  #{{ key }}.cs-tone--custom :is(.cs-contact__text, .cs-contact__text p, .cs-contact__details, .cs-contact__details address, .cs-contact__panel-intro) {
+    color: var(--cs-fg);
+  }
+  #{{ key }}.cs-tone--custom .cs-contact__details a { color: {{ section.settings.c_link }}; }
+  #{{ key }}.cs-tone--custom .cs-contact__details a:hover { color: var(--cs-accent); }
+  #{{ key }}.cs-tone--custom .cs-contact__detail-icon {
+    background-color: {{ section.settings.c_icon_bg }};
+    color: {{ section.settings.c_icon }};
+    border-color: {{ section.settings.c_icon_bg }};
+  }
+  #{{ key }}.cs-tone--custom .cs-contact__detail-icon svg { color: inherit; }
+
+  /* Social icons */
+  #{{ key }}.cs-tone--custom .cs-contact__social .cs-icon-btn {
+    background-color: {{ section.settings.c_icon_bg }};
+    color: {{ section.settings.c_icon }};
+    border-color: var(--cs-line);
+  }
+  #{{ key }}.cs-tone--custom .cs-contact__social .cs-icon-btn:hover,
+  #{{ key }}.cs-tone--custom .cs-contact__social .cs-icon-btn:focus-visible {
+    background-color: var(--cs-accent);
+    color: {{ section.settings.c_btn_text }};
+    border-color: var(--cs-accent);
+  }
+  #{{ key }}.cs-tone--custom .cs-contact__social svg { color: inherit; }
+
+  /* Form panel */
+  #{{ key }}.cs-tone--custom .cs-contact__form-wrap {
+    border-color: var(--cs-line);
+  }
+
+  /* Fields */
+  #{{ key }}.cs-tone--custom .cs-field__input {
+    background-color: {{ section.settings.c_field_bg }};
+    color: {{ section.settings.c_field_text }};
+    border-color: {{ section.settings.c_field_border }};
+  }
+  #{{ key }}.cs-tone--custom .cs-field__input:focus,
+  #{{ key }}.cs-tone--custom .cs-field__input:focus-visible {
+    border-color: {{ section.settings.c_field_focus }};
+    outline-color: {{ section.settings.c_field_focus }};
+    box-shadow: 0 0 0 1px {{ section.settings.c_field_focus }};
+  }
+  #{{ key }}.cs-tone--custom .cs-field__input option {
+    background-color: {{ section.settings.c_field_bg }};
+    color: {{ section.settings.c_field_text }};
+  }
+  #{{ key }}.cs-tone--custom .cs-field__label { color: {{ section.settings.c_label }}; }
+  #{{ key }}.cs-tone--custom .cs-field__input:focus + .cs-field__label { color: {{ section.settings.c_field_focus }}; }
+  #{{ key }}.cs-tone--custom .cs-field__chevron { color: {{ section.settings.c_label }}; }
+
+  /* Submit button */
+  #{{ key }}.cs-tone--custom .cs-contact__submit {
+    background-color: {{ section.settings.c_btn_bg }};
+    color: {{ section.settings.c_btn_text }};
+    border-color: {{ section.settings.c_btn_bg }};
+  }
+  #{{ key }}.cs-tone--custom .cs-contact__submit:hover,
+  #{{ key }}.cs-tone--custom .cs-contact__submit:focus-visible {
+    background-color: {{ section.settings.c_btn_hover_bg }};
+    color: {{ section.settings.c_btn_hover_text }};
+    border-color: {{ section.settings.c_btn_hover_bg }};
+  }
+  #{{ key }}.cs-tone--custom .cs-contact__submit svg { color: inherit; }
+
+  /* Messages */
+  #{{ key }}.cs-tone--custom .cs-contact__notice--success {
+    background-color: {{ section.settings.c_success | color_modify: 'alpha', 0.12 }};
+    color: {{ section.settings.c_success }};
+    border-color: {{ section.settings.c_success }};
+  }
+  #{{ key }}.cs-tone--custom .cs-contact__notice--error,
+  #{{ key }}.cs-tone--custom .cs-field__error {
+    color: {{ section.settings.c_error }};
+    border-color: {{ section.settings.c_error }};
+  }
+  #{{ key }}.cs-tone--custom .cs-contact__notice--error {
+    background-color: {{ section.settings.c_error | color_modify: 'alpha', 0.1 }};
+  }
+  {%- endif -%}
+
+  /* ---------- Column backgrounds (work with every colour tone) ---------- */
+  {%- if section.settings.info_bg != blank %}
+  #{{ key }} .cs-contact__info {
+    background-image: none;
+    background-color: {{ section.settings.info_bg }};
+    padding: {{ section.settings.column_padding }}px;
+    border-radius: {{ section.settings.column_radius }}px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+  {%- endif %}
+  {%- if section.settings.form_bg != blank %}
+  #{{ key }} .cs-contact__form-wrap {
+    background-image: none;
+    background-color: {{ section.settings.form_bg }};
+    padding: {{ section.settings.column_padding }}px;
+    border-radius: {{ section.settings.column_radius }}px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+  {%- endif %}
+  @media screen and (max-width: 749px) {
+    {%- if section.settings.info_bg != blank %}
+    #{{ key }} .cs-contact__info { padding: {{ section.settings.column_padding | times: 0.6 | round }}px; }
+    {%- endif %}
+    {%- if section.settings.form_bg != blank %}
+    #{{ key }} .cs-contact__form-wrap { padding: {{ section.settings.column_padding | times: 0.6 | round }}px; }
+    {%- endif %}
+  }
+
+  /* ---------- Retailer / Brand tabs ---------- */
+  #{{ key }} .cs-contact__tabs {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 4px;
+    margin: 0 0 28px;
+    border: 1px solid var(--cs-line, rgba(15, 23, 42, 0.12));
+    border-radius: 999px;
+    {%- if section.settings.tab_bg != blank %}
+    background-color: {{ section.settings.tab_bg }};
+    {%- endif %}
+    width: 100%;
+  }
+  #{{ key }} .cs-contact__tab {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: {% if section.settings.tab_text != blank %}{{ section.settings.tab_text }}{% else %}inherit{% endif %};
+    font: inherit;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    opacity: 0.72;
+    transition: background-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+    flex: 1 auto;
+  }
+  #{{ key }} .cs-contact__tab:hover { opacity: 1; }
+  #{{ key }} .cs-contact__tab:focus-visible {
+    outline: 2px solid var(--cs-accent, #F59E0B);
+    outline-offset: 2px;
+  }
+  #{{ key }} .cs-contact__tab[aria-selected="true"] {
+    opacity: 1;
+    background-color: {% if section.settings.tab_active_bg != blank %}{{ section.settings.tab_active_bg }}{% else %}var(--cs-accent, #F59E0B){% endif %};
+    color: {% if section.settings.tab_active_text != blank %}{{ section.settings.tab_active_text }}{% else %}#0F172A{% endif %};
+  }
+  #{{ key }} .cs-contact__tab svg,
+  #{{ key }} .cs-contact__tab .cs-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  #{{ key }} .cs-contact__panel[hidden] { display: none; }
+  #{{ key }} .cs-contact__panel.is-entering {
+    animation: cs-contact-fade 0.35s ease both;
+  }
+  #{{ key }} .cs-contact__panel-intro {
+    margin: -8px 0 20px;
+    opacity: 0.8;
+  }
+  @keyframes cs-contact-fade {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #{{ key }} .cs-contact__panel.is-entering { animation: none; }
+  }
+  @media screen and (max-width: 749px) {
+    #{{ key }} .cs-contact__tabs { display: flex; width: 100%; }
+    #{{ key }} .cs-contact__tab { flex: 1 1 0; padding: 12px 14px; }
+  }
+
+@media (max-width:989px) {
+  #{{ key }} .cs-contact__info { 
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  #{{ key }} .cs-contact__form-wrap { 
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+  }
+}
+
+{%- endstyle -%}
+
 <section
-  id="cs-contact-{{ section.id }}"
+  id="{{ key }}"
   class="cs-section cs-contact cs-tone--{{ section.settings.tone }}"
   style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
 >
   <div class="cs-container">
     <div class="cs-contact__card">
+      {%- comment -%} ---------- Left: info column ---------- {%- endcomment -%}
       <div class="cs-contact__info" data-cs-reveal>
         {%- if section.settings.eyebrow != blank -%}
           <p class="cs-eyebrow">{{ section.settings.eyebrow }}</p>
@@ -60,124 +300,406 @@
         {%- endif -%}
       </div>
 
+      {%- comment -%} ---------- Right: tabs + forms ---------- {%- endcomment -%}
       <div class="cs-contact__form-wrap" data-cs-reveal style="--cs-delay: 120ms;">
-        {%- form 'contact', id: form_id, class: 'cs-contact__form' -%}
-          {%- if form.posted_successfully? -%}
-            <div class="cs-contact__notice cs-contact__notice--success" role="status" tabindex="-1" autofocus>
-              {% render 'custom-icon', icon: 'check' %}
-              <span>
-                {%- if section.settings.success_message != blank -%}
-                  {{ section.settings.success_message }}
-                {%- else -%}
-                  {{ 'templates.contact.form.post_success' | t }}
-                {%- endif -%}
-              </span>
-            </div>
-          {%- elsif form.errors -%}
-            <div class="cs-contact__notice cs-contact__notice--error" role="alert" tabindex="-1" autofocus>
-              <p>{{ 'templates.contact.form.error_heading' | t }}</p>
-              {{ form.errors | default_errors }}
-            </div>
-          {%- endif -%}
+        <div class="cs-contact__tabs" role="tablist" aria-label="{{ section.settings.tabs_aria_label | escape }}">
+          <button
+            type="button"
+            class="cs-contact__tab"
+            role="tab"
+            id="{{ retailer_id }}-tab"
+            aria-controls="{{ retailer_id }}-panel"
+            aria-selected="{% if default_tab == 'retailer' %}true{% else %}false{% endif %}"
+            tabindex="{% if default_tab == 'retailer' %}0{% else %}-1{% endif %}"
+            data-cs-tab="retailer"
+          >
+            {%- if section.settings.show_tab_icons -%}{% render 'custom-icon', icon: 'store' %}{%- endif -%}
+            <span>{{ section.settings.retailer_tab_label | escape }}</span>
+          </button>
+          <button
+            type="button"
+            class="cs-contact__tab"
+            role="tab"
+            id="{{ brand_id }}-tab"
+            aria-controls="{{ brand_id }}-panel"
+            aria-selected="{% if default_tab == 'brand' %}true{% else %}false{% endif %}"
+            tabindex="{% if default_tab == 'brand' %}0{% else %}-1{% endif %}"
+            data-cs-tab="brand"
+          >
+            {%- if section.settings.show_tab_icons -%}{% render 'custom-icon', icon: 'globe' %}{%- endif -%}
+            <span>{{ section.settings.brand_tab_label | escape }}</span>
+          </button>
+        </div>
 
-          {%- if section.settings.form_heading != blank -%}
-            <h3 class="cs-contact__form-title">{{ section.settings.form_heading }}</h3>
-          {%- endif -%}
+        {%- comment -%} ===================== RETAILER FORM ===================== {%- endcomment -%}
+        <div
+          class="cs-contact__panel"
+          role="tabpanel"
+          id="{{ retailer_id }}-panel"
+          aria-labelledby="{{ retailer_id }}-tab"
+          data-cs-panel="retailer"
+          tabindex="0"
+          {% if default_tab != 'retailer' %}hidden{% endif %}
+        >
+          {%- form 'contact', id: retailer_id, class: 'cs-contact__form' -%}
+            <input type="hidden" name="contact[Enquiry type]" value="Retailer">
 
-          <div class="cs-contact__grid">
-            <div class="cs-field">
-              <input
-                class="cs-field__input"
-                type="text"
-                id="{{ form_id }}-name"
-                name="contact[{{ 'templates.contact.form.name' | t }}]"
-                value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
-                autocomplete="name"
-                placeholder=" "
-                required
-              >
-              <label class="cs-field__label" for="{{ form_id }}-name">{{ 'templates.contact.form.name' | t }} *</label>
-            </div>
-
-            <div class="cs-field">
-              <input
-                class="cs-field__input"
-                type="email"
-                id="{{ form_id }}-email"
-                name="contact[email]"
-                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
-                autocomplete="email"
-                spellcheck="false"
-                autocapitalize="off"
-                placeholder=" "
-                required
-                {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="{{ form_id }}-email-error"{% endif %}
-              >
-              <label class="cs-field__label" for="{{ form_id }}-email">{{ 'templates.contact.form.email' | t }} *</label>
-              {%- if form.errors contains 'email' -%}
-                <small class="cs-field__error" id="{{ form_id }}-email-error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</small>
-              {%- endif -%}
-            </div>
-
-            <div class="cs-field">
-              <input
-                class="cs-field__input"
-                type="tel"
-                id="{{ form_id }}-phone"
-                name="contact[{{ 'templates.contact.form.phone' | t }}]"
-                value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
-                autocomplete="tel"
-                pattern="[0-9\-\+\s]*"
-                placeholder=" "
-              >
-              <label class="cs-field__label" for="{{ form_id }}-phone">{{ 'templates.contact.form.phone' | t }}</label>
-            </div>
-
-            <div class="cs-field">
-              <input
-                class="cs-field__input"
-                type="text"
-                id="{{ form_id }}-company"
-                name="contact[{{ section.settings.company_label | escape }}]"
-                autocomplete="organization"
-                placeholder=" "
-              >
-              <label class="cs-field__label" for="{{ form_id }}-company">{{ section.settings.company_label }}</label>
-            </div>
-
-            {%- if categories.size > 0 -%}
-              <div class="cs-field cs-field--full cs-field--select">
-                <select class="cs-field__input" id="{{ form_id }}-category" name="contact[{{ section.settings.category_label | escape }}]">
-                  {%- for category in categories -%}
-                    <option value="{{ category | strip | escape }}">{{ category | strip }}</option>
-                  {%- endfor -%}
-                </select>
-                <label class="cs-field__label cs-field__label--static" for="{{ form_id }}-category">{{ section.settings.category_label }}</label>
-                {% render 'custom-icon', icon: 'arrow-right', class: 'cs-field__chevron' %}
+            {%- if form.posted_successfully? -%}
+              <div class="cs-contact__notice cs-contact__notice--success" role="status" tabindex="-1" data-cs-notice>
+                {% render 'custom-icon', icon: 'check' %}
+                <span>{{ section.settings.retailer_success | default: 'Thanks — our retail team will be in touch shortly.' }}</span>
+              </div>
+            {%- elsif form.errors -%}
+              <div class="cs-contact__notice cs-contact__notice--error" role="alert" tabindex="-1" data-cs-notice>
+                <p>{{ 'templates.contact.form.error_heading' | t }}</p>
+                {{ form.errors | default_errors }}
               </div>
             {%- endif -%}
 
-            <div class="cs-field cs-field--full">
-              <textarea
-                class="cs-field__input cs-field__input--area"
-                rows="5"
-                id="{{ form_id }}-body"
-                name="contact[{{ 'templates.contact.form.comment' | t }}]"
-                placeholder=" "
-              >{{- form.body -}}</textarea>
-              <label class="cs-field__label" for="{{ form_id }}-body">{{ 'templates.contact.form.comment' | t }}</label>
-            </div>
-          </div>
+            {%- if section.settings.retailer_heading != blank -%}
+              <h3 class="cs-contact__form-title">{{ section.settings.retailer_heading }}</h3>
+            {%- endif -%}
+            {%- if section.settings.retailer_intro != blank -%}
+              <p class="cs-contact__panel-intro">{{ section.settings.retailer_intro }}</p>
+            {%- endif -%}
 
-          <button type="submit" class="cs-btn cs-btn--primary cs-contact__submit">
-            {{- section.settings.submit_label | default: 'Send' | escape -}}
-            {% render 'custom-icon', icon: 'arrow-right' %}
-          </button>
-        {%- endform -%}
+            <div class="cs-contact__grid">
+              <div class="cs-field">
+                <input class="cs-field__input" type="text" id="{{ retailer_id }}-name" name="contact[Name]"
+                  value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                  autocomplete="name" placeholder=" " required>
+                <label class="cs-field__label" for="{{ retailer_id }}-name">Full name *</label>
+              </div>
+
+              <div class="cs-field">
+                <input class="cs-field__input" type="email" id="{{ retailer_id }}-email" name="contact[email]"
+                  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                  autocomplete="email" spellcheck="false" autocapitalize="off" placeholder=" " required
+                  {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="{{ retailer_id }}-email-error"{% endif %}>
+                <label class="cs-field__label" for="{{ retailer_id }}-email">Email *</label>
+                {%- if form.errors contains 'email' -%}
+                  <small class="cs-field__error" id="{{ retailer_id }}-email-error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</small>
+                {%- endif -%}
+              </div>
+
+              <div class="cs-field">
+                <input class="cs-field__input" type="tel" id="{{ retailer_id }}-phone" name="contact[Phone]"
+                  value="{% if customer %}{{ customer.phone }}{% endif %}"
+                  autocomplete="tel" pattern="[0-9\-\+\s]*" placeholder=" " required>
+                <label class="cs-field__label" for="{{ retailer_id }}-phone">Phone *</label>
+              </div>
+
+              <div class="cs-field">
+                <input class="cs-field__input" type="text" id="{{ retailer_id }}-store" name="contact[Store / business name]"
+                  autocomplete="organization" placeholder=" " required>
+                <label class="cs-field__label" for="{{ retailer_id }}-store">Store / business name *</label>
+              </div>
+
+              {%- if retailer_types.size > 0 -%}
+                <div class="cs-field cs-field--select">
+                  <select class="cs-field__input" id="{{ retailer_id }}-type" name="contact[Store type]">
+                    {%- for item in retailer_types -%}
+                      <option value="{{ item | strip | escape }}">{{ item | strip }}</option>
+                    {%- endfor -%}
+                  </select>
+                  <label class="cs-field__label cs-field__label--static" for="{{ retailer_id }}-type">Store type</label>
+                  {% render 'custom-icon', icon: 'arrow-right', class: 'cs-field__chevron' %}
+                </div>
+              {%- endif -%}
+
+              <div class="cs-field">
+                <input class="cs-field__input" type="text" id="{{ retailer_id }}-gst" name="contact[GST number]"
+                  autocapitalize="characters" spellcheck="false" maxlength="15" placeholder=" ">
+                <label class="cs-field__label" for="{{ retailer_id }}-gst">GST number</label>
+              </div>
+
+              <div class="cs-field">
+                <input class="cs-field__input" type="text" id="{{ retailer_id }}-city" name="contact[City]"
+                  autocomplete="address-level2" placeholder=" " required>
+                <label class="cs-field__label" for="{{ retailer_id }}-city">City *</label>
+              </div>
+
+              <div class="cs-field">
+                <input class="cs-field__input" type="text" id="{{ retailer_id }}-state" name="contact[State]"
+                  autocomplete="address-level1" placeholder=" " required>
+                <label class="cs-field__label" for="{{ retailer_id }}-state">State *</label>
+              </div>
+
+              <div class="cs-field">
+                <input class="cs-field__input" type="text" id="{{ retailer_id }}-stores" name="contact[Number of stores]"
+                  inputmode="numeric" placeholder=" ">
+                <label class="cs-field__label" for="{{ retailer_id }}-stores">Number of stores</label>
+              </div>
+
+              {%- if retailer_categories.size > 0 -%}
+                <div class="cs-field cs-field--select">
+                  <select class="cs-field__input" id="{{ retailer_id }}-category" name="contact[Categories to stock]">
+                    {%- for item in retailer_categories -%}
+                      <option value="{{ item | strip | escape }}">{{ item | strip }}</option>
+                    {%- endfor -%}
+                  </select>
+                  <label class="cs-field__label cs-field__label--static" for="{{ retailer_id }}-category">Categories you want to stock</label>
+                  {% render 'custom-icon', icon: 'arrow-right', class: 'cs-field__chevron' %}
+                </div>
+              {%- endif -%}
+
+              <div class="cs-field cs-field--full">
+                <input class="cs-field__input" type="text" id="{{ retailer_id }}-brands" name="contact[Brands currently stocked]"
+                  placeholder=" ">
+                <label class="cs-field__label" for="{{ retailer_id }}-brands">Brands you currently stock</label>
+              </div>
+
+              <div class="cs-field cs-field--full">
+                <textarea class="cs-field__input cs-field__input--area" rows="4" id="{{ retailer_id }}-body"
+                  name="contact[body]" placeholder=" ">{{- form.body -}}</textarea>
+                <label class="cs-field__label" for="{{ retailer_id }}-body">Tell us about your store</label>
+              </div>
+            </div>
+
+            <button type="submit" class="cs-btn cs-btn--primary cs-contact__submit">
+              {{- section.settings.retailer_submit | default: 'Submit' | escape -}}
+              {% render 'custom-icon', icon: 'arrow-right' %}
+            </button>
+          {%- endform -%}
+        </div>
+
+        {%- comment -%} ===================== BRAND FORM ===================== {%- endcomment -%}
+        <div
+          class="cs-contact__panel"
+          role="tabpanel"
+          id="{{ brand_id }}-panel"
+          aria-labelledby="{{ brand_id }}-tab"
+          data-cs-panel="brand"
+          tabindex="0"
+          {% if default_tab != 'brand' %}hidden{% endif %}
+        >
+          {%- form 'contact', id: brand_id, class: 'cs-contact__form' -%}
+            <input type="hidden" name="contact[Enquiry type]" value="Brand">
+
+            {%- if form.posted_successfully? -%}
+              <div class="cs-contact__notice cs-contact__notice--success" role="status" tabindex="-1" data-cs-notice>
+                {% render 'custom-icon', icon: 'check' %}
+                <span>{{ section.settings.brand_success | default: 'Thanks — our partnerships team will be in touch shortly.' }}</span>
+              </div>
+            {%- elsif form.errors -%}
+              <div class="cs-contact__notice cs-contact__notice--error" role="alert" tabindex="-1" data-cs-notice>
+                <p>{{ 'templates.contact.form.error_heading' | t }}</p>
+                {{ form.errors | default_errors }}
+              </div>
+            {%- endif -%}
+
+            {%- if section.settings.brand_heading != blank -%}
+              <h3 class="cs-contact__form-title">{{ section.settings.brand_heading }}</h3>
+            {%- endif -%}
+            {%- if section.settings.brand_intro != blank -%}
+              <p class="cs-contact__panel-intro">{{ section.settings.brand_intro }}</p>
+            {%- endif -%}
+
+            <div class="cs-contact__grid">
+              <div class="cs-field">
+                <input class="cs-field__input" type="text" id="{{ brand_id }}-name" name="contact[Name]"
+                  value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                  autocomplete="name" placeholder=" " required>
+                <label class="cs-field__label" for="{{ brand_id }}-name">Full name *</label>
+              </div>
+
+              <div class="cs-field">
+                <input class="cs-field__input" type="text" id="{{ brand_id }}-role" name="contact[Designation]"
+                  autocomplete="organization-title" placeholder=" ">
+                <label class="cs-field__label" for="{{ brand_id }}-role">Designation</label>
+              </div>
+
+              <div class="cs-field">
+                <input class="cs-field__input" type="email" id="{{ brand_id }}-email" name="contact[email]"
+                  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                  autocomplete="email" spellcheck="false" autocapitalize="off" placeholder=" " required
+                  {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="{{ brand_id }}-email-error"{% endif %}>
+                <label class="cs-field__label" for="{{ brand_id }}-email">Work email *</label>
+                {%- if form.errors contains 'email' -%}
+                  <small class="cs-field__error" id="{{ brand_id }}-email-error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</small>
+                {%- endif -%}
+              </div>
+
+              <div class="cs-field">
+                <input class="cs-field__input" type="tel" id="{{ brand_id }}-phone" name="contact[Phone]"
+                  value="{% if customer %}{{ customer.phone }}{% endif %}"
+                  autocomplete="tel" pattern="[0-9\-\+\s]*" placeholder=" " required>
+                <label class="cs-field__label" for="{{ brand_id }}-phone">Phone (with country code) *</label>
+              </div>
+
+              <div class="cs-field">
+                <input class="cs-field__input" type="text" id="{{ brand_id }}-brand" name="contact[Brand name]"
+                  autocomplete="organization" placeholder=" " required>
+                <label class="cs-field__label" for="{{ brand_id }}-brand">Brand name *</label>
+              </div>
+
+              <div class="cs-field">
+                <input class="cs-field__input" type="url" id="{{ brand_id }}-website" name="contact[Website]"
+                  autocomplete="url" spellcheck="false" autocapitalize="off" placeholder=" ">
+                <label class="cs-field__label" for="{{ brand_id }}-website">Website</label>
+              </div>
+
+              <div class="cs-field">
+                <input class="cs-field__input" type="text" id="{{ brand_id }}-country" name="contact[Country of origin]"
+                  autocomplete="country-name" placeholder=" " required>
+                <label class="cs-field__label" for="{{ brand_id }}-country">Country of origin *</label>
+              </div>
+
+              <div class="cs-field">
+                <input class="cs-field__input" type="text" id="{{ brand_id }}-markets" name="contact[Current markets]"
+                  placeholder=" ">
+                <label class="cs-field__label" for="{{ brand_id }}-markets">Markets you sell in today</label>
+              </div>
+
+              {%- if brand_categories.size > 0 -%}
+                <div class="cs-field cs-field--select">
+                  <select class="cs-field__input" id="{{ brand_id }}-category" name="contact[Product category]">
+                    {%- for item in brand_categories -%}
+                      <option value="{{ item | strip | escape }}">{{ item | strip }}</option>
+                    {%- endfor -%}
+                  </select>
+                  <label class="cs-field__label cs-field__label--static" for="{{ brand_id }}-category">Product category</label>
+                  {% render 'custom-icon', icon: 'arrow-right', class: 'cs-field__chevron' %}
+                </div>
+              {%- endif -%}
+
+              {%- if brand_services.size > 0 -%}
+                <div class="cs-field cs-field--select">
+                  <select class="cs-field__input" id="{{ brand_id }}-service" name="contact[Support needed]">
+                    {%- for item in brand_services -%}
+                      <option value="{{ item | strip | escape }}">{{ item | strip }}</option>
+                    {%- endfor -%}
+                  </select>
+                  <label class="cs-field__label cs-field__label--static" for="{{ brand_id }}-service">What support do you need?</label>
+                  {% render 'custom-icon', icon: 'arrow-right', class: 'cs-field__chevron' %}
+                </div>
+              {%- endif -%}
+
+              {%- if brand_timelines.size > 0 -%}
+                <div class="cs-field cs-field--full cs-field--select">
+                  <select class="cs-field__input" id="{{ brand_id }}-timeline" name="contact[India launch timeline]">
+                    {%- for item in brand_timelines -%}
+                      <option value="{{ item | strip | escape }}">{{ item | strip }}</option>
+                    {%- endfor -%}
+                  </select>
+                  <label class="cs-field__label cs-field__label--static" for="{{ brand_id }}-timeline">When do you plan to launch in India?</label>
+                  {% render 'custom-icon', icon: 'arrow-right', class: 'cs-field__chevron' %}
+                </div>
+              {%- endif -%}
+
+              <div class="cs-field cs-field--full">
+                <textarea class="cs-field__input cs-field__input--area" rows="4" id="{{ brand_id }}-body"
+                  name="contact[body]" placeholder=" ">{{- form.body -}}</textarea>
+                <label class="cs-field__label" for="{{ brand_id }}-body">Tell us about your brand and products</label>
+              </div>
+            </div>
+
+            <button type="submit" class="cs-btn cs-btn--primary cs-contact__submit">
+              {{- section.settings.brand_submit | default: 'Submit' | escape -}}
+              {% render 'custom-icon', icon: 'arrow-right' %}
+            </button>
+          {%- endform -%}
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    var root = document.getElementById('{{ key }}');
+    if (!root || root.hasAttribute('data-cs-tabs-ready')) return;
+    root.setAttribute('data-cs-tabs-ready', '');
+
+    var tabs = Array.prototype.slice.call(root.querySelectorAll('[data-cs-tab]'));
+    var panels = Array.prototype.slice.call(root.querySelectorAll('[data-cs-panel]'));
+
+    function activate(name, focusTab) {
+      tabs.forEach(function (tab) {
+        var on = tab.getAttribute('data-cs-tab') === name;
+        tab.setAttribute('aria-selected', on ? 'true' : 'false');
+        tab.setAttribute('tabindex', on ? '0' : '-1');
+        if (on && focusTab) tab.focus();
+      });
+      panels.forEach(function (panel) {
+        var on = panel.getAttribute('data-cs-panel') === name;
+        if (on && panel.hidden) {
+          panel.hidden = false;
+          panel.classList.remove('is-entering');
+          void panel.offsetWidth;
+          panel.classList.add('is-entering');
+        } else if (!on) {
+          panel.hidden = true;
+        }
+      });
+    }
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () {
+        activate(tab.getAttribute('data-cs-tab'));
+      });
+      tab.addEventListener('keydown', function (e) {
+        var next = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = tabs[(i + 1) % tabs.length];
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = tabs[(i - 1 + tabs.length) % tabs.length];
+        if (e.key === 'Home') next = tabs[0];
+        if (e.key === 'End') next = tabs[tabs.length - 1];
+        if (next) {
+          e.preventDefault();
+          activate(next.getAttribute('data-cs-tab'), true);
+        }
+      });
+    });
+
+    // After submitting, the page reloads: reopen the tab whose form shows a message.
+    var notice = root.querySelector('[data-cs-notice]');
+    var hashTarget = null;
+    try {
+      var hashId = window.location.hash.slice(1);
+      if (hashId) hashTarget = root.querySelector('[id="' + hashId.replace(/"/g, '') + '"]');
+    } catch (err) {}
+    var owner = (notice || hashTarget) ? (notice || hashTarget).closest('[data-cs-panel]') : null;
+    if (owner) {
+      activate(owner.getAttribute('data-cs-panel'));
+      if (notice) notice.focus({ preventScroll: false });
+    }
+
+    // Links like /pages/contact#retailer or #brand (e.g. from the footer) open the matching tab
+    // and scroll the form into view.
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function fromHash(scroll) {
+      var name = null;
+      if (window.location.hash === '#retailer') name = 'retailer';
+      if (window.location.hash === '#brand') name = 'brand';
+      if (!name) return;
+      activate(name);
+      if (scroll) {
+        var target = root.querySelector('[data-cs-panel="' + name + '"]') || root;
+        var wrap = target.closest('.cs-contact__form-wrap') || target;
+        setTimeout(function () {
+          wrap.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        }, 60);
+      }
+    }
+    fromHash(true);
+    window.addEventListener('hashchange', function () { fromHash(true); });
+
+    // Same-page clicks on #retailer / #brand links (hashchange doesn't fire if the hash is already set)
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest && e.target.closest('a[href$="#retailer"], a[href$="#brand"]');
+      if (!link) return;
+      var url;
+      try { url = new URL(link.href, window.location.href); } catch (err) { return; }
+      if (url.pathname !== window.location.pathname || url.hash !== window.location.hash) return;
+      e.preventDefault();
+      fromHash(true);
+    });
+
+    document.addEventListener('shopify:section:load', function (e) {
+      if (e.detail && e.detail.sectionId === '{{ section.id }}') fromHash(false);
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -198,13 +720,13 @@
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
-      "default": "Ready to bring your brand to <em>India</em>?"
+      "default": "Let's grow together in <em>India</em>"
     },
     {
       "type": "richtext",
       "id": "text",
       "label": "Text",
-      "default": "<p>Tell us about your brand and category. Our team will come back with a launch plan.</p>"
+      "default": "<p>Retailers stock world-class tech brands through us. Global brands launch and scale in India with us. Tell us which one you are.</p>"
     },
     {
       "type": "textarea",
@@ -234,44 +756,157 @@
     },
     {
       "type": "header",
-      "content": "Form"
+      "content": "Tabs",
+      "info": "Link to #retailer or #brand from anywhere on the page to open that tab."
+    },
+    {
+      "type": "select",
+      "id": "default_tab",
+      "label": "Tab open by default",
+      "options": [
+        { "value": "retailer", "label": "Retailer" },
+        { "value": "brand", "label": "Brand" }
+      ],
+      "default": "retailer"
     },
     {
       "type": "text",
-      "id": "form_heading",
+      "id": "retailer_tab_label",
+      "label": "Retailer tab label",
+      "default": "Are you a Retailer?"
+    },
+    {
+      "type": "text",
+      "id": "brand_tab_label",
+      "label": "Brand tab label",
+      "default": "Are you a Brand?"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tab_icons",
+      "label": "Show tab icons",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "tabs_aria_label",
+      "label": "Tabs label (screen readers)",
+      "default": "Choose who you are"
+    },
+    {
+      "type": "color",
+      "id": "tab_bg",
+      "label": "Tab bar background",
+      "info": "Optional. Leave empty to follow the colour tone."
+    },
+    {
+      "type": "color",
+      "id": "tab_text",
+      "label": "Tab text",
+      "info": "Optional."
+    },
+    {
+      "type": "color",
+      "id": "tab_active_bg",
+      "label": "Active tab background",
+      "info": "Optional. Defaults to the accent colour."
+    },
+    {
+      "type": "color",
+      "id": "tab_active_text",
+      "label": "Active tab text",
+      "info": "Optional."
+    },
+    {
+      "type": "header",
+      "content": "Retailer form"
+    },
+    {
+      "type": "text",
+      "id": "retailer_heading",
       "label": "Form heading",
-      "default": "Start the conversation"
+      "default": "Stock our brands in your store"
     },
     {
       "type": "text",
-      "id": "company_label",
-      "label": "Company field label",
-      "default": "Brand / company"
-    },
-    {
-      "type": "text",
-      "id": "category_label",
-      "label": "Category field label",
-      "default": "Category"
+      "id": "retailer_intro",
+      "label": "Form intro",
+      "default": "Share your store details and we'll get back with product ranges and trade terms."
     },
     {
       "type": "textarea",
-      "id": "categories",
-      "label": "Category options",
-      "info": "Comma separated.",
+      "id": "retailer_types",
+      "label": "Store type options",
+      "info": "Comma separated. Leave empty to hide this field.",
+      "default": "Single store, Multi-store chain, Large format retail, Distributor / wholesaler, Online seller"
+    },
+    {
+      "type": "textarea",
+      "id": "retailer_categories",
+      "label": "Categories to stock options",
+      "info": "Comma separated. Leave empty to hide this field.",
+      "default": "All categories, Consumer electronics, IT & mobile accessories, Home & kitchen, Audio, Displays"
+    },
+    {
+      "type": "text",
+      "id": "retailer_submit",
+      "label": "Button label",
+      "default": "Become a retail partner"
+    },
+    {
+      "type": "text",
+      "id": "retailer_success",
+      "label": "Success message",
+      "default": "Thanks — our retail team will review your details and contact you shortly."
+    },
+    {
+      "type": "header",
+      "content": "Brand form"
+    },
+    {
+      "type": "text",
+      "id": "brand_heading",
+      "label": "Form heading",
+      "default": "Launch your brand in India"
+    },
+    {
+      "type": "text",
+      "id": "brand_intro",
+      "label": "Form intro",
+      "default": "Tell us about your brand and our team will come back with a go-to-market plan."
+    },
+    {
+      "type": "textarea",
+      "id": "brand_categories",
+      "label": "Product category options",
+      "info": "Comma separated. Leave empty to hide this field.",
       "default": "Consumer electronics, IT & mobile accessories, Home & kitchen, Audio, Displays, Other"
     },
     {
-      "type": "text",
-      "id": "submit_label",
-      "label": "Button label",
-      "default": "Send enquiry"
+      "type": "textarea",
+      "id": "brand_services",
+      "label": "Support needed options",
+      "info": "Comma separated. Leave empty to hide this field.",
+      "default": "Full India go-to-market, Distribution only, Retail & online placement, Compliance & certifications, After-sales & service"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_timelines",
+      "label": "Launch timeline options",
+      "info": "Comma separated. Leave empty to hide this field.",
+      "default": "As soon as possible, In 3–6 months, In 6–12 months, Just exploring"
     },
     {
       "type": "text",
-      "id": "success_message",
+      "id": "brand_submit",
+      "label": "Button label",
+      "default": "Partner with us"
+    },
+    {
+      "type": "text",
+      "id": "brand_success",
       "label": "Success message",
-      "default": "Thanks — we've got your details and will be in touch shortly."
+      "default": "Thanks — our partnerships team will be in touch with next steps shortly."
     },
     {
       "type": "header",
@@ -286,9 +921,45 @@
         { "value": "paper", "label": "Paper" },
         { "value": "dark", "label": "Midnight" },
         { "value": "accent", "label": "Saffron" },
-        { "value": "graphite", "label": "Graphite" }
+        { "value": "graphite", "label": "Graphite" },
+        { "value": "custom", "label": "Custom colours" }
       ],
-      "default": "paper"
+      "default": "paper",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
+    },
+    {
+      "type": "color",
+      "id": "info_bg",
+      "label": "Info column background",
+      "info": "Optional. Works with every colour tone. Leave empty for no background."
+    },
+    {
+      "type": "color",
+      "id": "form_bg",
+      "label": "Form panel background",
+      "info": "Optional. Works with every colour tone. Leave empty for no background."
+    },
+    {
+      "type": "range",
+      "id": "column_padding",
+      "label": "Column inner padding",
+      "info": "Applies when a column background is set.",
+      "min": 0,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "column_radius",
+      "label": "Column corner radius",
+      "info": "Applies when a column background is set.",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
     },
     {
       "type": "range",
@@ -309,7 +980,42 @@
       "step": 8,
       "unit": "px",
       "default": 96
-    }
+    },
+    {
+      "type": "header",
+      "content": "Custom colours – Section",
+      "info": "Used only when Colour tone is set to \"Custom colours\". Tab colours are set under \"Tabs\" above."
+    },
+    { "type": "color", "id": "c_bg", "label": "Section background", "default": "#F8F5EF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_card_bg", "label": "Card background", "info": "Optional. Leave empty for transparent.", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_heading", "label": "Headings", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_text", "label": "Body text", "default": "#475569", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accent", "label": "Accent (eyebrow, italic words, active tab)", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_border", "label": "Borders / dividers", "default": "#E2E8F0", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Info column",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_link", "label": "Email & phone links", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_icon_bg", "label": "Icon background", "default": "#FEF3C7", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_icon", "label": "Icon colour", "default": "#B45309", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Form",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_field_bg", "label": "Field background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_field_text", "label": "Field text", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_label", "label": "Field label", "default": "#64748B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_field_border", "label": "Field border", "default": "#CBD5E1", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_field_focus", "label": "Field focus colour", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_bg", "label": "Submit button background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_text", "label": "Submit button text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_hover_bg", "label": "Submit button hover background", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_hover_text", "label": "Submit button hover text", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_success", "label": "Success message", "default": "#15803D", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_error", "label": "Error message", "default": "#DC2626", "visible_if": "{{ section.settings.tone == 'custom' }}" }
   ],
   "presets": [
     {
@@ -317,4 +1023,4 @@
     }
   ]
 }
-{% endschema %} 
+{% endschema %}

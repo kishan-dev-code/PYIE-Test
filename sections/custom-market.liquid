@@ -24,6 +24,125 @@
   endif
 -%}
 
+{%- if section.settings.tone == 'custom' -%}
+  {%- style -%}
+    /* ---------- Custom colour combination ---------- */
+    #cs-market-{{ section.id }}.cs-tone--custom {
+      --cs-m-bg: {{ section.settings.c_bg }};
+      --cs-m-heading: {{ section.settings.c_heading }};
+      --cs-m-text: {{ section.settings.c_text }};
+      --cs-m-accent: {{ section.settings.c_accent }};
+      --cs-m-big: {{ section.settings.c_big }};
+      --cs-m-card-bg: {{ section.settings.c_card_bg }};
+      --cs-m-card-text: {{ section.settings.c_card_text }};
+      --cs-m-border: {{ section.settings.c_border }};
+      --cs-m-bar: {{ section.settings.c_bar }};
+      --cs-m-bar-actual: {{ section.settings.c_bar_actual }};
+      --cs-m-tag-bg: {{ section.settings.c_tag_bg }};
+      --cs-m-tag-text: {{ section.settings.c_tag_text }};
+      --cs-m-metric: {{ section.settings.c_metric }};
+      --cs-m-why-bg: {{ section.settings.c_why_bg }};
+      --cs-m-why-text: {{ section.settings.c_why_text }};
+      --cs-m-num: {{ section.settings.c_num }};
+      --cs-m-closing: {{ section.settings.c_closing }};
+      --cs-m-closing-strong: {{ section.settings.c_closing_strong }};
+      background-color: var(--cs-m-bg);
+      color: var(--cs-m-text);
+    }
+
+    /* Head */
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__top h1,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__top h2,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__top h3,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__top [class*="heading"],
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__top [class*="title"] {
+      color: var(--cs-m-heading);
+    }
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__top em,
+    #cs-market-{{ section.id }}.cs-tone--custom [class*="eyebrow"] {
+      color: var(--cs-m-accent);
+    }
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__top .cs-text,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__top p {
+      color: var(--cs-m-text);
+    }
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__big-value { color: var(--cs-m-big); }
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__big-label { color: var(--cs-m-text); }
+
+    /* Chart + metrics panel */
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__chart,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__metric {
+      background-color: var(--cs-m-card-bg);
+      color: var(--cs-m-card-text);
+      border-color: var(--cs-m-border);
+    }
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__chart-title,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__chart-note,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__bar-year,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__metric-label {
+      color: var(--cs-m-card-text);
+    }
+
+#cs-market-{{ section.id }}.cs-tone--custom .cs-market__bar-value {
+  color: var(--cs-m-bar-actual);
+}
+
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__chart-tag {
+      background-color: var(--cs-m-tag-bg);
+      color: var(--cs-m-tag-text);
+      border-color: var(--cs-m-tag-bg);
+    }
+ 
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__bar.is-actual .cs-market__bar-fill {
+      background: var(--cs-m-bar-actual);
+    }
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__bars,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__chart-head {
+      border-color: var(--cs-m-border);
+    }
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__metric-value { color: var(--cs-m-metric); }
+
+    /* Why now */
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__why {
+      background-color: var(--cs-m-why-bg);
+      color: var(--cs-m-why-text);
+      border-color: var(--cs-m-border);
+    }
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__why-title,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__reason-title,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__reason-body,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__reason-body p {
+      color: var(--cs-m-why-text);
+    }
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__reason {
+      border-color: var(--cs-m-border);
+    }
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__reason-num,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__reason-toggle,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__reason-toggle svg {
+      color: var(--cs-m-num);
+    }
+
+    /* Closing */
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__closing,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__closing p {
+      color: #fff;
+      border-color: var(--cs-m-accent);
+    background: linear-gradient(90deg, #00abe429, #ffffff08 60%, #ffffff05);
+    }
+
+#cs-market-{{ section.id }}.cs-tone--custom .cs-market__closing p {
+      border: 0;
+    background: transparent;
+}
+
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__closing strong,
+    #cs-market-{{ section.id }}.cs-tone--custom .cs-market__closing em {
+      color: var(--cs-m-closing-strong);
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
 <section
   id="cs-market-{{ section.id }}"
   class="cs-section cs-market cs-tone--{{ section.settings.tone }}"
@@ -251,9 +370,11 @@
         { "value": "paper", "label": "Paper" },
         { "value": "dark", "label": "Midnight" },
         { "value": "accent", "label": "Saffron" },
-        { "value": "onyx", "label": "Onyx" }
+        { "value": "onyx", "label": "Onyx" },
+        { "value": "custom", "label": "Custom colours" }
       ],
-      "default": "light"
+      "default": "light",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
     },
     {
       "type": "range",
@@ -274,6 +395,137 @@
       "step": 8,
       "unit": "px",
       "default": 96
+    },
+    {
+      "type": "header",
+      "content": "Custom colours",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    {
+      "type": "color",
+      "id": "c_bg",
+      "label": "Section background",
+      "default": "#FFFFFF",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_heading",
+      "label": "Heading",
+      "default": "#0F172A",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_text",
+      "label": "Body text",
+      "default": "#475569",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_accent",
+      "label": "Accent (eyebrow, highlighted word)",
+      "default": "#F59E0B",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_big",
+      "label": "Headline number",
+      "default": "#0F172A",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_card_bg",
+      "label": "Chart & metric card background",
+      "default": "#F8FAFC",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_card_text",
+      "label": "Chart & metric card text",
+      "default": "#334155",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_bar",
+      "label": "Chart bars (forecast)",
+      "default": "#CBD5E1",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_bar_actual",
+      "label": "Chart bar (first / actual year)",
+      "default": "#F59E0B",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_tag_bg",
+      "label": "CAGR tag background",
+      "default": "#0F172A",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_tag_text",
+      "label": "CAGR tag text",
+      "default": "#FFFFFF",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_metric",
+      "label": "Metric number",
+      "default": "#0F172A",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_why_bg",
+      "label": "Why now panel background",
+      "default": "#0F172A",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_why_text",
+      "label": "Why now panel text",
+      "default": "#FFFFFF",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_num",
+      "label": "Why now numbers & plus icon",
+      "default": "#F59E0B",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_border",
+      "label": "Borders / dividers",
+      "default": "#E2E8F0",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_closing",
+      "label": "Closing statement text",
+      "default": "#0F172A",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_closing_strong",
+      "label": "Closing statement bold text",
+      "default": "#F59E0B",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
     }
   ],
   "blocks": [

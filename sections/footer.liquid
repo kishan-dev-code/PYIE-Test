@@ -2,6 +2,7 @@
 {%- liquid
   assign brand_name = section.settings.logo_text | default: shop.name
   assign current_year = 'now' | date: '%Y'
+  assign footer_id = 'cs-footer-' | append: section.id
   assign wa_url = blank
   if section.settings.whatsapp_number != blank
     assign wa_digits = section.settings.whatsapp_number | remove: '+' | remove: ' ' | remove: '-' | remove: '(' | remove: ')'
@@ -14,18 +15,193 @@
 
   # WhatsApp shows as the large button when it has a label, otherwise as a social icon
   assign wa_as_icon = false
-  if wa_url != blank and section.settings.whatsapp_label == blank
-    assign wa_as_icon = true
+  assign wa_as_button = false
+  if wa_url != blank
+    if section.settings.whatsapp_label == blank
+      assign wa_as_icon = true
+    else
+      assign wa_as_button = true
+    endif
   endif
 
   assign has_social = false
   if section.settings.instagram_url != blank or section.settings.linkedin_url != blank or section.settings.youtube_url != blank or wa_as_icon
     assign has_social = true
   endif
+
+  # CTA buttons: both point to the Contact page and open the matching tab (#retailer / #brand)
+  assign contact_base = section.settings.cta_link | default: '/pages/contact' | split: '#' | first
+  assign retailer_url = contact_base | append: '#retailer'
+  assign brand_url = contact_base | append: '#brand'
 -%}
 
+{%- style -%}
+  /* ---------- Two CTA buttons ---------- */
+  #{{ footer_id }} .cs-footer__cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+  #{{ footer_id }} .cs-footer__cta-btn--secondary {
+    background-color: transparent;
+    color: inherit;
+    border: 1px solid currentColor;
+  }
+  #{{ footer_id }} .cs-footer__cta-btn--secondary .cs-footer__cta-arrow {
+    background: transparent;
+    color: inherit;
+  }
+  @media screen and (max-width: 749px) {
+    #{{ footer_id }} .cs-footer__cta-actions { width: 100%; }
+    #{{ footer_id }} .cs-footer__cta-actions .cs-footer__cta-btn { flex: 1 1 100%; justify-content: space-between; }
+  }
+
+  {%- if section.settings.tone == 'custom' -%}
+    /* ---------- Custom colour combination ---------- */
+    #{{ footer_id }}.cs-tone--custom {
+      --cs-bg: {{ section.settings.c_bg }};
+      --cs-fg: {{ section.settings.c_text }};
+      --cs-fg-muted: {{ section.settings.c_muted }};
+      --cs-line: {{ section.settings.c_border }};
+      --cs-accent: {{ section.settings.c_accent }};
+      --cs-accent-text: {{ section.settings.c_accent }};
+      color: var(--cs-fg);
+      background-color: var(--cs-bg);
+      background-image: none;
+    }
+
+    /* General text + links */
+    #{{ footer_id }}.cs-tone--custom .cs-footer__wordmark,
+    #{{ footer_id }}.cs-tone--custom .cs-footer__heading {
+      color: {{ section.settings.c_heading }};
+    }
+    #{{ footer_id }}.cs-tone--custom :is(.cs-footer__about, .cs-footer__about p, .cs-footer__text, .cs-footer__text p, .cs-footer__contact, .cs-footer__contact address) {
+      color: var(--cs-fg-muted);
+    }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__tagline { color: var(--cs-accent); }
+    #{{ footer_id }}.cs-tone--custom :is(.cs-footer__link, .cs-footer__contact a) {
+      color: var(--cs-fg);
+    }
+    #{{ footer_id }}.cs-tone--custom :is(.cs-footer__link:hover, .cs-footer__link.is-active, .cs-footer__contact a:hover, .cs-footer__policies a:hover) {
+      color: {{ section.settings.c_link_hover }};
+    }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__contact svg { color: var(--cs-accent); }
+    #{{ footer_id }}.cs-tone--custom :is(.cs-footer__grid, .cs-footer__bottom, .cs-footer__col) {
+      border-color: var(--cs-line);
+    }
+
+    /* CTA banner */
+    #{{ footer_id }}.cs-tone--custom .cs-footer__cta {
+      background: {% if section.settings.c_cta_bg != blank %}{{ section.settings.c_cta_bg }}{% else %}transparent{% endif %};
+      border-color: var(--cs-line);
+    }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__cta-title { color: {{ section.settings.c_cta_title }}; }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__cta-title em { color: #FFFFFF; }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__cta-text { color: {{ section.settings.c_cta_text }}; }
+
+    /* CTA button 1 – Retailer (primary) */
+    #{{ footer_id }}.cs-tone--custom .cs-footer__cta-btn--primary {
+      background-color: {{ section.settings.c_cta_btn_bg }};
+      color: {{ section.settings.c_cta_btn_text }};
+      border-color: {{ section.settings.c_cta_btn_bg }};
+    }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__cta-btn--primary:hover,
+    #{{ footer_id }}.cs-tone--custom .cs-footer__cta-btn--primary:focus-visible {
+      background-color: {{ section.settings.c_cta_btn_hover_bg }};
+      color: {{ section.settings.c_cta_btn_hover_text }};
+      border-color: {{ section.settings.c_cta_btn_hover_bg }};
+    }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__cta-btn svg { color: inherit; }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__cta-btn--primary .cs-footer__cta-arrow {
+      background: #fff;
+      color: #00ABE4;
+    }
+
+    /* CTA button 2 – Brand (secondary) */
+    #{{ footer_id }}.cs-tone--custom .cs-footer__cta-btn--secondary {
+      background-color: {% if section.settings.c_cta_btn2_bg != blank %}{{ section.settings.c_cta_btn2_bg }}{% else %}transparent{% endif %};
+      color: {{ section.settings.c_cta_btn2_text }};
+      border-color: {{ section.settings.c_cta_btn2_border }};
+    }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__cta-btn--secondary .cs-footer__cta-arrow {
+      background: transparent;
+      color: inherit;
+    }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__cta-btn--secondary:hover,
+    #{{ footer_id }}.cs-tone--custom .cs-footer__cta-btn--secondary:focus-visible {
+      background-color: {{ section.settings.c_cta_btn2_hover_bg }};
+      color: {{ section.settings.c_cta_btn2_hover_text }};
+      border-color: {{ section.settings.c_cta_btn2_hover_bg }};
+    }
+
+    /* Social icons + back-to-top */
+    #{{ footer_id }}.cs-tone--custom .cs-icon-btn {
+      background-color: {{ section.settings.c_icon_bg }};
+      color: {{ section.settings.c_icon }};
+      border-color: var(--cs-line);
+    }
+    #{{ footer_id }}.cs-tone--custom .cs-icon-btn svg { color: inherit; }
+    #{{ footer_id }}.cs-tone--custom .cs-icon-btn:hover,
+    #{{ footer_id }}.cs-tone--custom .cs-icon-btn:focus-visible {
+      background-color: {{ section.settings.c_icon_hover_bg }};
+      color: {{ section.settings.c_icon_hover }};
+      border-color: {{ section.settings.c_icon_hover_bg }};
+    }
+
+    /* WhatsApp button */
+    #{{ footer_id }}.cs-tone--custom .cs-footer__whatsapp {
+      background-color: {{ section.settings.c_wa_bg }};
+      color: {{ section.settings.c_wa_text }};
+      border-color: {{ section.settings.c_wa_bg }};
+    }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__whatsapp :is(.cs-footer__whatsapp-label, .cs-footer__whatsapp-number, svg) {
+      color: {{ section.settings.c_wa_text }};
+    }
+
+    /* Newsletter */
+    #{{ footer_id }}.cs-tone--custom .cs-footer__field {
+      background-color: {{ section.settings.c_input_bg }};
+      border-color: {{ section.settings.c_input_border }};
+    }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__input {
+      background-color: transparent;
+      color: {{ section.settings.c_input_text }};
+      border-color: {{ section.settings.c_input_border }};
+    }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__input::placeholder {
+      color: {{ section.settings.c_input_text }};
+      opacity: 0.6;
+    }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__submit {
+      background-color: {{ section.settings.c_submit_bg }};
+      color: {{ section.settings.c_submit_icon }};
+      border-color: {{ section.settings.c_submit_bg }};
+    }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__submit svg { color: inherit; }
+    #{{ footer_id }}.cs-tone--custom .cs-footer__notice { color: var(--cs-accent); }
+
+    /* Oversized wordmark */
+    #{{ footer_id }}.cs-tone--custom .cs-footer__giant,
+    #{{ footer_id }}.cs-tone--custom .cs-footer__giant span {
+      color: {{ section.settings.c_giant }};
+      -webkit-text-stroke-color: {{ section.settings.c_giant }};
+    }
+
+    /* Bottom bar */
+    #{{ footer_id }}.cs-tone--custom .cs-footer__bottom {
+      {%- if section.settings.c_bottom_bg != blank %}
+      background: {{ section.settings.c_bottom_bg }};
+      {%- endif %}
+    }
+    #{{ footer_id }}.cs-tone--custom :is(.cs-footer__copy, .cs-footer__policies a) {
+      color: {{ section.settings.c_bottom_text }};
+    }
+  {%- endif -%}
+{%- endstyle -%}
 
 <footer
+  id="{{ footer_id }}"
   class="cs-footer cs-tone--{{ section.settings.tone }}"
   style="--cs-pt: {{ section.settings.padding_top }}px;"
 >
@@ -38,14 +214,22 @@
             <p class="cs-footer__cta-text">{{ section.settings.cta_text }}</p>
           {%- endif -%}
         </div>
-        {%- if section.settings.cta_label != blank -%}
-          <a
-            class="cs-footer__cta-btn"
-            {% if section.settings.cta_link != blank %}href="{{ section.settings.cta_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
-          >
-            <span>{{ section.settings.cta_label | escape }}</span>
-            <span class="cs-footer__cta-arrow">{% render 'custom-icon', icon: 'arrow-up-right' %}</span>
-          </a>
+
+        {%- if section.settings.retailer_btn_label != blank or section.settings.brand_btn_label != blank -%}
+          <div class="cs-footer__cta-actions">
+            {%- if section.settings.retailer_btn_label != blank -%}
+              <a class="cs-footer__cta-btn cs-footer__cta-btn--primary" href="{{ retailer_url }}">
+                <span>{{ section.settings.retailer_btn_label | escape }}</span>
+                <span class="cs-footer__cta-arrow">{% render 'custom-icon', icon: 'arrow-up-right' %}</span>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.brand_btn_label != blank -%}
+              <a class="cs-footer__cta-btn cs-footer__cta-btn--secondary" href="{{ brand_url }}">
+                <span>{{ section.settings.brand_btn_label | escape }}</span>
+                <span class="cs-footer__cta-arrow">{% render 'custom-icon', icon: 'arrow-up-right' %}</span>
+              </a>
+            {%- endif -%}
+          </div>
         {%- endif -%}
       </div>
     </div>
@@ -102,17 +286,18 @@
               </a>
             </li>
           {%- endif -%}
-            {%- if wa_url != blank and section.settings.whatsapp_label != blank -%}
-          <a href="{{ wa_url }}" class="cs-footer__whatsapp" target="_blank" rel="noopener">
-            <span class="cs-footer__whatsapp-icon">{% render 'custom-icon', icon: 'whatsapp' %}</span>
-            <span class="cs-footer__whatsapp-copy">
-              <span class="cs-footer__whatsapp-label">{{ section.settings.whatsapp_label | escape }}</span>
-              <span class="cs-footer__whatsapp-number">{{ section.settings.whatsapp_number | escape }}</span>
-            </span>
-            {% render 'custom-icon', icon: 'arrow-up-right', class: 'cs-footer__whatsapp-arrow' %}
-          </a>
-        {%- endif -%}
         </ul>
+      {%- endif -%}
+
+      {%- if wa_as_button -%}
+        <a href="{{ wa_url }}" class="cs-footer__whatsapp" target="_blank" rel="noopener">
+          <span class="cs-footer__whatsapp-icon">{% render 'custom-icon', icon: 'whatsapp' %}</span>
+          <span class="cs-footer__whatsapp-copy">
+            <span class="cs-footer__whatsapp-label">{{ section.settings.whatsapp_label | escape }}</span>
+            <span class="cs-footer__whatsapp-number">{{ section.settings.whatsapp_number | escape }}</span>
+          </span>
+          {% render 'custom-icon', icon: 'arrow-up-right', class: 'cs-footer__whatsapp-arrow' %}
+        </a>
       {%- endif -%}
     </div>
 
@@ -260,15 +445,24 @@
       "default": "One partner from first shipment to nationwide scale."
     },
     {
-      "type": "text",
-      "id": "cta_label",
-      "label": "Button label",
-      "default": "Partner with us"
-    },
-    {
       "type": "url",
       "id": "cta_link",
-      "label": "Button link"
+      "label": "Contact page link",
+      "info": "The page with the Custom Contact Us section. Leave empty to use /pages/contact. Each button opens its matching tab automatically."
+    },
+    {
+      "type": "text",
+      "id": "retailer_btn_label",
+      "label": "Button 1 label (opens Retailer form)",
+      "info": "Leave empty to hide this button.",
+      "default": "Are you a Retailer?"
+    },
+    {
+      "type": "text",
+      "id": "brand_btn_label",
+      "label": "Button 2 label (opens Brand form)",
+      "info": "Leave empty to hide this button.",
+      "default": "Are you a Brand?"
     },
     {
       "type": "header",
@@ -323,10 +517,27 @@
       "id": "youtube_url",
       "label": "YouTube link"
     },
-     {
+    {
+      "type": "header",
+      "content": "WhatsApp"
+    },
+    {
       "type": "text",
       "id": "whatsapp_number",
-      "label": "WhatsApp number"
+      "label": "WhatsApp number",
+      "info": "With country code, e.g. +91 98765 43210"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_label",
+      "label": "WhatsApp button label",
+      "info": "Fill this to show a large WhatsApp button. Leave empty to show WhatsApp as a small social icon."
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_message",
+      "label": "Pre-filled WhatsApp message",
+      "info": "Optional."
     },
     {
       "type": "header",
@@ -368,9 +579,11 @@
       "options": [
         { "value": "light", "label": "White" },
         { "value": "paper", "label": "Paper" },
-        { "value": "dark", "label": "Midnight" }
+        { "value": "dark", "label": "Midnight" },
+        { "value": "custom", "label": "Custom colours" }
       ],
-      "default": "dark"
+      "default": "dark",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
     },
     {
       "type": "range",
@@ -381,7 +594,65 @@
       "step": 8,
       "unit": "px",
       "default": 80
-    }
+    },
+    {
+      "type": "header",
+      "content": "Custom colours – General",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    { "type": "color", "id": "c_bg", "label": "Footer background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_heading", "label": "Column headings & wordmark", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_text", "label": "Links", "default": "#E2E8F0", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_link_hover", "label": "Link hover", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_muted", "label": "Body text (about, address, newsletter text)", "default": "#94A3B8", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accent", "label": "Accent (tagline, icons, italic words)", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_border", "label": "Borders / dividers", "default": "#1E293B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Call to action",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color_background", "id": "c_cta_bg", "label": "Banner background", "info": "Leave empty for transparent. Gradients work too.", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_cta_title", "label": "Banner heading", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_cta_text", "label": "Banner text", "default": "#CBD5E1", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_cta_btn_bg", "label": "Button 1 background", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_cta_btn_text", "label": "Button 1 text", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_cta_btn_hover_bg", "label": "Button 1 hover background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_cta_btn_hover_text", "label": "Button 1 hover text", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_cta_btn2_bg", "label": "Button 2 background", "info": "Leave empty for an outline button.", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_cta_btn2_text", "label": "Button 2 text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_cta_btn2_border", "label": "Button 2 border", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_cta_btn2_hover_bg", "label": "Button 2 hover background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_cta_btn2_hover_text", "label": "Button 2 hover text", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Social & WhatsApp",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_icon_bg", "label": "Icon button background", "default": "#1E293B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_icon", "label": "Icon colour", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_icon_hover_bg", "label": "Icon button hover background", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_icon_hover", "label": "Icon hover colour", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_wa_bg", "label": "WhatsApp button background", "default": "#25D366", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_wa_text", "label": "WhatsApp button text", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Newsletter",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_input_bg", "label": "Field background", "default": "#1E293B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_input_text", "label": "Field text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_input_border", "label": "Field border", "default": "#334155", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_submit_bg", "label": "Submit button background", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_submit_icon", "label": "Submit button icon", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Bottom",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_giant", "label": "Oversized wordmark", "default": "#1E293B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color_background", "id": "c_bottom_bg", "label": "Bottom bar background", "info": "Leave empty to match the footer.", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_bottom_text", "label": "Copyright & policy links", "default": "#94A3B8", "visible_if": "{{ section.settings.tone == 'custom' }}" }
   ],
   "blocks": [
     {

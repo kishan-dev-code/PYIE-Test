@@ -125,7 +125,7 @@
   pointer-events: none;
 }
 
-.cs-market__bar.is-labelled .cs-market__bar-value,
+
 .cs-market__bar:hover .cs-market__bar-value {
   opacity: 1;
 }
@@ -402,8 +402,12 @@
   background: linear-gradient(180deg, rgba(255, 59, 59, 0.9), rgba(255, 59, 59, 0.18));
 }
 
-.cs-tone--onyx .cs-market__bar.is-actual .cs-market__bar-fill {
-  background: rgba(255, 255, 255, 0.85);
+.cs-tone--custom .cs-market__bar-fill {
+  background: linear-gradient(90deg, #00abe429, #ffffff08 60%, #ffffff05);
+}
+
+.cs-tone--custom .cs-market__bar-fill {
+    background: linear-gradient(180deg, #00abe4, #448094) !important;
 }
 
 .cs-tone--onyx .cs-market__bar:hover .cs-market__bar-fill {
@@ -412,7 +416,7 @@
 
 .cs-tone--onyx .cs-market__bar-value {
   background: #ffffff;
-  color: #16181c;
+  color: #00ABE4;
 }
 
 .cs-tone--onyx .cs-market__bar-year,
@@ -428,19 +432,19 @@
 }
 
 .cs-tone--onyx .cs-market__reason-toggle {
-  border-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.14); 
   color: var(--cs-fg);
 }
 
 /* Closing statement: red edge with a warm fade */
 .cs-tone--onyx .cs-market__closing {
   border: 1px solid rgba(255, 255, 255, 0.06);
-  background: linear-gradient(90deg, rgba(255, 59, 59, 0.16) 0%, rgba(255, 255, 255, 0.03) 60%, rgba(255, 255, 255, 0.02) 100%);
+  background: linear-gradient(90deg, #00abe429, #ffffff08 60%, #ffffff05);
   color: var(--cs-fg-muted);
 }
 
 .cs-tone--onyx .cs-market__closing::before {
-  background: var(--cs-accent);
+  background: #00ABE4;
 }
 
 .cs-tone--onyx .cs-market__closing strong,

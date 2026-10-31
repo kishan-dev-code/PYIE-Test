@@ -1,8 +1,45 @@
 {{ 'custom-marquee.css' | asset_url | stylesheet_tag }}
 
+{%- if section.settings.tone == 'custom' -%}
+  {%- style -%}
+    /* ---------- Custom colour combination ---------- */
+    #cs-marquee-{{ section.id }}.cs-tone--custom {
+      --cs-bg: {{ section.settings.c_bg }};
+      --cs-fg: {{ section.settings.c_text }};
+      --cs-fg-muted: {{ section.settings.c_text | color_modify: 'alpha', 0.62 }};
+      --cs-line: {{ section.settings.c_border }};
+      --cs-accent: {{ section.settings.c_sep }};
+      --cs-accent-text: {{ section.settings.c_sep }};
+
+      color: var(--cs-fg);
+      
+      {%- if section.settings.c_bg_gradient != blank %}
+      background-image: {{ section.settings.c_bg_gradient }};
+      background-repeat: no-repeat;
+      {%- else %}
+      background-image: none;
+      {%- endif %}
+      background-color: var(--cs-bg);
+      {%- if section.settings.c_show_border %}
+      border-top: {{ section.settings.c_border_width }}px solid var(--cs-line);
+      border-bottom: {{ section.settings.c_border_width }}px solid var(--cs-line);
+      {%- endif %}
+    }
+    #cs-marquee-{{ section.id }}.cs-tone--custom .cs-marquee__item {
+      color: var(--cs-fg);
+    }
+    #cs-marquee-{{ section.id }}.cs-tone--custom .cs-marquee__sep {
+      fill: var(--cs-accent);
+    }
+    #cs-marquee-{{ section.id }}.cs-tone--custom .cs-marquee__item:hover {
+      color: {{ section.settings.c_text_hover }};
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
 <section
   id="cs-marquee-{{ section.id }}"
-  class="cs-section cs-marquee-wrapper cs-tone--{{ section.settings.tone }}{% if section.settings.reverse %} cs-marquee--reverse{% endif %}"
+  class="cs-section cs-marquee cs-marquee-wrapper cs-tone--{{ section.settings.tone }}{% if section.settings.reverse %} cs-marquee--reverse{% endif %}"
   style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px; --cs-marquee-speed: {{ section.settings.speed }}s;"
 >
   {%- if section.blocks.size > 0 -%}
@@ -57,28 +94,15 @@
       "id": "tone",
       "label": "Colour tone",
       "options": [
-        { 
-            "value": "light", 
-            "label": "White" 
-        },
-        { 
-            "value": "paper", 
-            "label": "Paper" 
-        },
-        { 
-            "value": "dark", 
-            "label": "Midnight" 
-        },
-        { 
-            "value": "accent", 
-            "label": "Saffron" 
-        },
-        { 
-            "value": "noir", 
-            "label": "Noir glow" 
-        }
+        { "value": "light", "label": "White" },
+        { "value": "paper", "label": "Paper" },
+        { "value": "dark", "label": "Midnight" },
+        { "value": "accent", "label": "Saffron" },
+        { "value": "noir", "label": "Noir glow" },
+        { "value": "custom", "label": "Custom colours" }
       ],
-      "default": "accent"
+      "default": "accent",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
     },
     {
       "type": "range",
@@ -99,6 +123,71 @@
       "step": 4,
       "unit": "px",
       "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Custom colours",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    {
+      "type": "color",
+      "id": "c_bg",
+      "label": "Background",
+      "default": "#050507",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color_background",
+      "id": "c_bg_gradient",
+      "label": "Background gradient",
+      "info": "Optional. Sits on top of the background colour. Leave empty for a flat colour.",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_text",
+      "label": "Text",
+      "default": "#FFFFFF",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_text_hover",
+      "label": "Text on hover",
+      "default": "#FF3B3B",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_sep",
+      "label": "Star separator",
+      "default": "#FF3B3B",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "c_show_border",
+      "label": "Show top & bottom border",
+      "default": false,
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_border",
+      "label": "Border colour",
+      "default": "#2A2A2E",
+      "visible_if": "{{ section.settings.tone == 'custom' and section.settings.c_show_border }}"
+    },
+    {
+      "type": "range",
+      "id": "c_border_width",
+      "label": "Border width",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1,
+      "visible_if": "{{ section.settings.tone == 'custom' and section.settings.c_show_border }}"
     }
   ],
   "blocks": [

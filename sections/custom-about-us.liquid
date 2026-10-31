@@ -5,41 +5,134 @@
   assign point_blocks = section.blocks | where: 'type', 'point'
 -%}
 
+{%- if section.settings.tone == 'custom' -%}
+  {%- style -%}
+    /* ---------- Custom colour combination ---------- */
+    #cs-split-{{ section.id }}.cs-tone--custom {
+      --cs-s-bg: {{ section.settings.c_bg }};
+      --cs-s-heading: {{ section.settings.c_heading }};
+      --cs-s-text: {{ section.settings.c_text }};
+      --cs-s-accent: {{ section.settings.c_accent }};
+      --cs-s-border: {{ section.settings.c_border }};
+      background-color: var(--cs-s-bg);
+      color: var(--cs-s-text);
+    }
+
+    /* Head */
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__content h1,
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__content h2,
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__content [class*="heading"] {
+      color: var(--cs-s-heading);
+    }
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__content em,
+    #cs-split-{{ section.id }}.cs-tone--custom [class*="eyebrow"] {
+      color: var(--cs-s-accent);
+    }
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__content .cs-text,
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__content p {
+      color: var(--cs-s-text);
+    }
+
+    /* Stats */
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__stats,
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__stat {
+      border-color: var(--cs-s-border);
+    }
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__stat-value { color: {{ section.settings.c_stat_value }}; }
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__stat-label { color: {{ section.settings.c_stat_label }}; }
+
+    /* Points */
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__point {
+      border-color: var(--cs-s-border);
+    }
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__marker {
+      background-color: {{ section.settings.c_marker_bg }};
+      color: {{ section.settings.c_marker_text }};
+      border-color: {{ section.settings.c_marker_bg }};
+    }
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__marker svg {
+      color: inherit;
+      stroke: currentColor;
+    }
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__point-title {
+      color: {{ section.settings.c_point_title }};
+    }
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__point-body .cs-text,
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__point-body .cs-text p {
+      color: {{ section.settings.c_point_text }};
+    }
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__point-body strong {
+      color: {{ section.settings.c_point_bold }};
+    }
+
+    /* Badge */
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__badge {
+      background-color: {{ section.settings.c_badge_bg }};
+      color: {{ section.settings.c_badge_text }};
+      border-color: {{ section.settings.c_badge_bg }};
+    }
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__badge-value,
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__badge-label {
+      color: {{ section.settings.c_badge_text }};
+    }
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__ring text {
+      fill: {{ section.settings.c_ring }};
+    }
+
+    /* Button */
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__cta {
+      background-color: {{ section.settings.c_btn_bg }};
+      color: {{ section.settings.c_btn_text }};
+      border-color: {{ section.settings.c_btn_bg }};
+    }
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__cta:hover,
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__cta:focus-visible {
+      background-color: {{ section.settings.c_btn_hover_bg }};
+      color: {{ section.settings.c_btn_hover_text }};
+      border-color: {{ section.settings.c_btn_hover_bg }};
+    }
+    #cs-split-{{ section.id }}.cs-tone--custom .cs-split__cta svg {
+      color: inherit;
+      stroke: currentColor;
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
 <section
   id="cs-split-{{ section.id }}"
   class="cs-section cs-split cs-tone--{{ section.settings.tone }} cs-split--media-{{ section.settings.media_position }}"
   style="--cs-pt: {{ section.settings.padding_top }}px; --cs-pb: {{ section.settings.padding_bottom }}px;"
 >
-  <div class="cs-container cs-split__inner {% if section.settings.image != blank %}no-image{% endif %}">
-  {%- if section.settings.image != blank -%}
-    <div class="cs-split__media" data-cs-reveal>
-      <div class="cs-media cs-split__img">
-        {% render 'cs-image', image: section.settings.image, sizes: '(min-width: 990px) 45vw, 100vw', placeholder: 'lifestyle-2' %}
+  <div class="cs-container cs-split__inner{% if section.settings.image == blank %} no-image{% endif %}">
+    {%- if section.settings.image != blank -%}
+      <div class="cs-split__media" data-cs-reveal>
+        <div class="cs-media cs-split__img">
+          {% render 'cs-image', image: section.settings.image, sizes: '(min-width: 990px) 45vw, 100vw', placeholder: 'lifestyle-2' %}
+        </div>
+
+        {%- if section.settings.image_2 != blank -%}
+          <div class="cs-media cs-split__img-2">
+            {% render 'cs-image', image: section.settings.image_2, sizes: '(min-width: 990px) 20vw, 45vw' %}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.badge_value != blank -%}
+          <div class="cs-split__badge">
+            {%- if section.settings.ring_text != blank -%}
+              <svg class="cs-split__ring" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+                <defs>
+                  <path id="cs-ring-{{ section.id }}" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0" />
+                </defs>
+                <text textLength="500" lengthAdjust="spacing">
+                  <textPath href="#cs-ring-{{ section.id }}">{{ section.settings.ring_text | escape }}</textPath>
+                </text>
+              </svg>
+            {%- endif -%}
+            <span class="cs-split__badge-value">{{ section.settings.badge_value }}</span>
+            <span class="cs-split__badge-label">{{ section.settings.badge_label }}</span>
+          </div>
+        {%- endif -%}
       </div>
-
-      {%- if section.settings.image_2 != blank -%}
-        <div class="cs-media cs-split__img-2">
-          {% render 'cs-image', image: section.settings.image_2, sizes: '(min-width: 990px) 20vw, 45vw' %}
-        </div>
-      {%- endif -%}
-
-      {%- if section.settings.badge_value != blank -%}
-        <div class="cs-split__badge">
-          {%- if section.settings.ring_text != blank -%}
-            <svg class="cs-split__ring" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
-              <defs>
-                <path id="cs-ring-{{ section.id }}" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0" />
-              </defs>
-              <text textLength="500" lengthAdjust="spacing">
-                <textPath href="#cs-ring-{{ section.id }}">{{ section.settings.ring_text | escape }}</textPath>
-              </text>
-            </svg>
-          {%- endif -%}
-          <span class="cs-split__badge-value">{{ section.settings.badge_value }}</span>
-          <span class="cs-split__badge-label">{{ section.settings.badge_label }}</span>
-        </div>
-      {%- endif -%}
-    </div>
     {%- endif -%}
 
     <div class="cs-split__content">
@@ -73,7 +166,7 @@
                 {%- if section.settings.list_style == 'number' -%}
                   {% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}
                 {%- else -%}
-                {% render 'custom-icon', icon: 'check' %}
+                  {% render 'custom-icon', icon: 'check' %}
                 {%- endif -%}
               </span>
               <div class="cs-split__point-body">
@@ -90,7 +183,7 @@
       {%- if section.settings.button_label != blank -%}
         <a
           class="cs-btn cs-btn--primary cs-split__cta"
-          {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% else %}role="link" {% endif %}
+          {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
         >
           {{- section.settings.button_label | escape -}}
           <svg class="cs-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
@@ -132,14 +225,8 @@
       "id": "list_style",
       "label": "Point marker",
       "options": [
-        { 
-            "value": "number", 
-            "label": "Numbers" 
-        },
-        { 
-            "value": "check", 
-            "label": "Check icon"
-         }
+        { "value": "number", "label": "Numbers" },
+        { "value": "check", "label": "Check icon" }
       ],
       "default": "number"
     },
@@ -173,14 +260,8 @@
       "id": "media_position",
       "label": "Image position on desktop",
       "options": [
-        { 
-            "value": "left", 
-            "label": "Left" 
-        },
-        { 
-            "value": "right", 
-            "label": "Right" 
-        }
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
       ],
       "default": "left"
     },
@@ -215,9 +296,11 @@
         { "value": "paper", "label": "Paper" },
         { "value": "dark", "label": "Midnight" },
         { "value": "accent", "label": "Saffron" },
-        { "value": "graphite", "label": "Graphite" }
+        { "value": "graphite", "label": "Graphite" },
+        { "value": "custom", "label": "Custom colours" }
       ],
-      "default": "light"
+      "default": "light",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
     },
     {
       "type": "range",
@@ -238,7 +321,46 @@
       "step": 8,
       "unit": "px",
       "default": 96
-    }
+    },
+    {
+      "type": "header",
+      "content": "Custom colours – Section",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    { "type": "color", "id": "c_bg", "label": "Section background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_heading", "label": "Heading", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_text", "label": "Intro text", "default": "#475569", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accent", "label": "Accent (eyebrow, italic words)", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_border", "label": "Borders / dividers", "default": "#E2E8F0", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Stats & points",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_stat_value", "label": "Stat number", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_stat_label", "label": "Stat label", "default": "#64748B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_marker_bg", "label": "Point marker background", "default": "#FEF3C7", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_marker_text", "label": "Point marker number / icon", "default": "#B45309", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_point_title", "label": "Point title", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_point_text", "label": "Point text", "default": "#475569", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_point_bold", "label": "Point bold text", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Badge",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_badge_bg", "label": "Badge background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_badge_text", "label": "Badge value & label", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_ring", "label": "Rotating ring text", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Button",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_btn_bg", "label": "Button background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_text", "label": "Button text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_hover_bg", "label": "Button hover background", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_hover_text", "label": "Button hover text", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" }
   ],
   "blocks": [
     {

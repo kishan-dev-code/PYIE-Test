@@ -442,6 +442,11 @@
   background: var(--cs-bg);
 }
 
+
+.cs-section.cs-partners.cs-tone--custom {
+--cs-line: rgba(255, 255, 255, 0.1);
+}
+
 .cs-partners.cs-tone--graphite .cs-text {
   color: var(--cs-fg-muted);
 }
@@ -487,9 +492,18 @@
   border-color: rgba(255, 255, 255, 0.06);
 }
 
+
 .cs-partners.cs-tone--graphite .cs-partners__product {
   border-color: rgba(255, 255, 255, 0.06);
   background: #121820;
+}
+
+.cs-partners.cs-tone--custom .cs-partners__product {
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.cs-partners.cs-tone--custom .cs-partners__product:hover {
+  border-color: #00abe4 !important;
 }
 
 .cs-partners.cs-tone--graphite .cs-partners__product:hover {

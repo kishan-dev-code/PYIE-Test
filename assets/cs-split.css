@@ -218,6 +218,10 @@
     grid-template-columns: none;
 }
 
+.cs-split--media-right .cs-split__inner.no-image {
+    grid-template-columns: none;
+}
+
 
   .cs-split__media {
     position: sticky;
@@ -276,7 +280,8 @@
 }
 
 /* Points become rounded cards, as in the reference */
-.cs-tone--graphite .cs-split__points {
+.cs-tone--graphite .cs-split__points,
+.cs-tone--custom .cs-split__points {
   gap: 1.6rem;
 }
 
@@ -286,6 +291,15 @@
   border: 1px solid transparent;
   border-radius: var(--cs-radius-lg, 1.6rem);
   background: var(--cs-card);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.cs-tone--custom .cs-split__point,
+.cs-tone--custom .cs-split__point:last-child {
+  padding: 1.8rem 2rem;
+  border: 1px solid transparent;
+  border-radius: var(--cs-radius-lg, 1.6rem);
+  background-color: #1e293b;
   transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
@@ -302,7 +316,17 @@
 /* Stats strip */
 .cs-tone--graphite .cs-split__stats {
   border-color: var(--cs-line);
-  background: var(--cs-card);
+    background: var(--cs-card);
+}
+
+.cs-tone--custom .cs-split__stats {
+    background: #1e293b;
+    border: 1px solid #ffffff14 !important;
+}
+
+.cs-tone--custom .cs-split__stat+.cs-split__stat {
+  border-color: #ffffff14;
+  border-left: 1px solid #ffffff14 !important;
 }
 
 /* Media */

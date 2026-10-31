@@ -67,11 +67,30 @@
         "button_link": "/pages/contact",
         "button_label_2": "Explore products",
         "button_link_2": "",
-        "tone": "noir",
+        "tone": "custom",
         "list_style": "plain",
         "show_grid": true,
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "c_bg": "#050507",
+        "c_heading": "#ffffff",
+        "c_text": "#ffffff",
+        "c_accent": "#00abe4",
+        "c_grid_opacity": 100,
+        "c_btn_bg": "#00abe4",
+        "c_btn_text": "#ffffff",
+        "c_btn_hover_bg": "#ffffff",
+        "c_btn_hover_text": "#00abe4",
+        "c_ghost_text": "#ffffff",
+        "c_ghost_border": "#475569",
+        "c_ghost_hover_bg": "#00abe4",
+        "c_ghost_hover_text": "#ffffff",
+        "c_panel_bg": "",
+        "c_divider": "#1e293b",
+        "c_num": "#00abe4",
+        "c_num_bg": "",
+        "c_item_muted": "#ffffff",
+        "c_item_bold": "#ffffff"
       }
     },
     "custom_hero_banner_7ppRFV": {
@@ -183,9 +202,17 @@
       "settings": {
         "speed": 36,
         "reverse": true,
-        "tone": "noir",
+        "tone": "custom",
         "padding_top": 24,
-        "padding_bottom": 24
+        "padding_bottom": 24,
+        "c_bg": "#050507",
+        "c_bg_gradient": "radial-gradient(ellipse 45% 160% at 0% 50%, rgba(0, 171, 228, 0.55) 0%, transparent 70%), radial-gradient(ellipse 45% 160% at 100% 50%, rgba(0, 171, 228, 0.6) 0%, transparent 70%)",
+        "c_text": "#ffffff",
+        "c_text_hover": "#00ABE4",
+        "c_sep": "#00ABE4",
+        "c_show_border": false,
+        "c_border": "#2a2a2e",
+        "c_border_width": 1
       }
     },
     "custom_about_us_RazkP4": {
@@ -249,7 +276,26 @@
         "ring_text": "Powered by Intex • 30 years of trust •",
         "tone": "light",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "c_bg": "#ffffff",
+        "c_heading": "#0f172a",
+        "c_text": "#475569",
+        "c_accent": "#f59e0b",
+        "c_border": "#e2e8f0",
+        "c_stat_value": "#0f172a",
+        "c_stat_label": "#64748b",
+        "c_marker_bg": "#fef3c7",
+        "c_marker_text": "#b45309",
+        "c_point_title": "#0f172a",
+        "c_point_text": "#475569",
+        "c_point_bold": "#0f172a",
+        "c_badge_bg": "#0f172a",
+        "c_badge_text": "#ffffff",
+        "c_ring": "#f59e0b",
+        "c_btn_bg": "#0f172a",
+        "c_btn_text": "#ffffff",
+        "c_btn_hover_bg": "#f59e0b",
+        "c_btn_hover_text": "#0f172a"
       }
     },
     "custom_card_slider_AwqmMy": {
@@ -262,7 +308,10 @@
             "value": "No. 1",
             "title": "India's No. 1 mobile brand",
             "text": "<p>Intex became India's No. 1 mobile brand — a milestone earned through nationwide retail presence and sustained consumer trust, not a single campaign.</p>",
-            "style": "soft"
+            "style": "soft",
+            "cb_bg": "#1e293b",
+            "cb_text": "#ffffff",
+            "cb_accent": "#f59e0b"
           }
         },
         "card_PkLGke": {
@@ -272,7 +321,10 @@
             "value": "1bn+",
             "title": "IPL ownership",
             "text": "<p>Intex owned the Gujarat Lions franchise in the Indian Premier League — India's biggest cricket league, watched by 1bn+ viewers annually — giving the group nationwide brand visibility at the highest level of Indian sport.</p>",
-            "style": "soft"
+            "style": "soft",
+            "cb_bg": "#1e293b",
+            "cb_text": "#ffffff",
+            "cb_accent": "#f59e0b"
           }
         },
         "card_nTxMBR": {
@@ -282,7 +334,10 @@
             "value": "",
             "title": "Celebrity endorsement campaigns",
             "text": "<p>Celebrity endorsement campaigns run at national scale for flagship product launches.</p>",
-            "style": "soft"
+            "style": "soft",
+            "cb_bg": "#1e293b",
+            "cb_text": "#ffffff",
+            "cb_accent": "#f59e0b"
           }
         },
         "card_nXDenw": {
@@ -292,7 +347,10 @@
             "value": "5 sec",
             "title": "1 product sold every 5 seconds",
             "text": "<p>Consumer trust at volume: 1 product sold every 5 seconds, 1 billion+ products sold to date.</p>",
-            "style": "soft"
+            "style": "soft",
+            "cb_bg": "#1e293b",
+            "cb_text": "#ffffff",
+            "cb_accent": "#f59e0b"
           }
         },
         "highlight_t83M6Y": {
@@ -319,9 +377,33 @@
         "heading": "A <em>brand-building</em> track record &nbsp;track record, not just a distribution network",
         "text": "",
         "closing": "",
-        "tone": "charcoal",
+        "tone": "custom",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "c_bg": "#0f1419",
+        "c_heading": "#ffffff",
+        "c_text": "#ffffff",
+        "c_accent": "#00abe4",
+        "c_border": "#e2e8f0",
+        "c_counter": "#ffffff",
+        "c_btn_bg": "#ffffff",
+        "c_btn_icon": "#0f172a",
+        "c_btn_border": "#cbd5e1",
+        "c_btn_hover_bg": "#0f172a",
+        "c_btn_hover_icon": "#ffffff",
+        "c_progress_track": "#e2e8f0",
+        "c_progress_bar": "#00abe4",
+        "c_soft_bg": "#1e293b",
+        "c_soft_text": "#ffffff",
+        "c_soft_accent": "#00abe4",
+        "c_solid_bg": "#0f172a",
+        "c_solid_text": "#ffffff",
+        "c_solid_accent": "#00abe4",
+        "c_accentcard_bg": "#00abe4",
+        "c_accentcard_text": "#0f172a",
+        "c_hl_bg": "#0f172a",
+        "c_hl_text": "#ffffff",
+        "c_hl_accent": "#00abe4"
       }
     },
     "custom_about_us_HeAt7f": {
@@ -390,9 +472,28 @@
         "badge_value": "1996",
         "badge_label": "Founded",
         "ring_text": "Powered by Intex • 30 years of trust •",
-        "tone": "graphite",
+        "tone": "custom",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "c_bg": "#16181c",
+        "c_heading": "#ffffff",
+        "c_text": "#ffffff",
+        "c_accent": "#00abe4",
+        "c_border": "rgba(0,0,0,0)",
+        "c_stat_value": "#ffffff",
+        "c_stat_label": "#ffffff",
+        "c_marker_bg": "#00abe4",
+        "c_marker_text": "#ffffff",
+        "c_point_title": "#ffffff",
+        "c_point_text": "#ffffff",
+        "c_point_bold": "#ffffff",
+        "c_badge_bg": "#0f172a",
+        "c_badge_text": "#ffffff",
+        "c_ring": "#00abe4",
+        "c_btn_bg": "#00abe4",
+        "c_btn_text": "#ffffff",
+        "c_btn_hover_bg": "#ffffff",
+        "c_btn_hover_text": "#00abe4"
       }
     },
     "custom_card_slider_gxzMpL": {
@@ -405,7 +506,10 @@
             "value": "",
             "title": "Official Brand Launches",
             "text": "<p>Seamless entry into the Indian market with compliant, strategic, and high-impact product launches.</p>",
-            "style": "soft"
+            "style": "soft",
+            "cb_bg": "#1e293b",
+            "cb_text": "#ffffff",
+            "cb_accent": "#f59e0b"
           }
         },
         "card_VkyE9X": {
@@ -415,7 +519,10 @@
             "value": "",
             "title": "E-commerce & Retail Partner",
             "text": "<p>Multi-channel presence across leading marketplaces and offline retail networks.</p>",
-            "style": "soft"
+            "style": "soft",
+            "cb_bg": "#1e293b",
+            "cb_text": "#ffffff",
+            "cb_accent": "#f59e0b"
           }
         },
         "card_P6xpnG": {
@@ -425,7 +532,10 @@
             "value": "",
             "title": "Localized Marketing & Brand Building",
             "text": "<p>India-first storytelling, influencer strategy, and performance marketing that resonates locally.</p>",
-            "style": "soft"
+            "style": "soft",
+            "cb_bg": "#1e293b",
+            "cb_text": "#ffffff",
+            "cb_accent": "#f59e0b"
           }
         },
         "card_4Fmemc": {
@@ -435,7 +545,10 @@
             "value": "",
             "title": "After-Sales Support & Warranty",
             "text": "<p>Reliable service infrastructure ensuring customer confidence, satisfaction, and retention.</p>",
-            "style": "soft"
+            "style": "soft",
+            "cb_bg": "#1e293b",
+            "cb_text": "#ffffff",
+            "cb_accent": "#f59e0b"
           }
         },
         "card_GwDMDc": {
@@ -445,7 +558,10 @@
             "value": "",
             "title": "Customer Education & Community",
             "text": "<p>Building engaged user communities through education, content, and long-term relationship building.</p>",
-            "style": "soft"
+            "style": "soft",
+            "cb_bg": "#1e293b",
+            "cb_text": "#ffffff",
+            "cb_accent": "#f59e0b"
           }
         }
       },
@@ -462,9 +578,33 @@
         "heading": "End-to-end market <em>launch & growth</em>",
         "text": "<p>PYIE manages the complete lifecycle of global tech products in India — from launch to long-term growth, customer trust, and brand leadership.</p>",
         "closing": "We don't just sell products — <strong>we build long-term brand presence.</strong>",
-        "tone": "charcoal",
+        "tone": "custom",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "c_bg": "#0f1419",
+        "c_heading": "#ffffff",
+        "c_text": "#ffffff",
+        "c_accent": "#00abe4",
+        "c_border": "#e2e8f0",
+        "c_counter": "#0f172a",
+        "c_btn_bg": "#ffffff",
+        "c_btn_icon": "#0f172a",
+        "c_btn_border": "#cbd5e1",
+        "c_btn_hover_bg": "#0f172a",
+        "c_btn_hover_icon": "#ffffff",
+        "c_progress_track": "#e2e8f0",
+        "c_progress_bar": "#00abe4",
+        "c_soft_bg": "#1e293b",
+        "c_soft_text": "#ffffff",
+        "c_soft_accent": "#00abe4",
+        "c_solid_bg": "#0f172a",
+        "c_solid_text": "#ffffff",
+        "c_solid_accent": "#00abe4",
+        "c_accentcard_bg": "#00abe4",
+        "c_accentcard_text": "#0f172a",
+        "c_hl_bg": "#0f172a",
+        "c_hl_text": "#ffffff",
+        "c_hl_accent": "#00abe4"
       }
     },
     "custom_vision_fyxRwb": {
@@ -500,6 +640,7 @@
         "pillar_4MwiCh",
         "pillar_CftPP4"
       ],
+      "disabled": true,
       "name": "Custom Vision & mission",
       "settings": {
         "eyebrow": "What drives us",
@@ -587,9 +728,27 @@
         "chart_note": "7.8% CAGR through 2033, reaching $183B.",
         "why_heading": "Why now?",
         "closing": "A market this large, growing this fast, with this much headroom — needs a partner who has <strong>already built the infrastructure</strong> to capture it.",
-        "tone": "onyx",
+        "tone": "custom",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "c_bg": "#16181c",
+        "c_heading": "#ffffff",
+        "c_text": "#ffffff",
+        "c_accent": "#00abe4",
+        "c_big": "#0f172a",
+        "c_card_bg": "#1e293b",
+        "c_card_text": "#ffffff",
+        "c_bar": "#e9f1fa",
+        "c_bar_actual": "#00abe4",
+        "c_tag_bg": "#0f172a",
+        "c_tag_text": "#ffffff",
+        "c_metric": "#00abe4",
+        "c_why_bg": "#1e293b",
+        "c_why_text": "#ffffff",
+        "c_num": "#00abe4",
+        "c_border": "#e2e8f0",
+        "c_closing": "#0f172a",
+        "c_closing_strong": "#f6fdff"
       }
     },
     "custom_distribution_flow_q6MXCd": {
@@ -790,9 +949,20 @@
         "heading": "India's deepest <em>offline distribution</em> network*",
         "text": "<p>Existing channels, warehousing and retail relationships — available to partner brands from Day 1.</p>",
         "footnote": "",
-        "tone": "graphite",
+        "image_width": 90,
+        "image_radius": 12,
+        "tone": "custom",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "c_bg": "#0f1419",
+        "c_heading": "#ffffff",
+        "c_text": "#ffffff",
+        "c_accent": "#00abe4",
+        "c_card_bg": "#1e293b",
+        "c_card_text": "#e2e8f0",
+        "c_featured_bg": "#00abe4",
+        "c_featured_text": "#0f172a",
+        "c_border": "#334155"
       }
     },
     "custom_gallery_slider_mrnXnL": {
@@ -858,9 +1028,21 @@
         "autoplay_speed": 4,
         "parallax": true,
         "cell_size": "medium",
-        "tone": "onyx",
+        "tone": "custom",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "c_bg": "#16181c",
+        "c_heading": "#ffffff",
+        "c_text": "#ffffff",
+        "c_accent": "#00abe4",
+        "c_counter": "#0f172a",
+        "c_btn_bg": "#ffffff",
+        "c_btn_icon": "#0f172a",
+        "c_btn_border": "#cbd5e1",
+        "c_btn_hover_bg": "#0f172a",
+        "c_btn_hover_icon": "#ffffff",
+        "c_caption": "#334155",
+        "c_num": "#f59e0b"
       }
     },
     "custom_statistics_points_4LUHbp": {
@@ -961,9 +1143,21 @@
         "heading": "After-sales support that reaches <em>every corner of India</em>*",
         "text": "",
         "footnote": "",
-        "tone": "graphite",
+        "image": "shopify://shop_images/india-map-transparent.png",
+        "image_width": 90,
+        "image_radius": 18,
+        "tone": "custom",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "c_bg": "#0f1419",
+        "c_heading": "#ffffff",
+        "c_text": "#ffffff",
+        "c_accent": "#00abe4",
+        "c_card_bg": "#1e293b",
+        "c_card_text": "#e2e8f0",
+        "c_featured_bg": "#00abe4",
+        "c_featured_text": "#ffffff",
+        "c_border": "#334155"
       }
     },
     "custom_partner_kKAH7L": {
@@ -1167,10 +1361,41 @@
         "shop_title_suffix": "products",
         "buy_label": "Buy on Amazon",
         "store_label": "View all on Amazon",
-        "tone": "graphite",
+        "tone": "custom",
         "logo_style": "original",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "c_bg": "#0f1419",
+        "c_heading": "#ffffff",
+        "c_text": "#ffffff",
+        "c_accent": "#00abe4",
+        "c_border": "#e2e8f0",
+        "c_footnote": "#64748b",
+        "c_card_bg": "#1e293b",
+        "c_wordmark": "#ffffff",
+        "c_card_text": "#ffffff",
+        "c_tag_bg": "#00abe4",
+        "c_tag_text": "#ffffff",
+        "c_cta": "#ffffff",
+        "c_card_active_bg": "#1e293b",
+        "c_card_active_border": "#00abe4",
+        "c_btn_bg": "#ffffff",
+        "c_btn_icon": "#0f172a",
+        "c_btn_border": "#cbd5e1",
+        "c_btn_hover_bg": "#0f172a",
+        "c_btn_hover_icon": "#ffffff",
+        "c_progress_track": "#e2e8f0",
+        "c_progress_bar": "#00abe4",
+        "c_shop_bg": "rgba(0,0,0,0)",
+        "c_shop_title": "#ffffff",
+        "c_store_link": "#00abe4",
+        "c_product_bg": "#121820",
+        "c_product_title": "#ffffff",
+        "c_price": "#ffffff",
+        "c_buy_bg": "#00abe4",
+        "c_buy_text": "#ffffff",
+        "c_buy_hover_bg": "#ffffff",
+        "c_buy_hover_text": "#00abe4"
       }
     },
     "custom_retail_zone_a3gF7A": {
@@ -1254,9 +1479,31 @@
         "text": "<p>India's first experiential tech retail format.</p>",
         "closing_heading": "Three <em>worlds</em>. One destination.",
         "closing_text": "Every PYIE store is built around a threefold experience — not a showroom, a destination.",
-        "tone": "onyx",
+        "tone": "custom",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "c_bg": "#16181c",
+        "c_heading": "#ffffff",
+        "c_text": "#ffffff",
+        "c_accent": "#00abe4",
+        "c_border": "#334155",
+        "c_stat_value": "#00abe4",
+        "c_stat_label": "#ffffff",
+        "c_tab_bg": "#1e293b",
+        "c_tab_text": "#cbd5e1",
+        "c_tab_icon_bg": "#334155",
+        "c_tab_icon": "#ffffff",
+        "c_tab_active_bg": "#1e293b",
+        "c_tab_active_text": "#ffffff",
+        "c_tab_active_border": "#00abe4",
+        "c_tab_active_icon": "#ffffff",
+        "c_panel_bg": "#1e293b",
+        "c_panel_title": "#ffffff",
+        "c_panel_tagline": "#00abe4",
+        "c_panel_text": "#cbd5e1",
+        "c_closing_bg": "",
+        "c_closing_title": "#ffffff",
+        "c_closing_text": "#cbd5e1"
       }
     },
     "custom_about_us_EDFyXt": {
@@ -1329,14 +1576,32 @@
         "list_style": "number",
         "button_label": "",
         "button_link": "",
-        "image": "shopify://shop_images/New_Project.jpg",
         "media_position": "right",
         "badge_value": "",
         "badge_label": "",
         "ring_text": "",
-        "tone": "graphite",
+        "tone": "custom",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "c_bg": "#0f1419",
+        "c_heading": "#ffffff",
+        "c_text": "#ffffff",
+        "c_accent": "#00abe4",
+        "c_border": "rgba(0,0,0,0)",
+        "c_stat_value": "#00abe4",
+        "c_stat_label": "#ffffff",
+        "c_marker_bg": "#00abe4",
+        "c_marker_text": "#ffffff",
+        "c_point_title": "#0f172a",
+        "c_point_text": "#ffffff",
+        "c_point_bold": "#ffffff",
+        "c_badge_bg": "#0f172a",
+        "c_badge_text": "#ffffff",
+        "c_ring": "#00abe4",
+        "c_btn_bg": "#0f172a",
+        "c_btn_text": "#ffffff",
+        "c_btn_hover_bg": "#00abe4",
+        "c_btn_hover_text": "#0f172a"
       }
     },
     "custom_gallery_slider_h9FCwm": {
@@ -1402,9 +1667,21 @@
         "autoplay_speed": 4,
         "parallax": true,
         "cell_size": "small",
-        "tone": "onyx",
+        "tone": "custom",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "c_bg": "#16181c",
+        "c_heading": "#ffffff",
+        "c_text": "#ffffff",
+        "c_accent": "#00abe4",
+        "c_counter": "#0f172a",
+        "c_btn_bg": "#ffffff",
+        "c_btn_icon": "#0f172a",
+        "c_btn_border": "#cbd5e1",
+        "c_btn_hover_bg": "#0f172a",
+        "c_btn_hover_icon": "#ffffff",
+        "c_caption": "#334155",
+        "c_num": "#00abe4"
       }
     },
     "custom_featured_product_slider_EEDLrd": {

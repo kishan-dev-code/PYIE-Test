@@ -20,17 +20,6 @@
   overflow: hidden;
 }
 
-.cs-contact__info::after {
-  content: '';
-  position: absolute;
-  left: -10rem;
-  bottom: -12rem;
-  width: 32rem;
-  height: 32rem;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 159, 28, 0.35), transparent 70%);
-  pointer-events: none;
-}
 
 .cs-contact__title {
   margin-bottom: 1.6rem;
@@ -114,17 +103,18 @@
 }
 
 .cs-field__input {
-  width: 100%;
-  min-height: 5.8rem;
-  padding: 2.2rem 1.6rem 0.8rem;
-  border: 1.5px solid rgba(11, 31, 42, 0.16);
-  border-radius: 1.2rem;
-  background: var(--cs-paper);
-  color: var(--cs-ink);
-  font: inherit;
-  font-size: 1.6rem;
-  appearance: none;
-  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+width: 100%;
+    min-height: 4.8rem;
+    padding: 1.2rem 1.6rem 0.6rem;
+    border: 1.5px solid rgba(11, 31, 42, .16);
+    border-radius: 1.2rem;
+    background: var(--cs-paper);
+    color: var(--cs-ink);
+    font: inherit;
+    font-size: 1.6rem;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
 }
 
 .cs-field__input--area {
@@ -147,7 +137,7 @@
 .cs-field__label {
   position: absolute;
   left: 1.7rem;
-  top: 1.85rem;
+  top: 1.15rem;
   font-size: 1.5rem;
   color: var(--cs-slate);
   pointer-events: none;

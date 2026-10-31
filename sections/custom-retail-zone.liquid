@@ -5,6 +5,108 @@
   assign zones = section.blocks | where: 'type', 'zone'
 -%}
 
+{%- if section.settings.tone == 'custom' -%}
+  {%- style -%}
+    /* ---------- Custom colour combination ---------- */
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom {
+      --cs-z-bg: {{ section.settings.c_bg }};
+      --cs-z-heading: {{ section.settings.c_heading }};
+      --cs-z-text: {{ section.settings.c_text }};
+      --cs-z-accent: {{ section.settings.c_accent }};
+      --cs-z-border: {{ section.settings.c_border }};
+      background-color: var(--cs-z-bg);
+      color: var(--cs-z-text);
+    }
+
+    /* Head */
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom > .cs-container > :first-child h1,
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom > .cs-container > :first-child h2,
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom > .cs-container > :first-child [class*="heading"] {
+      color: var(--cs-z-heading);
+    }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom em,
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom [class*="eyebrow"] {
+      color: var(--cs-z-accent);
+    }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom > .cs-container > :first-child .cs-text,
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom > .cs-container > :first-child p {
+      color: var(--cs-z-text);
+    }
+
+    /* Stats */
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__stats,
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__stat {
+      border-color: var(--cs-z-border);
+    }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__stat-value { color: {{ section.settings.c_stat_value }}; }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__stat-label { color: {{ section.settings.c_stat_label }}; }
+
+    /* Tabs – default */
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__tab {
+      background-color: {{ section.settings.c_tab_bg }};
+      border-color: var(--cs-z-border);
+      color: {{ section.settings.c_tab_text }};
+    }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__tab :is(.cs-zones__tab-title, .cs-zones__tab-label, .cs-zones__tab-tagline) {
+      color: {{ section.settings.c_tab_text }};
+    }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__tab-icon {
+      background-color: {{ section.settings.c_tab_icon_bg }};
+      color: {{ section.settings.c_tab_icon }};
+      border-color: {{ section.settings.c_tab_icon_bg }};
+    }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__tab-icon svg {
+      color: inherit;
+      stroke: currentColor;
+    }
+
+    /* Tabs – active / hover */
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__tab.is-active,
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__tab:hover {
+      background-color: {{ section.settings.c_tab_active_bg }};
+      border-color: {{ section.settings.c_tab_active_border }};
+      color: {{ section.settings.c_tab_active_text }};
+    }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__tab.is-active :is(.cs-zones__tab-title, .cs-zones__tab-tagline),
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__tab:hover :is(.cs-zones__tab-title, .cs-zones__tab-tagline) {
+      color: {{ section.settings.c_tab_active_text }};
+    }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__tab.is-active .cs-zones__tab-label,
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__tab:hover .cs-zones__tab-label {
+      color: var(--cs-z-accent);
+    }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__tab.is-active .cs-zones__tab-icon {
+      background-color: var(--cs-z-accent);
+      color: {{ section.settings.c_tab_active_icon }};
+      border-color: var(--cs-z-accent);
+    }
+
+    /* Slide panel */
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__panel {
+      background-color: {{ section.settings.c_panel_bg }};
+      color: {{ section.settings.c_panel_text }};
+      border-color: var(--cs-z-border);
+    }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__panel-label { color: var(--cs-z-accent); }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__panel-title { color: {{ section.settings.c_panel_title }}; }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__panel-tagline { color: {{ section.settings.c_panel_tagline }}; }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__panel-text,
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__panel-text p {
+      color: {{ section.settings.c_panel_text }};
+    }
+
+    /* Closing */
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__closing {
+      {%- if section.settings.c_closing_bg != blank %}
+      background: {{ section.settings.c_closing_bg }};
+      {%- endif %}
+      border-color: var(--cs-z-border);
+    }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__closing-title { color: {{ section.settings.c_closing_title }}; }
+    #cs-retail-zones-{{ section.id }}.cs-tone--custom .cs-zones__closing-text { color: {{ section.settings.c_closing_text }}; }
+  {%- endstyle -%}
+{%- endif -%}
+
 <section
   id="cs-retail-zones-{{ section.id }}"
   class="cs-section cs-zones cs-tone--{{ section.settings.tone }}"
@@ -145,9 +247,11 @@
         { "value": "paper", "label": "Paper" },
         { "value": "dark", "label": "Midnight" },
         { "value": "accent", "label": "Saffron" },
-        { "value": "onyx", "label": "Onyx" }
+        { "value": "onyx", "label": "Onyx" },
+        { "value": "custom", "label": "Custom colours" }
       ],
-      "default": "dark"
+      "default": "dark",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
     },
     {
       "type": "range",
@@ -168,7 +272,49 @@
       "step": 8,
       "unit": "px",
       "default": 96
-    }
+    },
+    {
+      "type": "header",
+      "content": "Custom colours – Section",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    { "type": "color", "id": "c_bg", "label": "Section background", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_heading", "label": "Heading", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_text", "label": "Intro text", "default": "#CBD5E1", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accent", "label": "Accent (eyebrow, italic words, labels)", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_border", "label": "Borders / dividers", "default": "#334155", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_stat_value", "label": "Stat number", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_stat_label", "label": "Stat label", "default": "#94A3B8", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Zone tabs",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_tab_bg", "label": "Tab background", "default": "#1E293B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_tab_text", "label": "Tab text", "default": "#CBD5E1", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_tab_icon_bg", "label": "Tab icon background", "default": "#334155", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_tab_icon", "label": "Tab icon", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_tab_active_bg", "label": "Active tab background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_tab_active_text", "label": "Active tab text", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_tab_active_border", "label": "Active tab border", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_tab_active_icon", "label": "Active tab icon", "default": "#0F172A", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Zone panel",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_panel_bg", "label": "Panel background", "default": "#1E293B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_panel_title", "label": "Panel title", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_panel_tagline", "label": "Panel tagline", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_panel_text", "label": "Panel text", "default": "#CBD5E1", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Closing",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color_background", "id": "c_closing_bg", "label": "Closing background", "info": "Leave empty for transparent.", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_closing_title", "label": "Closing heading", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_closing_text", "label": "Closing text", "default": "#CBD5E1", "visible_if": "{{ section.settings.tone == 'custom' }}" }
   ],
   "blocks": [
     {

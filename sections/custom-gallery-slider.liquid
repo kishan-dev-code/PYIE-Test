@@ -4,6 +4,79 @@
   assign autoplay_ms = section.settings.autoplay_speed | times: 1000
 -%}
 
+{%- if section.settings.tone == 'custom' -%}
+  {%- style -%}
+    /* ---------- Custom colour combination ---------- */
+    #cs-gallery-{{ section.id }}.cs-tone--custom {
+      --cs-g-bg: {{ section.settings.c_bg }};
+      --cs-g-heading: {{ section.settings.c_heading }};
+      --cs-g-text: {{ section.settings.c_text }};
+      --cs-g-accent: {{ section.settings.c_accent }};
+      --cs-g-caption: {{ section.settings.c_caption }};
+      --cs-g-num: {{ section.settings.c_num }};
+      --cs-g-btn-bg: {{ section.settings.c_btn_bg }};
+      --cs-g-btn-icon: {{ section.settings.c_btn_icon }};
+      --cs-g-btn-border: {{ section.settings.c_btn_border }};
+      --cs-g-btn-hover-bg: {{ section.settings.c_btn_hover_bg }};
+      --cs-g-btn-hover-icon: {{ section.settings.c_btn_hover_icon }};
+      --cs-g-counter: {{ section.settings.c_counter }};
+      background-color: var(--cs-g-bg);
+      color: var(--cs-g-text);
+    }
+
+    /* Heading, eyebrow, intro */
+    #cs-gallery-{{ section.id }}.cs-tone--custom h1,
+    #cs-gallery-{{ section.id }}.cs-tone--custom h2,
+    #cs-gallery-{{ section.id }}.cs-tone--custom h3,
+    #cs-gallery-{{ section.id }}.cs-tone--custom [class*="heading"],
+    #cs-gallery-{{ section.id }}.cs-tone--custom [class*="title"] {
+      color: var(--cs-g-heading);
+    }
+    #cs-gallery-{{ section.id }}.cs-tone--custom em,
+    #cs-gallery-{{ section.id }}.cs-tone--custom [class*="eyebrow"] {
+      color: var(--cs-g-accent);
+    }
+    #cs-gallery-{{ section.id }}.cs-tone--custom .cs-text,
+    #cs-gallery-{{ section.id }}.cs-tone--custom .cs-text p,
+    #cs-gallery-{{ section.id }}.cs-tone--custom [class*="head"] p {
+      color: var(--cs-g-text);
+    }
+
+    /* Slider nav */
+    #cs-gallery-{{ section.id }}.cs-tone--custom .cs-counter,
+    #cs-gallery-{{ section.id }}.cs-tone--custom .cs-counter span {
+      color: var(--cs-g-counter);
+    }
+    #cs-gallery-{{ section.id }}.cs-tone--custom .cs-icon-btn {
+      background-color: var(--cs-g-btn-bg);
+      color: var(--cs-g-btn-icon);
+      border-color: var(--cs-g-btn-border);
+    }
+    #cs-gallery-{{ section.id }}.cs-tone--custom .cs-icon-btn svg {
+      color: var(--cs-g-btn-icon);
+      stroke: currentColor;
+    }
+    #cs-gallery-{{ section.id }}.cs-tone--custom .cs-icon-btn:hover,
+    #cs-gallery-{{ section.id }}.cs-tone--custom .cs-icon-btn:focus-visible {
+      background-color: var(--cs-g-btn-hover-bg);
+      color: var(--cs-g-btn-hover-icon);
+      border-color: var(--cs-g-btn-hover-bg);
+    }
+    #cs-gallery-{{ section.id }}.cs-tone--custom .cs-icon-btn:hover svg,
+    #cs-gallery-{{ section.id }}.cs-tone--custom .cs-icon-btn:focus-visible svg {
+      color: var(--cs-g-btn-hover-icon);
+    }
+
+    /* Captions */
+    #cs-gallery-{{ section.id }}.cs-tone--custom .cs-gallery__caption {
+      color: var(--cs-g-caption);
+    }
+    #cs-gallery-{{ section.id }}.cs-tone--custom .cs-gallery__num {
+      color: var(--cs-g-num);
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
 <section
   id="cs-gallery-{{ section.id }}"
   class="cs-section cs-gallery cs-tone--{{ section.settings.tone }} cs-gallery--{{ section.settings.cell_size }}"
@@ -135,9 +208,11 @@
         { "value": "paper", "label": "Paper" },
         { "value": "dark", "label": "Midnight" },
         { "value": "accent", "label": "Saffron" },
-        { "value": "onyx", "label": "Onyx" }
+        { "value": "onyx", "label": "Onyx" },
+        { "value": "custom", "label": "Custom colours" }
       ],
-      "default": "light"
+      "default": "light",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
     },
     {
       "type": "range",
@@ -158,6 +233,95 @@
       "step": 8,
       "unit": "px",
       "default": 96
+    },
+    {
+      "type": "header",
+      "content": "Custom colours",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    {
+      "type": "color",
+      "id": "c_bg",
+      "label": "Section background",
+      "default": "#FFFFFF",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_heading",
+      "label": "Heading",
+      "default": "#0F172A",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_text",
+      "label": "Intro text",
+      "default": "#475569",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_accent",
+      "label": "Accent (eyebrow and highlighted word)",
+      "default": "#F59E0B",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_counter",
+      "label": "Slide counter",
+      "default": "#0F172A",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_btn_bg",
+      "label": "Arrow button background",
+      "default": "#FFFFFF",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_btn_icon",
+      "label": "Arrow button icon",
+      "default": "#0F172A",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_btn_border",
+      "label": "Arrow button border",
+      "default": "#CBD5E1",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_btn_hover_bg",
+      "label": "Arrow button hover background",
+      "default": "#0F172A",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_btn_hover_icon",
+      "label": "Arrow button hover icon",
+      "default": "#FFFFFF",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_caption",
+      "label": "Caption text",
+      "default": "#334155",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "c_num",
+      "label": "Caption number",
+      "default": "#F59E0B",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
     }
   ],
   "blocks": [

@@ -1,5 +1,85 @@
 {{ 'custom-hero-highlights.css' | asset_url | stylesheet_tag }}
 
+{%- if section.settings.tone == 'custom' -%}
+  {%- style -%}
+    /* ---------- Custom colour combination ---------- */
+    #cs-hl-{{ section.id }}.cs-tone--custom {
+      --cs-h-bg: {{ section.settings.c_bg }};
+      --cs-h-heading: {{ section.settings.c_heading }};
+      --cs-h-text: {{ section.settings.c_text }};
+      --cs-h-accent: {{ section.settings.c_accent }};
+      background-color: var(--cs-h-bg);
+      color: var(--cs-h-text);
+    }
+
+    /* Copy */
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-eyebrow { color: var(--cs-h-accent); }
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-hl__title { color: var(--cs-h-heading); }
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-hl__title em { color: var(--cs-h-accent); }
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-hl__text,
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-hl__text p,
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-hl__text em {
+      color: var(--cs-h-text);
+    }
+
+    /* Primary button */
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-btn--primary {
+      background-color: {{ section.settings.c_btn_bg }};
+      color: {{ section.settings.c_btn_text }};
+      border-color: {{ section.settings.c_btn_bg }};
+    }
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-btn--primary:hover,
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-btn--primary:focus-visible {
+      background-color: {{ section.settings.c_btn_hover_bg }};
+      color: {{ section.settings.c_btn_hover_text }};
+      border-color: {{ section.settings.c_btn_hover_bg }};
+    }
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-btn svg { color: inherit; stroke: currentColor; }
+
+    /* Secondary (ghost) button */
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-btn--ghost {
+      background-color: transparent;
+      color: {{ section.settings.c_ghost_text }};
+      border-color: {{ section.settings.c_ghost_border }};
+    }
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-btn--ghost:hover,
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-btn--ghost:focus-visible {
+      background-color: {{ section.settings.c_ghost_hover_bg }};
+      color: {{ section.settings.c_ghost_hover_text }};
+      border-color: {{ section.settings.c_ghost_hover_bg }};
+    }
+
+    /* Highlights panel + list */
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-hl__panel {
+      {%- if section.settings.c_panel_bg != blank %}
+      background: {{ section.settings.c_panel_bg }};
+      {%- endif %}
+      border-color: {{ section.settings.c_divider }};
+    }
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-hl__item {
+      border-color: {{ section.settings.c_divider }};
+    }
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-hl__num {
+      color: {{ section.settings.c_num }};
+      {%- if section.settings.c_num_bg != blank %}
+      background: {{ section.settings.c_num_bg }};
+      {%- endif %}
+    }
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-hl__item-text {
+      color: {{ section.settings.c_item_muted }};
+    }
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-hl__item-text strong,
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-hl__item-text b {
+      color: {{ section.settings.c_item_bold }};
+    }
+
+    /* Grid pattern */
+    #cs-hl-{{ section.id }}.cs-tone--custom .cs-hl__grid {
+      opacity: {{ section.settings.c_grid_opacity | divided_by: 100.0 }};
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
 <section
   id="cs-hl-{{ section.id }}"
   class="cs-section cs-section-hero-highlighted cs-hl cs-tone--{{ section.settings.tone }} cs-hl--list-{{ section.settings.list_style }}"
@@ -146,9 +226,11 @@
         { "value": "paper", "label": "Paper" },
         { "value": "dark", "label": "Midnight" },
         { "value": "accent", "label": "Saffron" },
-        { "value": "noir", "label": "Noir glow" }
+        { "value": "noir", "label": "Noir glow" },
+        { "value": "custom", "label": "Custom colours" }
       ],
-      "default": "noir"
+      "default": "noir",
+      "info": "Choose \"Custom colours\" to pick your own colours below."
     },
     {
       "type": "select",
@@ -158,7 +240,8 @@
         { "value": "plain", "label": "Plain (follows colour tone)" },
         { "value": "card", "label": "White card" }
       ],
-      "default": "plain"
+      "default": "plain",
+      "info": "With Custom colours, the panel colours below apply to both styles."
     },
     {
       "type": "checkbox",
@@ -185,7 +268,51 @@
       "step": 8,
       "unit": "px",
       "default": 96
-    }
+    },
+    {
+      "type": "header",
+      "content": "Custom colours – Section",
+      "info": "Used only when Colour tone is set to \"Custom colours\"."
+    },
+    { "type": "color", "id": "c_bg", "label": "Section background", "default": "#0B0F19", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_heading", "label": "Heading", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_text", "label": "Text", "default": "#CBD5E1", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_accent", "label": "Accent (eyebrow, italic heading words)", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "range",
+      "id": "c_grid_opacity",
+      "label": "Grid pattern opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100,
+      "visible_if": "{{ section.settings.tone == 'custom' and section.settings.show_grid }}"
+    },
+    {
+      "type": "header",
+      "content": "Custom colours – Buttons",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color", "id": "c_btn_bg", "label": "Primary button background", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_text", "label": "Primary button text", "default": "#0B0F19", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_hover_bg", "label": "Primary button hover background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_btn_hover_text", "label": "Primary button hover text", "default": "#0B0F19", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_ghost_text", "label": "Secondary button text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_ghost_border", "label": "Secondary button border", "default": "#475569", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_ghost_hover_bg", "label": "Secondary button hover background", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_ghost_hover_text", "label": "Secondary button hover text", "default": "#0B0F19", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    {
+      "type": "header",
+      "content": "Custom colours – Highlights list",
+      "visible_if": "{{ section.settings.tone == 'custom' }}"
+    },
+    { "type": "color_background", "id": "c_panel_bg", "label": "Panel background", "info": "Leave empty for transparent. Gradients work too.", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_divider", "label": "Panel border & item dividers", "default": "#1E293B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_num", "label": "Number", "default": "#F59E0B", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color_background", "id": "c_num_bg", "label": "Number background", "info": "Optional. Leave empty for none.", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_item_muted", "label": "Item text (muted)", "default": "#94A3B8", "visible_if": "{{ section.settings.tone == 'custom' }}" },
+    { "type": "color", "id": "c_item_bold", "label": "Item bold text", "default": "#FFFFFF", "visible_if": "{{ section.settings.tone == 'custom' }}" }
   ],
   "blocks": [
     {

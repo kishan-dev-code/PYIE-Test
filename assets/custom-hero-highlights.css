@@ -23,6 +23,11 @@
   background-repeat: no-repeat;
 }
 
+.cs-section.cs-tone--custom {
+    --cs-line: rgba(255, 255, 255, 0.12);
+  --cs-accent: #00abe4;
+  --cs-accent-text: #00abe4;
+}
 /* ---------- Wrapper ---------- */
 .cs-hl {
   position: relative;

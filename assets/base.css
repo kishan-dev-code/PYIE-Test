@@ -2895,15 +2895,15 @@ details[open] > .header__menu-item .icon-caret {
     height: 0.5rem;
     margin-left: -0.25rem;
     border-radius: 50%;
-    background: #ff3b3b;
+    background: #00abe4;
     transform: scale(0);
     transition: transform 0.3s var(--cs-ease);
     transform: scale(1);
 }
 
 .header__menu-item.list-menu__item:hover {
-    color: #ff3b3b;
-    background: rgba(255, 59, 59, 0.1);
+    color: #00abe4;
+    background: rgba(0, 171, 228, 0.1);
     position: relative;
     border-radius: 10rem;
 }
@@ -2925,7 +2925,7 @@ details[open] > .header__menu-item .icon-caret {
     white-space: nowrap;
     cursor: pointer;
     transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s var(--cs-ease);
-    background: #ff3b3b;
+    background: #00abe4;
     color: #fff;
     display: none;
     min-height: 4.4rem;
@@ -2936,7 +2936,7 @@ details[open] > .header__menu-item .icon-caret {
 
 .header__icons .cs-header__cta:hover {
     background: #fff;
-    color: #ff3b3b;
+    color: #00abe4;
 }
 
 @media screen and (min-width: 750px) {

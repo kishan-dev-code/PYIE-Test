@@ -99,6 +99,23 @@
   border-radius: var(--cs-radius-lg);
 }
 
+
+.cs-media.cs-sp__media.cs-sp__media--right {
+    aspect-ratio: unset;
+}
+
+.cs-media.cs-sp__media.cs-sp__media--right img.cs-img {
+    object-fit: unset;
+}
+.cs-sp__top.cs-sp__top--media-right ul.cs-sp__stats li.cs-sp__stat {
+    min-height: 10rem;
+    padding: 1.6rem;
+}
+
+.cs-sp__top.cs-sp__top--media-right ul.cs-sp__stats .cs-sp__stat.cs-sp__stat--featured span.cs-sp__stat-value.is-in {
+    font-size: clamp(4rem, 2.8rem + 3.4vw, 5.5rem);
+}
+
 .cs-sp__media img {
   object-fit: contain;
 }

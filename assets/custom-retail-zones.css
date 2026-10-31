@@ -8,6 +8,7 @@
   border-bottom: 1px solid var(--cs-line);
 }
 
+
 .cs-zones__stat {
   display: grid;
   gap: 0.4rem;
@@ -350,6 +351,12 @@
 
   color: var(--cs-fg);
   background: var(--cs-bg);
+}
+
+
+.cs-section.cs-zones.cs-tone--custom {
+  --cs-line: rgba(255, 255, 255, 0.1);
+  --cs-accent: #00ABE4;
 }
 
 .cs-zones.cs-tone--onyx .cs-text {
